@@ -3,7 +3,7 @@ public class Game{
    public Board gameBoard = new Board();
    private int numPlayers;
    private int activePlayer;
-   private Day currentDay = new Day();
+   private Day currentDay;
    private SceneCard[] deck = new SceneCard[40];
    private int winner;
    
@@ -12,6 +12,7 @@ public class Game{
       this.numPlayers = numPlayers;
       this.activePlayer = determineStartingPlayer();
       this.deck = shuffleDeck(deck);
+      dayMaker();
    }
    public int determineStartingPlayer(){
       return (int)(Math.random() * numPlayers) + 1;
@@ -32,6 +33,13 @@ public class Game{
       return deck;
    }
    public int rollDice(){
-      return (int)(Math.random() * 6) + 1;
+      return gameDice.rollDice();
+   }
+   private void dayMaker(){
+      if(this.currentDay == null){
+         this.currentDay = new Day(0, 40);
+      } else {
+         this.currentDay = new Day(currentDay.getDay(), deck.length);
+      }
    }
 }
