@@ -12,7 +12,7 @@ public class Game{
       this.numPlayers = numPlayers;
       this.activePlayer = determineStartingPlayer();
       this.deck = shuffleDeck(deck);
-      dayMaker();
+      newDay();
    }
    public int determineStartingPlayer(){
       return (int)(Math.random() * numPlayers) + 1;
@@ -35,7 +35,7 @@ public class Game{
    public int rollDice(){
       return gameDice.rollDice();
    }
-   private void dayMaker(){
+   private void newDay(){
       if(this.currentDay == null){
          this.currentDay = new Day(0, 40);
       } else {
