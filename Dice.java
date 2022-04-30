@@ -8,7 +8,4 @@ public class Dice{
    public int getRoll(){
       return this.roll;
    }
-   private void setRoll(int rank){
-      this.roll = rank;
-   }
 }
