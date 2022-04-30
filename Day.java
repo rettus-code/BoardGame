@@ -1,12 +1,15 @@
 public class Day{
    private int dayNum;
    private int numScenes;
+   private SceneCard[] deck;
    
    private Day(){};
-   public Day(int dNum, int nScene){
+   public Day(int dNum, SceneCard[] d){
       this.dayNum = dNum++;
-      this.numScenes = nScene;
+      this.numScenes = deck.length;
+      this.deck = d;
       placeShotCounters();
+      dealSceneCard(deck);
    }
    public int getDay(){
       return this.dayNum;
@@ -20,7 +23,7 @@ public class Day{
          endDay();
       }
    }
-   public void dealSceneCard(SceneCard deck){
+   public void dealSceneCard(SceneCard[] deck){
    
    }
    public void placeShotCounters(){
