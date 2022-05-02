@@ -7,11 +7,11 @@ public class Game{
    private SceneCard[] deck = new SceneCard[40];
    private int winner;
    private int lastDay;
-   private Player buildPlayer;
+   private Player buildPlayer = new Player("temp", 2, 2);
    private Player[] playerArray;
    
    private Game(){};
-   private Game(int numPlayers){
+   public Game(int numPlayers){
       this.numPlayers = numPlayers;
       this.activePlayer = determineStartingPlayer();
       this.deck = shuffleDeck(deck);

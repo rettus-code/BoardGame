@@ -5,9 +5,9 @@ public class Set extends Room{
    private int numOnCardRolesFinished;
    private SceneCard sceneCard;
    
-   public Set(String name, Role[] roles, int numTakes) {
-      this.parts = roles;
-      this.takes = numTakes;
+   public Set(String name/*, Role[] roles, int numTakes*/) {
+      //this.parts = roles;
+      //this.takes = numTakes;
       this.takesCompleted = 0;
       this.numOnCardRolesFinished = 0;
       this.setName(name);      
