@@ -1,7 +1,8 @@
 public class CastingOffice extends Room{
-   private Upgrades[] upgrades;
+   private Upgrade[] upgrades;
+   private Upgrade temp = new Upgrade(1, "temp", 1);
 
-   public CastingOffice(String name, Upgrades[] upgrades) {
+   public CastingOffice(String name/*, Upgrades[] upgrades*/) {
         this.upgrades = upgrades;
         this.setName(name);      
    }
