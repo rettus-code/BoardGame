@@ -8,7 +8,7 @@ public class Game{
    private int winner;
    private int lastDay;
    private Player buildPlayer = new Player("temp", 2, 2);
-   private Player[] playerArray;
+   private Player[] playerArray = new Player[8];
    
    private Game(){};
    public Game(int numPlayers){
@@ -16,7 +16,7 @@ public class Game{
       this.activePlayer = determineStartingPlayer();
       this.deck = shuffleDeck(deck);
       this.lastDay = lastDay();
-      playerSetup();
+      //playerSetup();
       newDay();
    }
    public int determineStartingPlayer(){
@@ -46,21 +46,30 @@ public class Game{
       } else {
          return 4;
       }
-   }private void playerSetup(){
+   }
+   
+   public void playerSetup(Player playa){
       /*this will need to create each player, modify attributes based on
       player numbers and add each player to playerArray*/
+      this.playerArray[playa.getID()] = playa;
    }
    private void newDay(){
+      if(this.currentDay == null){
+            SceneCard[] deck = new SceneCard[40];
+            Role[] roles = new Role[1];
+            roles[0] = new Role("name", "line", 1, true);
+            SceneCard newCard = new SceneCard("name", 1, 1, "description", roles);
+            this.currentDay = new Day(0, deck);
+      } else {
+            this.currentDay = new Day(currentDay.getDay(), deck);
+      }
+          
       if(this.currentDay.getDay() == this.lastDay){
          System.out.println("end of game");
          endOfGame();
       }
-      if(this.currentDay == null){
-         this.currentDay = new Day(0, deck);
-      } else {
-         this.currentDay = new Day(currentDay.getDay(), deck);
-      }
    }
+   
    private void endOfGame(){
    
    }

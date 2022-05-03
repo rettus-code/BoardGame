@@ -13,6 +13,22 @@ public class Role{
       this.isTaken = false;
    }
    
+   public String getName() {
+      return this.name;
+   }
+      
+   public String getLine() {
+      return this.line;
+   }
+   
+   public int getLevel() {
+      return this.level;
+   }
+   
+   public boolean onCard(){
+      return this.onCard;
+   }
+   
    public boolean isTaken(){
       return this.isTaken;
    }   

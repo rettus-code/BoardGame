@@ -6,8 +6,8 @@ public class Day{
    private Day(){};
    public Day(int dNum, SceneCard[] d){
       this.dayNum = dNum++;
-      this.numScenes = deck.length;
       this.deck = d;
+      this.numScenes = deck.length;
       placeShotCounters();
       dealSceneCard(deck);
    }
