@@ -9,10 +9,10 @@ public class Player{
 	private int	credits;
 	private PlayerDie	playerDie;
 	private Role currentRole;
-	private String	room;
+	private Room room;
 	private Scanner scanner	= new	Scanner(System.in);
 		
-	public Player(String	name,	int numPlayers, int newID){
+	public Player(String	name,	int numPlayers, int newID, Room room){
 		this.id = newID;	  
 		if(numPlayers == 7 || numPlayers	==	8)	{
 			this.rank =	2;
@@ -27,7 +27,7 @@ public class Player{
 		}
       this.playerDie = new PlayerDie(6);	 
 		this.playerDie.setRoll(this.rank);
-      this.room = "Trailers";
+      this.room = room;
 	}
 	
    public int getID() {
@@ -55,7 +55,7 @@ public class Player{
 		return this.money	+ this.rank	+ this.credits;
 	}
 	
-	public String getLocation() {
+	public Room getLocation() {
 		return this.room;
 	}
 	
@@ -71,8 +71,7 @@ public class Player{
 		System.out.println("3. end turn");		 
 	  
 		while(i != 1 && i	!=	2 && i != 3) {
-			i = scanner.nextInt();
-         System.out.printf("you entered %d\n",i);
+			i = scanner.nextInt();         
 		}
 		
 		switch(i){
@@ -105,6 +104,7 @@ public class Player{
 			System.out.println("Make a choice:");	 
 			System.out.println("1. move"); 
 			System.out.println("2. endTurn");
+         i=0;
 			while(i != 1 || i	!=	2)	{
 				i = scanner.nextInt();
 			}
@@ -135,17 +135,32 @@ public class Player{
 			System.out.println("2. take a role");
 			System.out.println("3. endTurn");
 			while(i != 1 && i	!=	2 && i != 3) {
-				i = scanner.nextInt();
-            System.out.printf("you entered %d\n",i);
+				i = scanner.nextInt();            
 			}
 			
 			 switch(i){
 				 case	1:
 					this.move();
+               System.out.println("Make a choice:");      			 
+      			System.out.println("1. take a role");
+      			System.out.println("2. endTurn");
+               i = 0;
+      			while(i != 1 && i	!=	2) {
+      				i = scanner.nextInt();            
+      			}
+               switch(i){
+				 case	1:
+					this.takeRole();
 					break;
 				case 2: 
-					Role role =	new Role("name", "line", 1, true);
-					this.takeRole(role);
+					this.endTurn();
+					break;
+					default:
+			      }
+
+					break;
+				case 2: 
+					this.takeRole();
 					break;
 					case 3:
 					this.endTurn();
@@ -159,14 +174,38 @@ public class Player{
 	private void endTurn() {
 		System.out.println("end turn");	 
 	}
-
 	
-	private void move() {
-		System.out.println("Move");
+	private void move() {      
+		System.out.println("Which room would you like to move to?");
+      Room[] neighbors = this.room.getNeighbors();
+      for(int i = 0; i<neighbors.length; i++){
+         System.out.printf("%d. %s\n", i+1, neighbors[i].getName());
+      }
+      int i=0;
+      while(i < 1 || i > neighbors.length){
+         i = scanner.nextInt(); 
+      }
+      
+      this.room = neighbors[i-1];
+      
+      System.out.printf("Moved to %s\n", this.room.getName());
 	}
 	
 	private void upgrade() {
 		System.out.println("Upgradde with two d's");
+	}
+   
+   public boolean	takeRole(){
+      Role newRole =	new Role("name", "line", 1, true);
+      System.out.printf("You're taking a role called: %s\n", newRole.getName());
+		boolean result	= false;
+		if(!newRole.isTaken()){			  
+			this.currentRole = newRole; 
+			result =	true;			 
+		} else {
+			
+		}		 
+		return result;
 	}
 	
 	public boolean	takeRole(Role newRole){

@@ -1,6 +1,6 @@
 abstract class Room{
    public String name;
-   public String[] neighbors;
+   public Room[] neighbors;
    
    abstract boolean isSet();
    
@@ -11,11 +11,12 @@ abstract class Room{
       return this.name;
    }
    
-   public void setNeighbors(String[] newNeighbors){
+   public void setNeighbors(Room[] newNeighbors){
       this.neighbors = newNeighbors;
    }
    
-   public String[] getNeighbors(){
+   public Room[] getNeighbors(){
       return this.neighbors;
    }
+   
 }

@@ -7,7 +7,7 @@ public class Game{
    private SceneCard[] deck = new SceneCard[40];
    private int winner;
    private int lastDay;
-   private Player buildPlayer = new Player("temp", 2, 2);
+   private Player buildPlayer;// = new Player("temp", 2, 2);
    private Player[] playerArray = new Player[8];
    
    private Game(){};
