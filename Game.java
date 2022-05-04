@@ -1,6 +1,7 @@
 public class Game {
    public Dice gameDice = new Dice();
    public Board gameBoard = new Board();
+   public Player[] playerArray = new Player[8];
    private int numPlayers;
    private int activePlayer;
    private Day currentDay;
@@ -8,7 +9,7 @@ public class Game {
    private int winner;
    private int lastDay;
    private Player buildPlayer;// = new Player("temp", 2, 2);
-   private Player[] playerArray = new Player[8];
+   
 
    private Game() {
    };
@@ -26,36 +27,24 @@ public class Game {
       return (int) (Math.random() * numPlayers) + 1;
    }
 
-   private int getActivePlayer() {
-      return this.activePlayer;
+   public Day getCurrentDay() {
+      return this.currentDay;
    }
 
-   private void updateActivePlayer() {
+   public int getLastDay() {
+      return this.lastDay;
+   }
+
+   public void updateActivePlayer() {
       if (activePlayer < numPlayers) {
          activePlayer++;
       } else {
          activePlayer = 1;
       }
    }
-
-   private SceneCard[] shuffleDeck(SceneCard[] deck) {
-      /*
-       * deck = need to populate array here then randomize it, probably need to make
-       * each card object as we populate it.
-       */
-      return deck;
-   }
-
+   
    public int rollDice() {
       return gameDice.rollDice();
-   }
-
-   private int lastDay() {
-      if (this.numPlayers < 4) {
-         return 3;
-      } else {
-         return 4;
-      }
    }
 
    public void playerSetup(Player playa) {
@@ -66,7 +55,7 @@ public class Game {
       this.playerArray[playa.getID()] = playa;
    }
 
-   private void newDay() {
+   public void newDay() {
       if (this.currentDay == null) {
          SceneCard[] deck = new SceneCard[40];
          Role[] roles = new Role[1];
@@ -82,7 +71,27 @@ public class Game {
          endOfGame();
       }
    }
+   
+   public int getActivePlayer() {
+      return this.activePlayer;
+   }
 
+   private SceneCard[] shuffleDeck(SceneCard[] deck) {
+      /*
+       * deck = need to populate array here then randomize it, probably need to make
+       * each card object as we populate it.
+       */
+      return deck;
+   }
+
+   private int lastDay() {
+      if (this.numPlayers < 4) {
+         return 3;
+      } else {
+         return 4;
+      }
+   }
+   
    private void endOfGame() {
 
    }
