@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Player {
+	private int locationX;
+	private int locationY;
 	private String name;
 	private int id;
 	private int rank;
@@ -27,6 +29,26 @@ public class Player {
 		this.playerDie = new PlayerDie(6);
 		this.playerDie.setRoll(this.rank);
 		this.room = room;
+	}
+
+	public int getLocationX() {
+		return this.locationX;
+	}
+
+	public int getLocationY() {
+		return this.locationY;
+	}
+
+	public void setLocationX(int x) {
+		if (x >= 0) {
+			this.locationX = x;
+		}
+	}
+
+	public void setLocationY(int y) {
+		if (y >= 0) {
+			this.locationY = y;
+		}
 	}
 
 	public int getID() {
