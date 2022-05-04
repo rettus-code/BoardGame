@@ -15,7 +15,10 @@ abstract class Room{
       this.neighbors = newNeighbors;
    }
    
-   public String[] getNeighbors(){
-      return this.neighbors;
+   public Room[] getNeighbors(){
+      Room[] neighbors = new Room[this.neighbors.length];
+
+      return neighbors;
    }
+   
 }

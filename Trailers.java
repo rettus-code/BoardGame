@@ -1,8 +1,8 @@
 public class Trailers extends Room{
    // Functional cohesion
 
-   public Trailers(String name) {      
-      this.setName(name);
+   public Trailers() {      
+      this.setName("Trailers");
    }   
    
    public boolean isSet() {
