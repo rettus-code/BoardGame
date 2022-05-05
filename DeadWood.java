@@ -44,17 +44,17 @@ public class DeadWood {
       XML xml = new XML();
       try {
          Document boardDoc = xml.getDocFromFile("board.xml");
-         Room[] rooms = xml.readBoardData(boardDoc);
-      } catch (ParserConfigurationException e) {
+         String[] rooms = xml.readBoardData(boardDoc);
+      } catch (ParserConfigurationException e) {         
          e.printStackTrace();
       }
 
-      try {
-         Document cardsDoc = xml.getDocFromFile("cards.xml");
-         SceneCard[] sceneCards = xml.readSceneData(cardsDoc);
-      } catch (ParserConfigurationException e) {
-         e.printStackTrace();
-      }
+       try {
+          Document cardsDoc = xml.getDocFromFile("cards.xml");
+          String[] sceneCards = xml.readSceneData(cardsDoc);
+       } catch (ParserConfigurationException e) {         
+          e.printStackTrace();
+       }
 
    }
 }
