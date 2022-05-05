@@ -37,7 +37,7 @@ public class XML {
         for (int i = 0; i < sets.getLength(); i++) {
             // reads data from the nodes
             Node set = sets.item(i);
-            String name = set.getAttributes().getNamedItem("name").getNodeValue();            
+            String name = set.getAttributes().getNamedItem("name").getNodeValue();
             // create and add the room to the array
             rooms[i] = new Set(name);
             // reads data from children
@@ -46,13 +46,7 @@ public class XML {
                 Node sub = children.item(j);
                 if ("neighbors".equals(sub.getNodeName())) {
                     // need to get the data
-                    Node neighbs;
-                    String[] neighbors = new String[neighbs.getLength()];
-                    for (int k = 0; k < .getLength(); k++) {
-                        Node neigh = children.item(k);
-                        String neighName = neigh.getAttributes().getNamedItem("name").getNodeValue();
-                        
-                    }                    
+
                 } else if ("area".equals(sub.getNodeName())) {
                     String authorName = sub.getTextContent();
                     System.out.println(" Author = " + authorName);
