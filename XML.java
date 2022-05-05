@@ -28,74 +28,119 @@ public class XML {
         return doc;
     } // exception handling
 
-    public Room[] readBoardData(Document d) {
+    public String[] readBoardData(Document d) {
         // I counted 20 rooms in the board.xml file
-        Room[] rooms = new Room[30];
-
-        Element root = d.getDocumentElement();
-        NodeList sets = root.getElementsByTagName("set");
+        String[] rooms = new String[12];
+        d.getDocumentElement().normalize();
+        NodeList sets = d.getElementsByTagName("set");
         for (int i = 0; i < sets.getLength(); i++) {
             // reads data from the nodes
             Node set = sets.item(i);
-            String name = set.getAttributes().getNamedItem("name").getNodeValue();
-            // create and add the room to the array
-            rooms[i] = new Set(name);
-            // reads data from children
-            NodeList children = set.getChildNodes();
-            for (int j = 0; j < children.getLength(); j++) {
-                Node sub = children.item(j);
-                if ("neighbors".equals(sub.getNodeName())) {
-                    // need to get the data
-
-                } else if ("area".equals(sub.getNodeName())) {
-                    String authorName = sub.getTextContent();
-                    System.out.println(" Author = " + authorName);
-                } else if ("takes".equals(sub.getNodeName())) {
-                    String yearVal = sub.getTextContent();
-                    System.out.println(" Publication Year = " + yearVal);
-                } else if ("parts".equals(sub.getNodeName())) {
-                    String priceVal = sub.getTextContent();
-                    System.out.println(" Price = " + priceVal);
-                }
-            } // for childnodes
-
-        } // for book nodes
+            if (set.getNodeType() == Node.ELEMENT_NODE) {
+               Element setElement = (Element) set;
+               String name = set.getAttributes().getNamedItem("name").getNodeValue();   
+               room(setElement, name);
+               NodeList takes = setElement.getElementsByTagName("take");
+               System.out.println("Number of takes: " + takes.getLength());
+               for (int j = 0; j < takes.getLength(); j++) {
+                  System.out.print("Take: " + takes.item(j).getAttributes().getNamedItem("number").getNodeValue() + " ");
+                  Element shot = (Element) takes.item(j);
+                  NodeList shotPosit = shot.getElementsByTagName("area");
+                  area(shotPosit);
+               }
+               NodeList parts = setElement.getElementsByTagName("part");
+               System.out.println("Extras: " + parts.getLength());
+               for (int j = 0; j < parts.getLength(); j++) {
+                  System.out.print("Part: " + parts.item(j).getAttributes().getNamedItem("name").getNodeValue() + " ");
+                  System.out.print("Level: " + parts.item(j).getAttributes().getNamedItem("level").getNodeValue() + " ");
+                  Element part = (Element) parts.item(j);
+                  NodeList partLine = part.getElementsByTagName("line");
+                  System.out.print("Part Line: " + partLine.item(0).getTextContent());
+                  NodeList partPosit = part.getElementsByTagName("area");
+                  area(partPosit);
+               }
+           }   
+        }
+        NodeList trailers = d.getElementsByTagName("trailer"); 
+        Node trailer = trailers.item(0);
+        if (trailer.getNodeType() == Node.ELEMENT_NODE) {
+            Element setElement = (Element) trailer;
+            room(setElement, "Trailers");
+        }
+        NodeList offices = d.getElementsByTagName("office"); 
+        Node office = offices.item(0);
+        if (office.getNodeType() == Node.ELEMENT_NODE) {
+            Element setElement = (Element) office;
+            room(setElement, "Casting Office");
+            NodeList upgrades = d.getElementsByTagName("upgrade"); 
+            for (int i = 0; i < upgrades.getLength(); i++) {
+               Node upgrade = upgrades.item(i);
+               if (upgrade.getNodeType() == Node.ELEMENT_NODE) {
+                  Element upgradeElement = (Element) upgrade;
+                  System.out.print("Upgrade Level: " + upgrades.item(i).getAttributes().getNamedItem("level").getNodeValue() + " ");
+                  System.out.print("Cost: " + upgrades.item(i).getAttributes().getNamedItem("amt").getNodeValue() + " ");
+                  System.out.println(upgrades.item(i).getAttributes().getNamedItem("currency").getNodeValue() + "s");
+                  NodeList area = upgradeElement.getElementsByTagName("area");
+                  area(area);
+               }
+            }
+        }
+        
         return rooms;
-    }// method
+    }
+    public void room(Element setElement, String name){
+      System.out.println("Room: " + name);         
+      NodeList neighbors = setElement.getElementsByTagName("neighbor");
+      neighbors(neighbors);
+      NodeList area = setElement.getElementsByTagName("area");
+      area(area);
+    }
+    public void area(NodeList area){
+      System.out.print("area: w = " + area.item(0).getAttributes().getNamedItem("w").getNodeValue());
+      System.out.print(", h = " + area.item(0).getAttributes().getNamedItem("h").getNodeValue());
+      System.out.print(", x = " + area.item(0).getAttributes().getNamedItem("x").getNodeValue());
+      System.out.println(", y = " + area.item(0).getAttributes().getNamedItem("y").getNodeValue());
+    }
+    public void neighbors(NodeList neighbors){
+      System.out.print("Neighbors: ");
+      for (int j = 0; j < neighbors.getLength() - 1; j++) {
+         System.out.print(neighbors.item(j).getAttributes().getNamedItem("name").getNodeValue() + ", ");
+       }
+       System.out.println(neighbors.item(neighbors.getLength() - 1).getAttributes().getNamedItem("name").getNodeValue());
+    }
+    // method
 
-    public SceneCard[] readSceneData(Document d) {
-        // The game has 40 cards
-        SceneCard[] sceneCards = new SceneCard[40];
-        Element root = d.getDocumentElement();
-        NodeList books = root.getElementsByTagName("book");
-        for (int i = 0; i < books.getLength(); i++) {
-            // reads data from the nodes
-            Node book = books.item(i);
-            String bookCategory = book.getAttributes().getNamedItem("category").getNodeValue();
-            System.out.println("Category = " + bookCategory);
-            // reads data from children
-            NodeList children = book.getChildNodes();
-            for (int j = 0; j < children.getLength(); j++) {
-                Node sub = children.item(j);
-                if ("title".equals(sub.getNodeName())) {
-                    String bookLanguage = sub.getAttributes().getNamedItem("lang").getNodeValue();
-                    System.out.println("Language = " + bookLanguage);
-                    String title = sub.getTextContent();
-                    System.out.println("Title = " + title);
-                } else if ("author".equals(sub.getNodeName())) {
-                    String authorName = sub.getTextContent();
-                    System.out.println(" Author = " + authorName);
-                } else if ("year".equals(sub.getNodeName())) {
-                    String yearVal = sub.getTextContent();
-                    System.out.println(" Publication Year = " + yearVal);
-                } else if ("price".equals(sub.getNodeName())) {
-                    String priceVal = sub.getTextContent();
-                    System.out.println(" Price = " + priceVal);
-                }
-            } // for childnodes
-
-        } // for book nodes
-        return sceneCards;
+    public String[] readSceneData(Document d) {
+     // The game has 40 cards
+      String[] deck = new String[40];
+      d.getDocumentElement().normalize();
+      NodeList cards = d.getElementsByTagName("card");
+      for(int i =0; i < cards.getLength(); i++){
+         Node card = cards.item(i);
+            if (card.getNodeType() == Node.ELEMENT_NODE) {
+               Element setElement = (Element) card;
+               System.out.print("Card: " + cards.item(i).getAttributes().getNamedItem("name").getNodeValue() + ", ");
+               System.out.print("Image: " + cards.item(i).getAttributes().getNamedItem("img").getNodeValue() + ", ");
+               System.out.println("Budget: " + cards.item(i).getAttributes().getNamedItem("budget").getNodeValue());
+               NodeList scenes = setElement.getElementsByTagName("scene");
+               System.out.print("Scene: Number- " + scenes.item(0).getAttributes().getNamedItem("number").getNodeValue() + ", ");
+               System.out.println("Setting- " + scenes.item(0).getTextContent());
+               NodeList parts = setElement.getElementsByTagName("part");
+               System.out.println("Star Roles: " + parts.getLength());
+               for (int j = 0; j < parts.getLength(); j++) {
+                  System.out.print("Part: " + parts.item(j).getAttributes().getNamedItem("name").getNodeValue() + " ");
+                  System.out.print("Level: " + parts.item(j).getAttributes().getNamedItem("level").getNodeValue() + " ");
+                  Element part = (Element) parts.item(j);
+                  NodeList partLine = part.getElementsByTagName("line");
+                  System.out.print("Part Line: " + partLine.item(0).getTextContent() + " ");
+                  NodeList partPosit = part.getElementsByTagName("area");
+                  area(partPosit);
+               }
+               System.out.println();
+            }
+            
+       }
+       return deck;
     }// method
 
 }
