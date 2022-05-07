@@ -9,12 +9,16 @@ public class Role {
    private boolean onCard;
    private boolean isTaken;
 
-   public Role(String name, String line, int level, boolean onCard) {
+   public Role(String name, int level, String line, int w, int h, int x, int y, boolean onCard) {
       this.name = name;
       this.line = line;
       this.level = level;
       this.onCard = onCard;
       this.isTaken = false;
+      this.width = w;
+      this.height = h;
+      this.locationX = x;
+      this.locationY = y;
    }
 
    public int getLocationX() {

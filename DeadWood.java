@@ -12,10 +12,10 @@ public class DeadWood {
          numPlayers = scanner.nextInt();
       }
       System.out.printf("Creating a new game with %d players\n", numPlayers);
-
+      String[] sceneCards = new String[40];
       Game todaysGame = new Game(numPlayers);
 
-      readDataFiles();
+      readDataFiles(todaysGame);
       
       // temp data until XML is working
       Room Trailers = new Trailers();
@@ -39,19 +39,20 @@ public class DeadWood {
      
    }
 
-   private static void readDataFiles(){
+   private static void readDataFiles(Game todaysGame){
       // need to write the XML parser to handle all this nonsense
       XML xml = new XML();
-      try {
-         Document boardDoc = xml.getDocFromFile("board.xml");
-         String[] rooms = xml.readBoardData(boardDoc);
-      } catch (ParserConfigurationException e) {         
-         e.printStackTrace();
-      }
+      // try {
+//          Document boardDoc = xml.getDocFromFile("board.xml");
+//          String[] rooms = xml.readBoardData(boardDoc);
+//       } catch (ParserConfigurationException e) {         
+//          e.printStackTrace();
+//       }
 
        try {
           Document cardsDoc = xml.getDocFromFile("cards.xml");
           String[] sceneCards = xml.readSceneData(cardsDoc);
+          todaysGame.makeDeck(sceneCards);
        } catch (ParserConfigurationException e) {         
           e.printStackTrace();
        }
