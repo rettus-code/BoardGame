@@ -17,7 +17,6 @@ public class Game {
    public Game(int numPlayers) {
       this.numPlayers = numPlayers;
       this.activePlayer = determineStartingPlayer();
-      this.deck = shuffleDeck(deck);
       this.lastDay = lastDay();
       // playerSetup();
       newDay();
@@ -59,8 +58,6 @@ public class Game {
       if (this.currentDay == null) {
          SceneCard[] deck = new SceneCard[40];
          Role[] roles = new Role[1];
-         roles[0] = new Role("name", "line", 1, true);
-         SceneCard newCard = new SceneCard("name", 1, 1, "description", roles);
          this.currentDay = new Day(0, deck);
       } else {
          this.currentDay = new Day(currentDay.getDay(), deck);
@@ -76,12 +73,30 @@ public class Game {
       return this.activePlayer;
    }
 
-   private SceneCard[] shuffleDeck(SceneCard[] deck) {
-      /*
-       * deck = need to populate array here then randomize it, probably need to make
-       * each card object as we populate it.
-       */
-      return deck;
+   public void makeDeck(String[] cards) {
+      for(int i = 0; i < cards.length; i++){
+         String[] temp = cards[i].split("@", 0);
+
+          int budget = Integer.parseInt(temp[2]);
+          int scene = Integer.parseInt(temp[3]);
+          Role[] stars = new Role[Integer.parseInt(temp[5])];
+          for(int j = 6; j < temp.length; j += 7){
+             int level = Integer.parseInt(temp[j+1]);
+             int w = Integer.parseInt(temp[j+3]);
+             int h = Integer.parseInt(temp[j+4]);
+             int x = Integer.parseInt(temp[j+5]);
+             int y = Integer.parseInt(temp[j+6]);
+             Role star = new Role(temp[j], level, temp[j+2], w, h, x, y, true);
+             stars[(j-6)/7] = star;
+          }
+          
+          SceneCard card = new SceneCard(temp[0], temp[1], budget, scene, temp[4], stars);
+          System.out.println(card.getName());
+          System.out.println(card.getSetting());
+          deck[i] = card;
+         
+      }
+
    }
 
    private int lastDay() {

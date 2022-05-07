@@ -95,6 +95,12 @@ public class XML {
       NodeList area = setElement.getElementsByTagName("area");
       area(area);
     }
+    public String areaStringified(NodeList area){
+    return "" + area.item(0).getAttributes().getNamedItem("w").getNodeValue() +
+    "@" + area.item(0).getAttributes().getNamedItem("h").getNodeValue() +
+    "@" + area.item(0).getAttributes().getNamedItem("x").getNodeValue() +
+    "@" + area.item(0).getAttributes().getNamedItem("y").getNodeValue() + "@";
+    }
     public void area(NodeList area){
       System.out.print("area: w = " + area.item(0).getAttributes().getNamedItem("w").getNodeValue());
       System.out.print(", h = " + area.item(0).getAttributes().getNamedItem("h").getNodeValue());
@@ -111,7 +117,6 @@ public class XML {
     // method
 
     public String[] readSceneData(Document d) {
-     // The game has 40 cards
       String[] deck = new String[40];
       d.getDocumentElement().normalize();
       NodeList cards = d.getElementsByTagName("card");
@@ -119,24 +124,24 @@ public class XML {
          Node card = cards.item(i);
             if (card.getNodeType() == Node.ELEMENT_NODE) {
                Element setElement = (Element) card;
-               System.out.print("Card: " + cards.item(i).getAttributes().getNamedItem("name").getNodeValue() + ", ");
-               System.out.print("Image: " + cards.item(i).getAttributes().getNamedItem("img").getNodeValue() + ", ");
-               System.out.println("Budget: " + cards.item(i).getAttributes().getNamedItem("budget").getNodeValue());
+               deck[i]= "" + cards.item(i).getAttributes().getNamedItem("name").getNodeValue() + "@" +
+               cards.item(i).getAttributes().getNamedItem("img").getNodeValue() + "@" +
+               cards.item(i).getAttributes().getNamedItem("budget").getNodeValue() + "@";
                NodeList scenes = setElement.getElementsByTagName("scene");
-               System.out.print("Scene: Number- " + scenes.item(0).getAttributes().getNamedItem("number").getNodeValue() + ", ");
-               System.out.println("Setting- " + scenes.item(0).getTextContent());
+               deck[i] += "" + scenes.item(0).getAttributes().getNamedItem("number").getNodeValue() + "@" +
+               scenes.item(0).getTextContent() + "@";
                NodeList parts = setElement.getElementsByTagName("part");
-               System.out.println("Star Roles: " + parts.getLength());
+               deck[i] += "" + parts.getLength() + "@";
                for (int j = 0; j < parts.getLength(); j++) {
-                  System.out.print("Part: " + parts.item(j).getAttributes().getNamedItem("name").getNodeValue() + " ");
-                  System.out.print("Level: " + parts.item(j).getAttributes().getNamedItem("level").getNodeValue() + " ");
+                  deck[i] += "" + parts.item(j).getAttributes().getNamedItem("name").getNodeValue() + "@" +
+                  parts.item(j).getAttributes().getNamedItem("level").getNodeValue() + "@";
                   Element part = (Element) parts.item(j);
                   NodeList partLine = part.getElementsByTagName("line");
-                  System.out.print("Part Line: " + partLine.item(0).getTextContent() + " ");
+                  deck[i] += "" + partLine.item(0).getTextContent() + "@";
                   NodeList partPosit = part.getElementsByTagName("area");
-                  area(partPosit);
+                  deck[i] += areaStringified(partPosit);
                }
-               System.out.println();
+               //System.out.println(deck[i]);
             }
             
        }
