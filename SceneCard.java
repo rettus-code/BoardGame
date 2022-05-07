@@ -7,17 +7,25 @@ public class SceneCard {
    private String name;
    private int budget;
    private int number;
-   private String description;
+   private String setting;
    private Role[] parts;
    private boolean isFlipped;
+   private String img;
 
-   public SceneCard(String name, int budget, int number, String description, Role[] roles) {
+   public SceneCard(String name, String img, int budget, int number, String setting, Role[] roles) {
       this.name = name;
       this.budget = budget;
       this.number = number;
-      this.description = description;
+      this.setting = setting;
       this.parts = roles;
       this.isFlipped = false;
+      this.img = img;
+   }
+   public String getName() {
+      return this.name;
+   }
+   public String getSetting() {
+      return this.setting;
    }
 
    public int getLocationX() {
