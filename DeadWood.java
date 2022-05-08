@@ -4,6 +4,11 @@ import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class DeadWood {
+   private static final String BOARD_FILE = "board.xml";
+   private static final String SCENE_FILE = "cards.xml";
+   public static final int NUM_ROOMS = 12;
+   public static final int NUM_SCENECARDS = 40;
+
    private static Scanner scanner = new Scanner(System.in);   
    public static void main(String[] args) {
       System.out.println("Welcome to DeadWood, how many players?:");
@@ -11,23 +16,21 @@ public class DeadWood {
       while (numPlayers < 1 || numPlayers > 8) {
          numPlayers = scanner.nextInt();
       }
-      System.out.printf("Creating a new game with %d players\n", numPlayers);
-      String[] sceneCards = new String[40];
+      System.out.printf("Creating a new game with %d players\n", numPlayers);  
+
+      String[] sceneCards = new String[NUM_SCENECARDS];
+      Room[] rooms = new Room[NUM_ROOMS];
+
       Game todaysGame = new Game(numPlayers);
 
       readDataFiles(todaysGame);
-      
-      // temp data until XML is working
-      Room Trailers = new Trailers();
-      Room MainStreet = new Set("Main Street");
-      Room Saloon = new Set("Saloon");
-      Room[] neighs = new Room[2];
-      neighs[0] = MainStreet;
-      neighs[1] = Saloon;
-      // Trailers.setNeighbors(neighs);
 
-      Player player1 = new Player("Nick", 1, 1, Trailers);
-      todaysGame.playerSetup(player1);
+      for(int i = 0; i < numPlayers; i++) {
+         System.out.printf("Player %d enter name:\n", i+1);
+         String name = scanner.next(); //don't allow entering spaces
+         Player player = new Player(name, numPlayers, i+1, todaysGame.gameBoard.getRoom("Trailers"));         
+         todaysGame.playerSetup(player);
+      }      
       
       while(todaysGame.getCurrentDay().getDay() <=  todaysGame.getLastDay()) {
          while(todaysGame.getCurrentDay().getNumScenes() > 1) {
@@ -39,18 +42,18 @@ public class DeadWood {
      
    }
 
-   private static void readDataFiles(Game todaysGame){
-      // need to write the XML parser to handle all this nonsense
+   private static void readDataFiles(Game todaysGame){            
       XML xml = new XML();
-      // try {
-//          Document boardDoc = xml.getDocFromFile("board.xml");
-//          String[] rooms = xml.readBoardData(boardDoc);
-//       } catch (ParserConfigurationException e) {         
-//          e.printStackTrace();
-//       }
+      try {
+          Document boardDoc = xml.getDocFromFile(BOARD_FILE);
+          String[] rooms = xml.readBoardData(boardDoc);
+          todaysGame.makeBoard(rooms);
+       } catch (ParserConfigurationException e) {         
+          e.printStackTrace();
+       }
 
        try {
-          Document cardsDoc = xml.getDocFromFile("cards.xml");
+          Document cardsDoc = xml.getDocFromFile(SCENE_FILE);
           String[] sceneCards = xml.readSceneData(cardsDoc);
           todaysGame.makeDeck(sceneCards);
        } catch (ParserConfigurationException e) {         

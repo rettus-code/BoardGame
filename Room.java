@@ -62,7 +62,6 @@ abstract class Room {
 
    public Room[] getNeighbors() {
       Room[] neighbors = new Room[this.neighbors.length];
-
       return neighbors;
    }
 
