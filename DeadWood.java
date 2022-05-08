@@ -24,7 +24,7 @@ public class DeadWood {
 
       for(int i = 0; i < numPlayers; i++) {
          System.out.printf("Player %d enter name:\n", i+1);
-         String name = scanner.next(); //don't allow entering spaces?
+         String name = scanner.next(); 
          Player player = new Player(name, numPlayers, i, Board.getRoom("trailer"));         
          todaysGame.playerSetup(player);
       }      
