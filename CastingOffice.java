@@ -1,11 +1,15 @@
 public class CastingOffice extends Room {
-   private Upgrade[] upgrades;
-   private Upgrade temp = new Upgrade(1, "temp", 1);
+   private Upgrade[] upgrades;   
 
-   public CastingOffice(/* , Upgrades[] upgrades */) {
+   public CastingOffice(String name, int x, int y, int h, int w, String[] neighbors, Upgrade[] upgrades) {     
+      this.setName(name);  
+      this.setLocationX(x);
+      this.setLocationY(y);
+      this.setWidth(w);
+      this.setHeight(h);    
+      this.setNeighbors(neighbors);
       this.upgrades = upgrades;
-      this.setName(name);
-   }
+   } 
 
    public boolean isSet() {
       return false;

@@ -28,7 +28,7 @@ public class Player {
 		}
 		this.playerDie = new PlayerDie(6);
 		this.playerDie.setRoll(this.rank);
-		this.room = room;
+		this.setRoom(room);
 	}
 
 	public int getLocationX() {
@@ -49,6 +49,12 @@ public class Player {
 		if (y >= 0) {
 			this.locationY = y;
 		}
+	}
+
+	private void setRoom(Room room) {
+		this.room = room;
+		this.locationX = room.getLocationX();
+		this.locationY = room.getLocationY();
 	}
 
 	public int getID() {
@@ -210,7 +216,7 @@ public class Player {
 			i = scanner.nextInt();
 		}
 
-		this.room = neighbors[i - 1];
+		this.setRoom(neighbors[i - 1]);
 
 		System.out.printf("Moved to %s\n", this.room.getName());
 	}
@@ -220,15 +226,10 @@ public class Player {
 	}
 
 	public boolean takeRole() {
-		Role newRole = new Role("name", "line", 1, true);
-		System.out.printf("You're taking a role called: %s\n", newRole.getName());
+		//Role newRole = new Role("name", "line", 1, true);
+		System.out.printf("You're taking a role called: \n");
 		boolean result = false;
-		if (!newRole.isTaken()) {
-			this.currentRole = newRole;
-			result = true;
-		} else {
-
-		}
+		
 		return result;
 	}
 

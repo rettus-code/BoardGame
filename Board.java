@@ -1,6 +1,6 @@
 public class Board {
    public String[] boardSections = new String[] { "topRight", "bottomLeft", "bottomRight", "topLeft" };
-   public static Room[] rooms = new Room[12];
+   public static Room[] rooms = new Room[DeadWood.NUM_ROOMS];
    public Room currentRoom;
 
    public Board() {
@@ -12,10 +12,11 @@ public class Board {
 
    }
 
+   public void addRoom(Room room, int index){
+      rooms[index]=room;
+   }
+
    public void setRooms() {
-      rooms[0] = new Trailers();
-      rooms[1] = new CastingOffice();
-      rooms[2] = new Set("temp");
       /* use this to build all 12 rooms and push int rooms array */
    }
 
