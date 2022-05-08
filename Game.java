@@ -22,7 +22,7 @@ public class Game {
    }
 
    public int determineStartingPlayer() {
-      return (int) (Math.random() * numPlayers) + 1;
+      return (int) (Math.random() * numPlayers);
    }
 
    public Day getCurrentDay() {
@@ -34,10 +34,10 @@ public class Game {
    }
 
    public void updateActivePlayer() {
-      if (activePlayer < numPlayers) {
+      if (this.activePlayer < this.numPlayers-1) { // players array is zero indexed
          activePlayer++;
       } else {
-         activePlayer = 1;
+         activePlayer = 0;
       }
    }
 

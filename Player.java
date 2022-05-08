@@ -118,7 +118,7 @@ public class Player {
 				default:
 			}
 
-		} else if (this.room.equals("Casting Office")) {
+		} else if (this.room.name.equals("office")) {
 			// choices are upgrade then move or just move
 			System.out.println("Make a choice:");
 			System.out.println("1. upgrade");
@@ -136,7 +136,7 @@ public class Player {
 					System.out.println("1. move");
 					System.out.println("2. endTurn");
 					i = 0;
-					while (i != 1 || i != 2) {
+					while (i != 1 && i != 2) {
 						i = scanner.nextInt();
 					}
 					switch (i) {
@@ -153,6 +153,40 @@ public class Player {
 					this.move();
 					break;
 				case 3:
+					this.endTurn();
+					break;
+				default:
+			}
+
+		} else if (this.room.name.equals("trailer")) {
+			System.out.println("Make a choice:");
+			System.out.println("1. move");
+			System.out.println("2. endTurn");
+			i = 0;
+			while (i != 1 && i != 2) {
+				i = scanner.nextInt();
+			}
+			switch (i) {
+				case 1:
+					this.move();
+					System.out.println("Make a choice:");
+					System.out.println("1. take a role");
+					System.out.println("2. endTurn");
+					i = 0;
+					while (i != 1 && i != 2) {
+						i = scanner.nextInt();
+					}
+					switch (i) {
+						case 1:
+							this.takeRole();
+							break;
+						case 2:
+							this.endTurn();
+							break;
+						default:
+					}
+					break;
+				case 2:
 					this.endTurn();
 					break;
 				default:
@@ -207,16 +241,17 @@ public class Player {
 
 	private void move() {
 		System.out.println("Which room would you like to move to?");
-		Room[] neighbors = this.room.getNeighbors();
+		String[] neighbors = this.room.getNeighbors();
 		for (int i = 0; i < neighbors.length; i++) {
-			System.out.printf("%d. %s\n", i + 1, neighbors[i].getName());
+			System.out.printf("%d. %s\n", i + 1, neighbors[i]);
 		}
 		int i = 0;
-		while (i < 1 || i > neighbors.length) {
+		while (i < 1 || i > neighbors.length + 1) {
 			i = scanner.nextInt();
 		}
 
-		this.setRoom(neighbors[i - 1]);
+		Room moveRoom = Board.getRoom(neighbors[i - 1]);
+		this.setRoom(moveRoom);
 
 		System.out.printf("Moved to %s\n", this.room.getName());
 	}
@@ -226,10 +261,10 @@ public class Player {
 	}
 
 	public boolean takeRole() {
-		//Role newRole = new Role("name", "line", 1, true);
+		// Role newRole = new Role("name", "line", 1, true);
 		System.out.printf("You're taking a role called: \n");
 		boolean result = false;
-		
+
 		return result;
 	}
 

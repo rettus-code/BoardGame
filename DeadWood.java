@@ -13,13 +13,10 @@ public class DeadWood {
    public static void main(String[] args) {
       System.out.println("Welcome to DeadWood, how many players?:");
       int numPlayers = 0;
-      while (numPlayers < 1 || numPlayers > 8) {
+      while (numPlayers < 2 || numPlayers > 8) {
          numPlayers = scanner.nextInt();
       }
       System.out.printf("Creating a new game with %d players\n", numPlayers);  
-
-      String[] sceneCards = new String[NUM_SCENECARDS];
-      Room[] rooms = new Room[NUM_ROOMS];
 
       Game todaysGame = new Game(numPlayers);
 
@@ -27,8 +24,8 @@ public class DeadWood {
 
       for(int i = 0; i < numPlayers; i++) {
          System.out.printf("Player %d enter name:\n", i+1);
-         String name = scanner.next(); //don't allow entering spaces
-         Player player = new Player(name, numPlayers, i+1, todaysGame.gameBoard.getRoom("Trailers"));         
+         String name = scanner.next(); //don't allow entering spaces?
+         Player player = new Player(name, numPlayers, i, Board.getRoom("trailer"));         
          todaysGame.playerSetup(player);
       }      
       
