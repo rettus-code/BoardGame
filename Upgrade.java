@@ -58,4 +58,9 @@ public class Upgrade {
       }
    }
 
+   public String toString() {
+      String upgradeStr = "level:" + this.level + ", currency:" + this.currency + ", amount:" + this.amount;
+      return upgradeStr;     
+   }
+
 }

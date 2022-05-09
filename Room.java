@@ -60,9 +60,8 @@ abstract class Room {
       this.neighbors = newNeighbors;
    }
 
-   public Room[] getNeighbors() {
-      Room[] neighbors = new Room[this.neighbors.length];
-      return neighbors;
+   public String[] getNeighbors() {
+      return this.neighbors;
    }
 
 }

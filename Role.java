@@ -89,4 +89,9 @@ public class Role {
       return true;
    }
 
+   public String toString() {
+      String roleStr = "Part: " + this.name + " Line: " + this.line + " Level: " + this.level;
+      return roleStr;
+   }
+
 }
