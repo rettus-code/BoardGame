@@ -22,15 +22,23 @@ public class Set extends Room {
       return (this.sceneCard != null);
    }
 
+   public SceneCard getSceneCard() {
+      return this.sceneCard;
+   }
+
    public boolean isSet() {
       return true;
+   }
+
+   public Role[] getRoles() {
+      return this.parts;
    }
 
    public int getNumOnCardRolesFinished() {
       return numOnCardRolesFinished;
    }
 
-   private void addSceneCard(SceneCard newCard) {
+   public void addSceneCard(SceneCard newCard) {
       if (this.sceneCard == null) {
          this.sceneCard = newCard;
       } else {

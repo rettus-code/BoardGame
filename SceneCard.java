@@ -77,6 +77,10 @@ public class SceneCard {
       return this.parts;
    }
 
+   public Role[] getRoles() {
+      return this.parts;
+   }
+
    public boolean isFlipped() {
       return this.isFlipped;
    }

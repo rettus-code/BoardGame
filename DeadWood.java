@@ -19,8 +19,8 @@ public class DeadWood {
       System.out.printf("Creating a new game with %d players\n", numPlayers);  
 
       Game todaysGame = new Game(numPlayers);
-
       readDataFiles(todaysGame);
+      todaysGame.dealSceneCards();
 
       for(int i = 0; i < numPlayers; i++) {
          System.out.printf("Player %d enter name:\n", i+1);

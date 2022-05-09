@@ -194,8 +194,7 @@ public class Player {
 		}
 	}
 
-	private void promptUpgrade() {
-		// choices are upgrade then move or just move
+	private void promptUpgrade() {		
 		System.out.println("Make a choice:");
 		System.out.println("1. upgrade");
 		System.out.println("2. endTurn");
@@ -337,9 +336,44 @@ public class Player {
 	}
 
 	public boolean takeRole() {
-		// Role newRole = new Role("name", "line", 1, true);
-		System.out.printf("You're taking a role called: \n");
 		boolean result = false;
+		if(this.room.isSet()) {
+			Set set = (Set)this.room;
+			Role[] onCardRoles = set.getSceneCard().getRoles();
+			Role[] extraRoles = set.getRoles();					
+			Role[] roles = new Role[onCardRoles.length + extraRoles.length];
+			int i = 0;
+			for(; i < onCardRoles.length; i++) {
+				roles[i] = onCardRoles[i];
+			}
+			for(int j = 0; j < extraRoles.length; j++) {
+				roles[i++] = extraRoles[j];
+			}
+
+			System.out.println("Choose an available Role:");
+			System.out.println("Oncard Roles:");
+			i = 0;
+			for(; i < onCardRoles.length; i++) {
+				System.out.printf("%d. %s\n", i+1, roles[i].toString());
+			}
+			System.out.println("Extra Roles:");
+			for(; i < roles.length; i++) {
+				System.out.printf("%d. %s\n", i+1, roles[i].toString());
+			}
+			int end = i + 1;
+			System.out.printf("%d. cancel\n", end);
+			i = 0;
+			while (i < 1 || i > end) {
+				i = scanner.nextInt();
+			}
+
+			if (i == end) {
+				this.endTurn();
+			} else {
+				this.takeRole(roles[i - 1]);
+			}			
+			result = true;
+		}
 
 		return result;
 	}
