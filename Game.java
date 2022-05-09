@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Game {
    public Dice gameDice = new Dice();
    public Board gameBoard = new Board();
@@ -6,6 +8,7 @@ public class Game {
    private int activePlayer;
    private Day currentDay;
    private SceneCard[] deck = new SceneCard[40];
+   private List<SceneCard> shuffledDeck = new ArrayList<>();
    private int winner;
    private int lastDay;
    private Player buildPlayer;// = new Player("temp", 2, 2);
@@ -22,7 +25,7 @@ public class Game {
    }
 
    public int determineStartingPlayer() {
-      return (int) (Math.random() * numPlayers) + 1;
+      return (int) (Math.random() * numPlayers);
    }
 
    public Day getCurrentDay() {
@@ -34,10 +37,10 @@ public class Game {
    }
 
    public void updateActivePlayer() {
-      if (activePlayer < numPlayers) {
+      if (this.activePlayer < this.numPlayers-1) { // players array is zero indexed
          activePlayer++;
       } else {
-         activePlayer = 1;
+         activePlayer = 0;
       }
    }
 
@@ -60,6 +63,7 @@ public class Game {
          this.currentDay = new Day(0, deck);
       } else {
          this.currentDay = new Day(currentDay.getDay(), deck);
+         dealSceneCards();
       }
 
       if (this.currentDay.getDay() == this.lastDay) {
@@ -95,7 +99,24 @@ public class Game {
          deck[i] = card;
 
       }
+      shuffleDeck();
+   }
 
+   private void shuffleDeck() {
+      for (int i = 0; i < deck.length; i++) {
+         shuffledDeck.add(deck[i]);
+     }
+     Collections.shuffle(shuffledDeck);
+   }
+
+   public void dealSceneCards() {
+      // get top 10 cards from the shuffled deck
+      SceneCard[] deck = new SceneCard[10];
+      for(int i = 0; i < 10; i++) {
+         deck[i] = shuffledDeck.remove(i);
+      }
+      // pass the 10 cards to the gameboard to add 1 to each Set
+      this.gameBoard.dealSceneCards(deck);
    }
 
    public void makeBoard(String[] rooms) {
@@ -141,7 +162,7 @@ public class Game {
             roles[j] = new Role(partName, level, line, w, h, x, y, false);
          }
          Room room = new Set(roomName, roomX, roomY, roomHeight, roomWidth, neighbors, roles, takes);
-         this.gameBoard.addRoom(room, i);
+         this.gameBoard.setRoom(room, i);
       }
 
       k = 0;
@@ -158,7 +179,7 @@ public class Game {
       int trailerX = Integer.parseInt(temp[k++]);
       int trailerY = Integer.parseInt(temp[k++]);
       Room trailer = new Trailers(roomName, trailerX, trailerY, trailerH, trailerW, neighbors);
-      this.gameBoard.addRoom(trailer, 10);
+      this.gameBoard.setRoom(trailer, 10);
 
       k = 0;
       temp = rooms[i].split("@", 0);
@@ -186,7 +207,7 @@ public class Game {
       int officeX = Integer.parseInt(temp[k++]);
       int officeY = Integer.parseInt(temp[k++]);
       Room office = new CastingOffice(roomName, officeX, officeY, officeH, officeW, neighbors, upgrades);
-      this.gameBoard.addRoom(office, 11);
+      this.gameBoard.setRoom(office, 11);
    }
 
    private int lastDay() {

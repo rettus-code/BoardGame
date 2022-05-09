@@ -82,7 +82,7 @@ public class XML {
       if (trailer.getNodeType() == Node.ELEMENT_NODE) {
          final int TRAILER_INDEX = 10;
          Element setElement = (Element) trailer;         
-         rooms[TRAILER_INDEX] = "Trailers" + "@";            
+         rooms[TRAILER_INDEX] = setElement.getNodeName() + "@";            
          NodeList neighbors = setElement.getElementsByTagName("neighbor");
             rooms[TRAILER_INDEX] += "" + neighbors.getLength() + "@";
             for (int n = 0; n < neighbors.getLength(); n++) {
@@ -98,7 +98,7 @@ public class XML {
       if (office.getNodeType() == Node.ELEMENT_NODE) {
          final int OFFICE_INDEX = 11;
          Element setElement = (Element) office;         
-         rooms[OFFICE_INDEX] = "Casting Office" + "@";      
+         rooms[OFFICE_INDEX] = setElement.getNodeName() + "@";      
          NodeList neighbors = setElement.getElementsByTagName("neighbor");
             rooms[OFFICE_INDEX] += "" + neighbors.getLength() + "@";
             for (int n = 0; n < neighbors.getLength(); n++) {

@@ -11,7 +11,7 @@ public class Day {
       this.deck = d;
       this.numScenes = deck.length;
       placeShotCounters();
-      dealSceneCard(deck);
+      //dealSceneCard(deck);
    }
 
    public int getDay() {
@@ -27,10 +27,6 @@ public class Day {
       if (scenes < 2) {
          endDay();
       }
-   }
-
-   public void dealSceneCard(SceneCard[] deck) {
-
    }
 
    public void placeShotCounters() {
