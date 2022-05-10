@@ -4,6 +4,7 @@ public class Take {
     private int height;
     private int width; 
     private int number;
+    private boolean complete;
 
     public Take(int x, int y, int h, int w, int num) {
         this.setLocationX(x);
@@ -62,4 +63,14 @@ public class Take {
             this.number = num;
         }
     }
+
+    public boolean isComplete() {
+        return this.complete;
+    }
+
+    public void setComplete(boolean c) {
+        this.complete = c;
+    }
+
+
 }
