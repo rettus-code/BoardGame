@@ -73,7 +73,7 @@ public class Role {
       return this.level;
    }
 
-   public boolean onCard() {
+   public boolean isOnCard() {
       return this.onCard;
    }
 

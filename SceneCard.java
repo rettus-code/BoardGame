@@ -77,6 +77,10 @@ public class SceneCard {
       return this.parts;
    }
 
+   public int getBudget() {
+      return this.budget;
+   }
+
    public Role[] getRoles() {
       return this.parts;
    }
