@@ -54,16 +54,17 @@ public class Set extends Room {
    }
 
    private void wrapScene() {
+      removeSceneCard();
    }
 
-   public void removeShotCounter() {
-      int countersRemaining = this.getNumCompletedShotCounters();     
-      if(countersRemaining == 1) {
-         this.wrapScene();
-      } else {
-         // do nothing
+   public boolean removeShotCounter() {
+      this.takes[takesCompleted] = null;
+      takesCompleted++;
+      if(takesCompleted == takes.length){
+         wrapScene();
+         return true;
       }
-      this.takes[countersRemaining].setComplete(true);
+      return false;
    }
 
    private int getNumCompletedShotCounters(){

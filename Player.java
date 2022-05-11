@@ -81,6 +81,7 @@ public class Player {
 	}
 
 	public void takeChips() {
+      //for rehearsal points
 	}
 
 	public void takeMoney() {
@@ -411,7 +412,7 @@ public class Player {
 				set.setNumOnCardRolesFinished();
 			}
 		}
-		this.removeShotCounter();		
+		//this.removeShotCounter();		
 		this.currentRole = null;		
 	}
 
@@ -425,7 +426,7 @@ public class Player {
 			System.out.printf("The film budget is $%d\n",budget);
 			if(roll >= budget) {
 				System.out.printf("You succeeded!\n");
-				this.completeRole();
+				this.removeShotCounter(set);
 			} else {
 				System.out.printf("You failed\n");
 			}
@@ -452,11 +453,15 @@ public class Player {
 	private void payCredits() {
 	}
 
-	private void removeShotCounter() {
-		if(this.room.isSet()) {
-			Set set = (Set)this.room;
-			set.removeShotCounter();
-		}
+	private void removeShotCounter(Set set) {
+      boolean wrapped = set.removeShotCounter();
+      if(currentRole.isOnCard()){
+         this.credits++;
+         this.money++;
+      }
+      if (wrapped){
+         payMoney(set.getSceneCard().getBudget());
+      }
 	}
 
 	private int rollDice() {
