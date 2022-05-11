@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Game {
-   public Dice gameDice = new Dice();
+   public static Dice gameDice = new Dice();
    public Board gameBoard = new Board();
    public Player[] playerArray = new Player[8];
    private int numPlayers;
@@ -44,7 +44,7 @@ public class Game {
       }
    }
 
-   public int rollDice() {
+   public static int rollDice() {
       return gameDice.rollDice();
    }
 

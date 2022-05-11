@@ -38,6 +38,10 @@ public class Set extends Room {
       return numOnCardRolesFinished;
    }
 
+   public void setNumOnCardRolesFinished() {
+      this.numOnCardRolesFinished++;
+   }
+
    public void addSceneCard(SceneCard newCard) {
       if (this.sceneCard == null) {
          this.sceneCard = newCard;
@@ -50,6 +54,27 @@ public class Set extends Room {
    }
 
    private void wrapScene() {
+   }
+
+   public void removeShotCounter() {
+      int countersRemaining = this.getNumCompletedShotCounters();     
+      if(countersRemaining == 1) {
+         this.wrapScene();
+      } else {
+         // do nothing
+      }
+      this.takes[countersRemaining].setComplete(true);
+   }
+
+   private int getNumCompletedShotCounters(){
+      // returns the number of not completed shot counters (Takes)
+      int num = 0;
+      for(int i = 0; i < takes.length; i++) {
+         if(!takes[i].isComplete()) {
+            num++;
+         }
+      }
+      return num;
    }
 
 }

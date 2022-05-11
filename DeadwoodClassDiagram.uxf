@@ -4,7 +4,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1134</x>
+      <x>1099</x>
       <y>98</y>
       <w>147</w>
       <h>322</h>
@@ -43,7 +43,7 @@ Scenecard</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>924</x>
+      <x>889</x>
       <y>189</y>
       <w>147</w>
       <h>126</h>
@@ -69,7 +69,7 @@ BoardSection
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>861</x>
+      <x>826</x>
       <y>462</y>
       <w>147</w>
       <h>476</h>
@@ -128,7 +128,7 @@ Room
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>448</x>
+      <x>413</x>
       <y>455</y>
       <w>147</w>
       <h>210</h>
@@ -158,7 +158,7 @@ SceneCard</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>406</x>
+      <x>371</x>
       <y>721</y>
       <w>147</w>
       <h>196</h>
@@ -192,7 +192,7 @@ Role</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1001</x>
+      <x>966</x>
       <y>364</y>
       <w>147</w>
       <h>112</h>
@@ -206,7 +206,7 @@ m2=2..8
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1078</x>
+      <x>1043</x>
       <y>462</y>
       <w>119</w>
       <h>133</h>
@@ -228,7 +228,7 @@ Player</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1001</x>
+      <x>966</x>
       <y>679</y>
       <w>98</w>
       <h>28</h>
@@ -241,7 +241,7 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1141</x>
+      <x>1106</x>
       <y>413</y>
       <w>49</w>
       <h>63</h>
@@ -254,7 +254,7 @@ m2=1..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1064</x>
+      <x>1029</x>
       <y>238</y>
       <w>84</w>
       <h>35</h>
@@ -268,7 +268,7 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>476</x>
+      <x>441</x>
       <y>658</y>
       <w>35</w>
       <h>77</h>
@@ -281,7 +281,7 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>490</x>
+      <x>455</x>
       <y>189</y>
       <w>147</w>
       <h>189</h>
@@ -311,7 +311,7 @@ CastingOffice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
+      <x>595</x>
       <y>238</y>
       <w>308</w>
       <h>35</h>
@@ -325,7 +325,7 @@ m2=16
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>511</x>
+      <x>476</x>
       <y>371</y>
       <w>56</w>
       <h>98</h>
@@ -337,7 +337,7 @@ m2=16
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
+      <x>595</x>
       <y>595</y>
       <w>147</w>
       <h>210</h>
@@ -359,6 +359,7 @@ m2=16
 +toString() : String
 -act() : boolean
 -rehearse() : boolean
++isOnCard() :boolean
 --
 *Collaborators*
 Player
@@ -371,7 +372,7 @@ SceneCard</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>588</x>
+      <x>553</x>
       <y>504</y>
       <w>105</w>
       <h>105</h>
@@ -384,7 +385,7 @@ m2=0..4</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>735</x>
       <y>658</y>
       <w>105</w>
       <h>28</h>
@@ -397,7 +398,7 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>252</x>
+      <x>217</x>
       <y>189</y>
       <w>147</w>
       <h>133</h>
@@ -420,7 +421,7 @@ Upgrade</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>245</x>
+      <x>210</x>
       <y>378</y>
       <w>147</w>
       <h>126</h>
@@ -439,7 +440,7 @@ Player</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
+      <x>350</x>
       <y>322</y>
       <w>119</w>
       <h>119</h>
@@ -451,7 +452,7 @@ Player</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>392</x>
+      <x>357</x>
       <y>245</y>
       <w>112</w>
       <h>42</h>
@@ -463,7 +464,7 @@ Player</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1344</x>
+      <x>1309</x>
       <y>189</y>
       <w>147</w>
       <h>196</h>
@@ -487,7 +488,7 @@ Player</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1274</x>
+      <x>1239</x>
       <y>266</y>
       <w>84</w>
       <h>28</h>
@@ -500,7 +501,7 @@ m2=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>35</x>
+      <x>0</x>
       <y>189</y>
       <w>147</w>
       <h>133</h>
@@ -521,7 +522,7 @@ CastingOffice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>175</x>
+      <x>140</x>
       <y>245</y>
       <w>91</w>
       <h>28</h>
@@ -534,7 +535,7 @@ m2=12</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>546</x>
+      <x>511</x>
       <y>756</y>
       <w>98</w>
       <h>28</h>
@@ -547,7 +548,7 @@ m2=1..3</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1302</x>
+      <x>1267</x>
       <y>448</y>
       <w>147</w>
       <h>196</h>
@@ -569,7 +570,7 @@ Document</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1085</x>
+      <x>1050</x>
       <y>658</y>
       <w>119</w>
       <h>133</h>
@@ -596,7 +597,7 @@ Dice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1113</x>
+      <x>1078</x>
       <y>588</y>
       <w>28</w>
       <h>84</h>
@@ -608,7 +609,7 @@ Dice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1001</x>
+      <x>966</x>
       <y>518</y>
       <w>91</w>
       <h>35</h>
@@ -621,7 +622,7 @@ m2=2..8
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>49</x>
+      <x>14</x>
       <y>203</y>
       <w>133</w>
       <h>21</h>
@@ -632,7 +633,7 @@ m2=2..8
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
+      <x>595</x>
       <y>322</y>
       <w>245</w>
       <h>224</h>
@@ -646,7 +647,7 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>707</x>
+      <x>672</x>
       <y>0</y>
       <w>147</w>
       <h>154</h>
@@ -674,7 +675,7 @@ Dice</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>539</x>
+      <x>504</x>
       <y>35</y>
       <w>182</w>
       <h>168</h>
@@ -687,7 +688,7 @@ m2=16
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>847</x>
+      <x>812</x>
       <y>63</y>
       <w>189</w>
       <h>140</h>
@@ -700,7 +701,7 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>847</x>
+      <x>812</x>
       <y>21</y>
       <w>378</w>
       <h>91</h>
@@ -713,7 +714,7 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>546</x>
+      <x>511</x>
       <y>413</y>
       <w>735</w>
       <h>476</h>
@@ -727,7 +728,7 @@ m2=40
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>231</x>
+      <x>196</x>
       <y>567</y>
       <w>147</w>
       <h>147</h>
@@ -739,6 +740,7 @@ m2=40
 -width : int
 -height : int
 -number : int
+-complete: boolean
 --
 *Responsibilities*
 
@@ -750,7 +752,7 @@ Set</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>371</x>
+      <x>336</x>
       <y>602</y>
       <w>91</w>
       <h>28</h>
