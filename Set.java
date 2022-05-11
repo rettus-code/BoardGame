@@ -53,7 +53,7 @@ public class Set extends Room {
       this.sceneCard = null;
    }
 
-   private void wrapScene() {
+   public void wrapScene() {
       removeSceneCard();
    }
 
@@ -61,7 +61,6 @@ public class Set extends Room {
       this.takes[takesCompleted] = null;
       takesCompleted++;
       if(takesCompleted == takes.length){
-         wrapScene();
          return true;
       }
       return false;

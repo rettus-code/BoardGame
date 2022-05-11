@@ -47,7 +47,7 @@ public class DeadWood {
           todaysGame.makeBoard(rooms);
        } catch (ParserConfigurationException e) {         
           e.printStackTrace();
-       }73
+       }
 
        try {
           Document cardsDoc = xml.getDocFromFile(SCENE_FILE);

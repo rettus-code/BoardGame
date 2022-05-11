@@ -426,7 +426,7 @@ public class Player {
 			System.out.printf("The film budget is $%d\n",budget);
 			if(roll >= budget) {
 				System.out.printf("You succeeded!\n");
-				this.removeShotCounter(set);
+				removeShotCounter(set);
 			} else {
 				System.out.printf("You failed\n");
 			}
@@ -458,9 +458,14 @@ public class Player {
       if(currentRole.isOnCard()){
          this.credits++;
          this.money++;
+         System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
+      } else {
+         this.money += 2;
+         System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
       }
       if (wrapped){
-         payMoney(set.getSceneCard().getBudget());
+         System.out.println("The scene is completed");
+         set.wrapScene();
       }
 	}
 
