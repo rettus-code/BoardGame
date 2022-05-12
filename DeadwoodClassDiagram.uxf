@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>1099</x>
-      <y>98</y>
+      <y>448</y>
       <w>147</w>
       <h>322</h>
     </coordinates>
@@ -44,7 +44,7 @@ Scenecard</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>889</x>
-      <y>189</y>
+      <y>539</y>
       <w>147</w>
       <h>126</h>
     </coordinates>
@@ -70,7 +70,7 @@ BoardSection
     <id>UMLClass</id>
     <coordinates>
       <x>826</x>
-      <y>462</y>
+      <y>812</y>
       <w>147</w>
       <h>476</h>
     </coordinates>
@@ -97,11 +97,11 @@ BoardSection
 +countScore() : int
 +getLocation() : Room
 +takeTurn() : boolean
++resetRole() : void
 -setRoom() : void
 -upgrade() : void
 -takeRole() : boolean
 -move() : void
--completeRole() : void
 -act() : void
 -rehearse() : void
 -rollDice() : int
@@ -129,7 +129,7 @@ Room
     <id>UMLClass</id>
     <coordinates>
       <x>413</x>
-      <y>455</y>
+      <y>805</y>
       <w>147</w>
       <h>210</h>
     </coordinates>
@@ -138,7 +138,6 @@ Room
 +parts : Role[]
 +takes : Takes[]
 +takesCompleted: int
--numOnCardRolesFinished: int
 --
 *Responsibilities*
 +getRoles : Role[]
@@ -159,7 +158,7 @@ SceneCard</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>371</x>
-      <y>721</y>
+      <y>1071</y>
       <w>147</w>
       <h>196</h>
     </coordinates>
@@ -193,7 +192,7 @@ Role</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>966</x>
-      <y>364</y>
+      <y>714</y>
       <w>147</w>
       <h>112</h>
     </coordinates>
@@ -207,7 +206,7 @@ m2=2..8
     <id>UMLClass</id>
     <coordinates>
       <x>1043</x>
-      <y>462</y>
+      <y>812</y>
       <w>119</w>
       <h>133</h>
     </coordinates>
@@ -229,7 +228,7 @@ Player</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>966</x>
-      <y>679</y>
+      <y>1029</y>
       <w>98</w>
       <h>28</h>
     </coordinates>
@@ -242,7 +241,7 @@ m2=1</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1106</x>
-      <y>413</y>
+      <y>763</y>
       <w>49</w>
       <h>63</h>
     </coordinates>
@@ -255,7 +254,7 @@ m2=1..n</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1029</x>
-      <y>238</y>
+      <y>588</y>
       <w>84</w>
       <h>35</h>
     </coordinates>
@@ -269,7 +268,7 @@ m2=1
     <id>Relation</id>
     <coordinates>
       <x>441</x>
-      <y>658</y>
+      <y>1008</y>
       <w>35</w>
       <h>77</h>
     </coordinates>
@@ -282,7 +281,7 @@ m2=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>455</x>
-      <y>189</y>
+      <y>539</y>
       <w>147</w>
       <h>189</h>
     </coordinates>
@@ -312,7 +311,7 @@ CastingOffice</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>595</x>
-      <y>238</y>
+      <y>588</y>
       <w>308</w>
       <h>35</h>
     </coordinates>
@@ -326,7 +325,7 @@ m2=16
     <id>Relation</id>
     <coordinates>
       <x>476</x>
-      <y>371</y>
+      <y>721</y>
       <w>56</w>
       <h>98</h>
     </coordinates>
@@ -338,7 +337,7 @@ m2=16
     <id>UMLClass</id>
     <coordinates>
       <x>595</x>
-      <y>595</y>
+      <y>945</y>
       <w>147</w>
       <h>210</h>
     </coordinates>
@@ -355,9 +354,11 @@ m2=16
 -isTaken : boolean
 --
 *Responsibilities*
++takeRole() : boolean
++completeRole() : void
 +isTaken() : boolean
 +toString() : String
--act() : boolean
++act() : boolean
 -rehearse() : boolean
 +isOnCard() :boolean
 --
@@ -373,7 +374,7 @@ SceneCard</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>553</x>
-      <y>504</y>
+      <y>854</y>
       <w>105</w>
       <h>105</h>
     </coordinates>
@@ -386,7 +387,7 @@ m2=0..4</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>735</x>
-      <y>658</y>
+      <y>1008</y>
       <w>105</w>
       <h>28</h>
     </coordinates>
@@ -399,7 +400,7 @@ m2=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>217</x>
-      <y>189</y>
+      <y>539</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
@@ -422,7 +423,7 @@ Upgrade</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>210</x>
-      <y>378</y>
+      <y>728</y>
       <w>147</w>
       <h>126</h>
     </coordinates>
@@ -441,7 +442,7 @@ Player</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>350</x>
-      <y>322</y>
+      <y>672</y>
       <w>119</w>
       <h>119</h>
     </coordinates>
@@ -453,7 +454,7 @@ Player</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>357</x>
-      <y>245</y>
+      <y>595</y>
       <w>112</w>
       <h>42</h>
     </coordinates>
@@ -465,7 +466,7 @@ Player</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1309</x>
-      <y>189</y>
+      <y>539</y>
       <w>147</w>
       <h>196</h>
     </coordinates>
@@ -489,7 +490,7 @@ Player</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1239</x>
-      <y>266</y>
+      <y>616</y>
       <w>84</w>
       <h>28</h>
     </coordinates>
@@ -502,7 +503,7 @@ m2=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>0</x>
-      <y>189</y>
+      <y>539</y>
       <w>147</w>
       <h>133</h>
     </coordinates>
@@ -523,7 +524,7 @@ CastingOffice</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>140</x>
-      <y>245</y>
+      <y>595</y>
       <w>91</w>
       <h>28</h>
     </coordinates>
@@ -536,7 +537,7 @@ m2=12</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>511</x>
-      <y>756</y>
+      <y>1106</y>
       <w>98</w>
       <h>28</h>
     </coordinates>
@@ -548,10 +549,10 @@ m2=1..3</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1267</x>
-      <y>448</y>
+      <x>945</x>
+      <y>196</y>
       <w>147</w>
-      <h>196</h>
+      <h>147</h>
     </coordinates>
     <panel_attributes>*XML*
 --
@@ -571,7 +572,7 @@ Document</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1050</x>
-      <y>658</y>
+      <y>1008</y>
       <w>119</w>
       <h>133</h>
     </coordinates>
@@ -598,7 +599,7 @@ Dice</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1078</x>
-      <y>588</y>
+      <y>938</y>
       <w>28</w>
       <h>84</h>
     </coordinates>
@@ -610,7 +611,7 @@ Dice</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>966</x>
-      <y>518</y>
+      <y>868</y>
       <w>91</w>
       <h>35</h>
     </coordinates>
@@ -622,19 +623,8 @@ m2=2..8
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>14</x>
-      <y>203</y>
-      <w>133</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>595</x>
-      <y>322</y>
+      <y>672</y>
       <w>245</w>
       <h>224</h>
     </coordinates>
@@ -648,7 +638,7 @@ m2=1
     <id>UMLClass</id>
     <coordinates>
       <x>672</x>
-      <y>0</y>
+      <y>350</y>
       <w>147</w>
       <h>154</h>
     </coordinates>
@@ -676,7 +666,7 @@ Dice</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>504</x>
-      <y>35</y>
+      <y>385</y>
       <w>182</w>
       <h>168</h>
     </coordinates>
@@ -689,7 +679,7 @@ m2=16
     <id>Relation</id>
     <coordinates>
       <x>812</x>
-      <y>63</y>
+      <y>413</y>
       <w>189</w>
       <h>140</h>
     </coordinates>
@@ -702,7 +692,7 @@ m2=1
     <id>Relation</id>
     <coordinates>
       <x>812</x>
-      <y>21</y>
+      <y>371</y>
       <w>378</w>
       <h>91</h>
     </coordinates>
@@ -715,7 +705,7 @@ m2=1
     <id>Relation</id>
     <coordinates>
       <x>511</x>
-      <y>413</y>
+      <y>763</y>
       <w>735</w>
       <h>476</h>
     </coordinates>
@@ -729,7 +719,7 @@ m2=40
     <id>UMLClass</id>
     <coordinates>
       <x>196</x>
-      <y>567</y>
+      <y>917</y>
       <w>147</w>
       <h>147</h>
     </coordinates>
@@ -753,7 +743,7 @@ Set</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>336</x>
-      <y>602</y>
+      <y>952</y>
       <w>91</w>
       <h>28</h>
     </coordinates>
@@ -761,5 +751,16 @@ Set</panel_attributes>
 m1=1
 m2=0..3</panel_attributes>
     <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>798</x>
+      <y>266</y>
+      <w>161</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>210.0;10.0;10.0;120.0</additional_attributes>
   </element>
 </diagram>
