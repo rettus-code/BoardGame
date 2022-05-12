@@ -1,6 +1,6 @@
 public class Day {
    private int dayNum;
-   private int numScenes;
+   public static int numScenes;
    private SceneCard[] deck;
 
    private Day() {
@@ -22,18 +22,18 @@ public class Day {
       return this.numScenes;
    }
 
-   public void sceneComplete() {
-      int scenes = this.numScenes--;
+   public static void sceneComplete() {
+      int scenes = numScenes--;
       if (scenes < 2) {
          endDay();
       }
    }
 
-   public void placeShotCounters() {
+   public static void placeShotCounters() {
 
    }
 
-   public void endDay() {
+   public static void endDay() {
 
    }
 

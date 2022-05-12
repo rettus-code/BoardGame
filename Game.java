@@ -3,15 +3,15 @@ import java.util.*;
 public class Game {
    public static Dice gameDice = new Dice();
    public Board gameBoard = new Board();
-   public Player[] playerArray = new Player[8];
+   public static Player[] playerArray = new Player[8];
    private int numPlayers;
-   private int activePlayer;
+   public static int activePlayer;
    private Day currentDay;
    private SceneCard[] deck = new SceneCard[40];
    private List<SceneCard> shuffledDeck = new ArrayList<>();
    private int winner;
    private int lastDay;
-   private Player buildPlayer;// = new Player("temp", 2, 2);
+   private Player buildPlayer;
 
    private Game() {
    };
@@ -72,8 +72,8 @@ public class Game {
       }
    }
 
-   public int getActivePlayer() {
-      return this.activePlayer;
+   public static int getActivePlayer() {
+      return activePlayer;
    }
 
    public void makeDeck(String[] cards) {
