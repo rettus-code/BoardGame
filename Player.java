@@ -11,7 +11,7 @@ public class Player {
 	private PlayerDie playerDie;
 	private Role currentRole;
 	private Room room;
-   private int rehearseCounter;
+	private int rehearseCounter;
 	private Scanner scanner = new Scanner(System.in);
 
 	private enum TurnState {
@@ -26,7 +26,7 @@ public class Player {
 		if (numPlayers == 7 || numPlayers == 8) {
 			this.rank = 2;
 		} else {
-			this.rank = 6;//change back to 1
+			this.rank = 1;// change back to 1
 		}
 		this.money = 0;
 		if (numPlayers == 5) {
@@ -37,7 +37,7 @@ public class Player {
 		this.playerDie = new PlayerDie(6);
 		this.playerDie.setRoll(this.rank);
 		this.setRoom(room);
-      rehearseCounter = 0;
+		rehearseCounter = 0;
 	}
 
 	public int getLocationX() {
@@ -65,9 +65,10 @@ public class Player {
 		this.locationX = room.getLocationX();
 		this.locationY = room.getLocationY();
 	}
-   public Room getRoom(){
-      return this.room;
-   }
+
+	public Room getRoom() {
+		return this.room;
+	}
 
 	public int getID() {
 		return this.id;
@@ -76,32 +77,21 @@ public class Player {
 	public int getMoney() {
 		return this.money;
 	}
-   
-   public void addMoney(int m) {
+
+	public void addMoney(int m) {
 		this.money += m;
 	}
 
 	public int getCredits() {
 		return this.credits;
 	}
-   
-   public void addCredits(int c) {
+
+	public void addCredits(int c) {
 		this.credits += c;
 	}
 
 	public int getRank() {
 		return this.rank;
-	}
-
-	public void takeChips() {
-      //for rehearsal points
-	}
-
-	public void takeMoney() {
-		// use this method to add money earned by acting etc
-	}
-
-	public void takeCredits() {
 	}
 
 	public int countScore() {
@@ -115,12 +105,19 @@ public class Player {
 	public String getName() {
 		return this.name;
 	}
-   public Role getCurrentRole(){
-      return this.currentRole;
-   } 
-   public void resetRole(){
-      this.currentRole = null;
-   }
+
+	public Role getCurrentRole() {
+		return this.currentRole;
+	}
+
+	public void resetRole() {
+		if(this.currentRole != null) {	
+			this.currentRole.completeRole();
+			this.currentRole = null;
+		} else {
+			// do nothing
+		}		
+	}
 
 	public boolean takeTurn() {
 		boolean turnComplete = false;
@@ -137,8 +134,8 @@ public class Player {
 						this.promptMove();
 					} else if (this.room.name.equals("office")) {
 						this.promptUpgradeMove();
-               } else if(!this.room.hasSceneCard() && room.isSet()) {
-                  promptMove();
+					} else if (!this.room.hasSceneCard() && room.isSet()) {
+						promptMove();
 					} else {
 						promptTakeRoleMove();
 					}
@@ -148,8 +145,8 @@ public class Player {
 						this.endTurn();
 					} else if (this.room.name.equals("office")) {
 						this.promptUpgrade();
-               } else if(!this.room.hasSceneCard() && room.isSet()) {
-                  this.endTurn();
+					} else if (!this.room.hasSceneCard() && room.isSet()) {
+						this.endTurn();
 					} else {
 						this.promptTakeRole();
 					}
@@ -170,50 +167,50 @@ public class Player {
 	private int promptInRole() {
 		// player is in a role
 		// choices are act or rehearse
-      int i = 0;
-      if (rehearseCounter < 6){
-   		System.out.println("Make a choice:");
-   		System.out.println("1. act");
-   		System.out.println("2. rehearse");
-   		System.out.println("3. end turn");
-   		while (i != 1 && i != 2 && i != 3) {
-   			i = scanner.nextInt();
-   		}
-   
-   		switch (i) {
-   			case 1:
-   				this.act();
-   				this.endTurn();
-   				break;
-   			case 2:
-   				this.rehearse();
-   				this.endTurn();
-   				break;
-   			case 3:
-   				this.endTurn();
-   				break;
-   			default:
-   		}
-      } else {
-         System.out.println("You have 6 rehearsal");
-         System.out.println("Make a choice:");
-         System.out.println("1. act");
-   		System.out.println("2. end turn");
-   		while (i != 1 && i != 2) {
-   			i = scanner.nextInt();
-   		}
-   		switch (i) {
-   			case 1:
-   				this.act();
-   				this.endTurn();
-   				break;
-   			case 2:
-               i++;
-   				this.endTurn();
-   				break;
-   			default:
-         }
-      }
+		int i = 0;
+		if (rehearseCounter < 6) {
+			System.out.println("Make a choice:");
+			System.out.println("1. act");
+			System.out.println("2. rehearse");
+			System.out.println("3. end turn");
+			while (i != 1 && i != 2 && i != 3) {
+				i = scanner.nextInt();
+			}
+
+			switch (i) {
+				case 1:
+					this.act();
+					this.endTurn();
+					break;
+				case 2:
+					this.rehearse();
+					this.endTurn();
+					break;
+				case 3:
+					this.endTurn();
+					break;
+				default:
+			}
+		} else {
+			System.out.println("You have 6 rehearsal");
+			System.out.println("Make a choice:");
+			System.out.println("1. act");
+			System.out.println("2. end turn");
+			while (i != 1 && i != 2) {
+				i = scanner.nextInt();
+			}
+			switch (i) {
+				case 1:
+					this.act();
+					this.endTurn();
+					break;
+				case 2:
+					i++;
+					this.endTurn();
+					break;
+				default:
+			}
+		}
 		return i;
 	}
 
@@ -241,7 +238,7 @@ public class Player {
 		}
 	}
 
-	private void promptUpgrade() {		
+	private void promptUpgrade() {
 		System.out.println("Make a choice:");
 		System.out.println("1. upgrade");
 		System.out.println("2. endTurn");
@@ -265,10 +262,10 @@ public class Player {
 			// print upgrades out
 			Upgrade[] upgrades;
 			CastingOffice co = (CastingOffice) this.room;
-			upgrades = co.getUpgrades();
+			upgrades = co.getUpgrades(this.getRank());
 			int j = 0;
-			for (; j < upgrades.length; j++) {
-				System.out.printf("%d. %s\n", j + 1, upgrades[j].toString());
+			for (; j < upgrades.length; j++) {				
+				System.out.printf("%d. %s\n", j + 1, upgrades[j].toString());				
 			}
 			int end = j + 1;
 			System.out.printf("%d. cancel\n", end);
@@ -379,21 +376,45 @@ public class Player {
 
 	private void upgrade(Upgrade choice) {
 		// perform the chosen upgrade?
-		System.out.printf("Upgrading to choice %s\n", choice.toString());
+		boolean success = false;
+		int amount = choice.getAmount();
+		String currency = choice.getCurrency();		
+		if(currency.equals("dollar")) {
+			if(payMoney(amount)) {
+				success = true;				
+			} else {
+				// do nothing
+			}
+		} else if(currency.equals("credit")) {
+			if(payCredits(amount)) {
+				success = true;				
+			} else {
+				// do nothing
+			}
+		}
+
+		if(success) {
+			this.rank = choice.getLevel();		
+			System.out.printf("Upgrading to choice %s\n", choice.toString());
+			System.out.printf("Your rank is %s, your money is $%d, your credits = %d\n", this.getRank(), this.getMoney(), this.getCredits());
+		} else {
+			System.out.printf("Cannot upgrade to choice %s\n", choice.toString());
+		}
+
 	}
 
 	public boolean takeRole() {
 		boolean result = false;
-		if(this.room.isSet()) {
-			Set set = (Set)this.room;
+		if (this.room.isSet()) {
+			Set set = (Set) this.room;
 			Role[] onCardRoles = set.getSceneCard().getRoles();
-			Role[] extraRoles = set.getRoles();					
+			Role[] extraRoles = set.getRoles();
 			Role[] roles = new Role[onCardRoles.length + extraRoles.length];
 			int i = 0;
-			for(; i < onCardRoles.length; i++) {
+			for (; i < onCardRoles.length; i++) {
 				roles[i] = onCardRoles[i];
 			}
-			for(int j = 0; j < extraRoles.length; j++) {
+			for (int j = 0; j < extraRoles.length; j++) {
 				roles[i++] = extraRoles[j];
 			}
 
@@ -401,12 +422,12 @@ public class Player {
 			System.out.printf("Your rank is %d Its rank must be lower or equal to yours\n", this.getRank());
 			System.out.println("Oncard Roles:");
 			i = 0;
-			for(; i < onCardRoles.length; i++) {
-				System.out.printf("%d. %s\n", i+1, roles[i].toString());
+			for (; i < onCardRoles.length; i++) {
+				System.out.printf("%d. %s\n", i + 1, roles[i].toString());
 			}
 			System.out.println("Extra Roles:");
-			for(; i < roles.length; i++) {
-				System.out.printf("%d. %s\n", i+1, roles[i].toString());
+			for (; i < roles.length; i++) {
+				System.out.printf("%d. %s\n", i + 1, roles[i].toString());
 			}
 			int end = i + 1;
 			System.out.printf("%d. cancel\n", end);
@@ -419,10 +440,10 @@ public class Player {
 				this.endTurn();
 			} else {
 				boolean success = this.takeRole(roles[i - 1]);
-				if(!success) {
+				if (!success) {
 					this.takeRole();
 				}
-			}			
+			}
 			result = true;
 		}
 
@@ -432,8 +453,8 @@ public class Player {
 	public boolean takeRole(Role newRole) {
 		System.out.printf("You're taking a role called: %s\n", newRole.getName());
 		boolean result = false;
-		if(this.getRank()>=newRole.getLevel()) {
-			if (!newRole.isTaken()) {
+		if (this.getRank() >= newRole.getLevel()) {
+			if (newRole.takeRole()) {
 				this.currentRole = newRole;
 				result = true;
 				this.current_state = TurnState.IN_ROLE;
@@ -443,57 +464,45 @@ public class Player {
 		} else {
 			System.out.printf("Cannot take role %s because your rank is not high enough\n", newRole.getName());
 		}
-
 		return result;
-	}
-
-	private void completeRole() {
-		// TODO finish this method
-		if(this.currentRole.isOnCard()) {
-			if(this.room.isSet()) {
-				Set set = (Set)this.room;
-				set.setNumOnCardRolesFinished();
-			}
-		}
-		//this.removeShotCounter();		
-		this.currentRole = null;		
 	}
 
 	private void act() {
 		System.out.println("Roll the dice to act");
-		int roll = this.rollDice() + rehearseCounter;		
+		int roll = this.rollDice() + rehearseCounter;
 		System.out.printf("You rolled %d\n", roll);
-		if(this.room.isSet()) {
-			Set set = (Set)this.room;
+		if (this.room.isSet()) {
+			Set set = (Set) this.room;
 			int budget = set.getSceneCard().getBudget();
-			System.out.printf("The film budget is $%d\n",budget);
-			if(roll >= budget) {
+			System.out.printf("The film budget is $%d\n", budget);
+			if (currentRole.act(roll)) {
 				System.out.printf("You succeeded!\n");
 				removeShotCounter(set);
 			} else {
 				System.out.printf("You failed\n");
-            if (!currentRole.isOnCard()){
-               this.money++;
-            }
-            System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
+				if (!currentRole.isOnCard()) {
+					this.money++;
+				}
+				System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
 			}
 		}
-		
+
 	}
 
 	private void rehearse() {
-      rehearseCounter++;
-      System.out.println("You have " + rehearseCounter + " rehearsal points");
+		rehearseCounter++;
+		System.out.println("You have " + rehearseCounter + " rehearsal points");
 
 	}
-   public void rehearseReset() {
-      rehearseCounter = 0;
+
+	public void rehearseReset() {
+		rehearseCounter = 0;
 	}
 
 	private boolean payMoney(int amount) {
 		boolean result = false;
 		int balance = this.getMoney();
-		if(balance >= amount) {
+		if (balance >= amount) {
 			result = true;
 			this.money -= amount;
 		} else {
@@ -502,23 +511,32 @@ public class Player {
 		return result;
 	}
 
-	private void payCredits() {
+	private boolean payCredits(int amount) {
+		boolean result = false;
+		int balance = this.getCredits();
+		if (balance >= amount) {
+			result = true;
+			this.credits -= amount;
+		} else {
+			System.out.println("Insufficient funds");
+		}
+		return result;
 	}
 
 	private void removeShotCounter(Set set) {
-      boolean wrapped = set.removeShotCounter();
-      if(currentRole.isOnCard()){
-         this.credits++;
-         this.money++;
-         System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
-      } else {
-         this.money += 2;
-         System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
-      }
-      if (wrapped){
-         System.out.println("The scene is completed");
-         set.wrapScene();
-      }
+		boolean wrapped = set.removeShotCounter();
+		if (currentRole.isOnCard()) {
+			this.credits++;
+			this.money++;
+			System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
+		} else {
+			this.money += 2;
+			System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
+		}
+		if (wrapped) {
+			System.out.println("The scene is completed");
+			set.wrapScene();
+		}
 	}
 
 	private int rollDice() {
