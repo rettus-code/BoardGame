@@ -14,4 +14,8 @@ public class Trailers extends Room {
       return false;
    }
 
+   public boolean hasSceneCard() {
+      return false;
+   }
+
 }
