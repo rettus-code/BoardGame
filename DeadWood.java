@@ -1,6 +1,7 @@
 import org.w3c.dom.Document;
 import java.util.Scanner;
-
+import java.util.Arrays;
+import java.util.Collections;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class DeadWood {
@@ -31,7 +32,7 @@ public class DeadWood {
       
       while(todaysGame.getCurrentDay().getDay() <=  todaysGame.getLastDay()) {
          while(todaysGame.getCurrentDay().getNumScenes() > 1) {
-            todaysGame.playerArray[todaysGame.getActivePlayer()].takeTurn(); 
+            todaysGame.playerArray[Game.getActivePlayer()].takeTurn(); 
             todaysGame.updateActivePlayer();
           }
           todaysGame.newDay();
