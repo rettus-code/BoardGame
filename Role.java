@@ -77,11 +77,26 @@ public class Role {
       return this.onCard;
    }
 
+   public boolean takeRole() {
+      boolean result = false;
+      if(!isTaken()) {
+         this.isTaken = true;
+         result = true;
+      } else {
+         // do nothing
+      }
+      return result;
+   }
+
+   public void completeRole() {
+      this.isTaken = false;
+   }
+
    public boolean isTaken() {
       return this.isTaken;
    }
 
-   private boolean act(int diceRoll) {
+   public boolean act(int diceRoll) {
       return diceRoll >= this.level;
    }
 

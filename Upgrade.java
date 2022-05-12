@@ -46,6 +46,18 @@ public class Upgrade {
       return this.height;
    }
 
+   public int getLevel() {
+      return this.level;
+   }
+
+   public String getCurrency() {
+      return this.currency;
+   }
+
+   public int getAmount() {
+      return this.amount;
+   }
+
    public void setWidth(int w) {
       if (w >= 0) {
          this.width = w;
