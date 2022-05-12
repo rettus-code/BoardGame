@@ -475,7 +475,7 @@ public class Player {
 			Set set = (Set) this.room;
 			int budget = set.getSceneCard().getBudget();
 			System.out.printf("The film budget is $%d\n", budget);
-			if (currentRole.act(roll)) {
+			if (roll >= budget) {
 				System.out.printf("You succeeded!\n");
 				removeShotCounter(set);
 			} else {
