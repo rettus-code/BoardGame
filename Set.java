@@ -21,10 +21,6 @@ public class Set extends Room {
       this.takes = takes;
    }
 
-   public boolean hasSceneCard() {
-      return (this.sceneCard != null);
-   }
-
    public SceneCard getSceneCard() {
       return this.sceneCard;
    }
@@ -51,7 +47,9 @@ public class Set extends Room {
       } else {
       }
    }
-
+   public boolean hasSceneCard() {
+      return this.sceneCard != null;
+   }
    private void removeSceneCard() {
       this.sceneCard = null;
    }
@@ -94,7 +92,7 @@ public class Set extends Room {
                Game.playerArray[i].addMoney(money);
                Game.playerArray[i].resetRole();
                 Game.playerArray[i].rehearseReset();
-               System.out.println("Player " + Game.playerArray[i].getName() + "is rewarded " + money + " dollars");
+               System.out.println("Player " + Game.playerArray[i].getName() + " is rewarded " + money + " dollars");
                System.out.println("Your dollars = " + Game.playerArray[i].getMoney() + " and credits = " + Game.playerArray[i].getCredits());
             }
          }

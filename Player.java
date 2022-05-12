@@ -26,7 +26,7 @@ public class Player {
 		if (numPlayers == 7 || numPlayers == 8) {
 			this.rank = 2;
 		} else {
-			this.rank = 1;
+			this.rank = 6;//change back to 1
 		}
 		this.money = 0;
 		if (numPlayers == 5) {
@@ -137,6 +137,8 @@ public class Player {
 						this.promptMove();
 					} else if (this.room.name.equals("office")) {
 						this.promptUpgradeMove();
+               } else if(!this.room.hasSceneCard() && room.isSet()) {
+                  promptMove();
 					} else {
 						promptTakeRoleMove();
 					}
@@ -146,6 +148,8 @@ public class Player {
 						this.endTurn();
 					} else if (this.room.name.equals("office")) {
 						this.promptUpgrade();
+               } else if(!this.room.hasSceneCard() && room.isSet()) {
+                  this.endTurn();
 					} else {
 						this.promptTakeRole();
 					}
