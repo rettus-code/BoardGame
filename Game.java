@@ -1,5 +1,5 @@
 import java.util.*;
-
+import java.util.Scanner;
 public class Game {
    public static Dice gameDice = new Dice();
    public Board gameBoard = new Board();
@@ -41,10 +41,10 @@ public class Game {
       System.out.println("Scenes left: " + scenes);
       if (scenes < 2) {
          endDay();
-         newDay();
          if(this.currentDay.getDay() == lastDay()){
             endOfGame();
          }
+         newDay();
       }
    }
    public void checkScene(){
@@ -232,7 +232,7 @@ public class Game {
 
    private int lastDay() {
       if (this.numPlayers < 4) {
-         return 2;
+         return 3;
       } else {
          return 4;
       }
@@ -261,5 +261,15 @@ public class Game {
          }      
       }
       System.out.println("" + winner + " is the winner with a final score of " + topScore);
+      System.exit(0);// 
+      // char newGame = "";
+//       scanner.nextLine(); 
+//       System.out.println("would you like to play again Y or N?");
+//       newGame = scanner.next(); 
+//       if(newGame == equalsIgnoreCase("y")){
+//          
+//       } else {
+//          System.exit(0);
+//       }
    }
 }
