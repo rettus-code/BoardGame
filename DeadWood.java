@@ -9,6 +9,7 @@ public class DeadWood {
    private static final String SCENE_FILE = "cards.xml";
    public static final int NUM_ROOMS = 12;
    public static final int NUM_SCENECARDS = 40;
+   
 
    private static Scanner scanner = new Scanner(System.in);   
    public static void main(String[] args) {

@@ -13,6 +13,7 @@ public class Player {
 	private Room room;
 	private int rehearseCounter;
 	private Scanner scanner = new Scanner(System.in);
+   private boolean completedScene;
 
 	private enum TurnState {
 		BEGIN_TURN, MOVED, IN_ROLE, END_TURN
@@ -26,7 +27,7 @@ public class Player {
 		if (numPlayers == 7 || numPlayers == 8) {
 			this.rank = 2;
 		} else {
-			this.rank = 1;// change back to 1
+			this.rank = 6;// change back to 1
 		}
 		this.money = 0;
 		if (numPlayers == 5) {
@@ -38,6 +39,7 @@ public class Player {
 		this.playerDie.setRoll(this.rank);
 		this.setRoom(room);
 		rehearseCounter = 0;
+      this.completedScene = false;
 	}
 
 	public int getLocationX() {
@@ -118,7 +120,12 @@ public class Player {
 			// do nothing
 		}		
 	}
-
+   public void setCompletedScene(boolean reset){
+      this.completedScene = false;   
+   }
+   public boolean getCompletedScene(){
+      return this.completedScene;
+   }  
 	public boolean takeTurn() {
 		boolean turnComplete = false;
 		System.out.printf("Player %d %s, your turn\n", this.id + 1, this.getName());
@@ -536,6 +543,7 @@ public class Player {
 		if (wrapped) {
 			System.out.println("The scene is completed");
 			set.wrapScene();
+         this.completedScene = true;
 		}
 	}
 
