@@ -1,7 +1,5 @@
 import org.w3c.dom.Document;
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.Collections;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class DeadWood {
@@ -16,7 +14,13 @@ public class DeadWood {
       System.out.println("Welcome to DeadWood, how many players?:");
       int numPlayers = 0;
       while (numPlayers < 2 || numPlayers > 8) {
-         numPlayers = scanner.nextInt();
+         try{
+            numPlayers = scanner.nextInt();
+            scanner.nextLine(); 
+         } catch(Exception e) {
+            scanner.next();
+            System.out.println("Please enter Numbers");
+         }         
       }
       System.out.printf("Creating a new game with %d players\n", numPlayers);  
 
@@ -26,7 +30,7 @@ public class DeadWood {
 
       for(int i = 0; i < numPlayers; i++) {
          System.out.printf("Player %d enter name:\n", i+1);
-         String name = scanner.next(); 
+         String name = scanner.nextLine(); 
          Player player = new Player(name, numPlayers, i, Board.getRoom("trailer"));         
          todaysGame.playerSetup(player);
       }      

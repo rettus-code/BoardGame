@@ -5,7 +5,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
-import java.io.File;
 
 public class XML {
    // Procedural Cohesion - open a connection to the XML file, create a DOM, parse
@@ -109,8 +108,7 @@ public class XML {
          rooms[OFFICE_INDEX] += "" + upgrades.getLength() + "@";
          for (int i = 0; i < upgrades.getLength(); i++) {
             Node upgrade = upgrades.item(i);
-            if (upgrade.getNodeType() == Node.ELEMENT_NODE) {
-               Element upgradeElement = (Element) upgrade;
+            if (upgrade.getNodeType() == Node.ELEMENT_NODE) {             
                rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("level").getNodeValue() + "@";
                rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("amt").getNodeValue() + "@";
                rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("currency").getNodeValue() + "@";               

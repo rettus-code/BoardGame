@@ -100,10 +100,6 @@ public class Role {
       return diceRoll >= this.level;
    }
 
-   private boolean rehearse() {
-      return true;
-   }
-
    public String toString() {
       String roleStr = "Part: " + this.name + " Line: " + this.line + " Level: " + this.level;
       return roleStr;

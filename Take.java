@@ -72,5 +72,4 @@ public class Take {
         this.complete = c;
     }
 
-
 }
