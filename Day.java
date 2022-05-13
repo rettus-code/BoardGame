@@ -20,7 +20,4 @@ public class Day {
       return numScenes;
    }
 
-
-
-
 }

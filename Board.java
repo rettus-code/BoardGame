@@ -3,12 +3,7 @@ public class Board {
    public static Room[] rooms = new Room[DeadWood.NUM_ROOMS];
    public Room currentRoom;
 
-   public Board() {
-      arrangeBoard();      
-   }
-
-   private void arrangeBoard() {
-
+   public Board() {      
    }
 
    public void dealSceneCards(SceneCard[] deck) {

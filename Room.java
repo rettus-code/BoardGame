@@ -3,8 +3,8 @@ abstract class Room {
    private int locationY;
    private int width;
    private int height;
-   public String name;
-   public String[] neighbors;
+   private String name;
+   private String[] neighbors;
 
    abstract boolean isSet();
    abstract boolean hasSceneCard();

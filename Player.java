@@ -13,7 +13,7 @@ public class Player {
 	private Room room;
 	private int rehearseCounter;
 	private Scanner scanner = new Scanner(System.in);
-   private boolean completedScene;
+	private boolean completedScene;
 
 	private enum TurnState {
 		BEGIN_TURN, MOVED, IN_ROLE, END_TURN
@@ -39,7 +39,7 @@ public class Player {
 		this.playerDie.setRoll(this.rank);
 		this.setRoom(room);
 		rehearseCounter = 0;
-      this.completedScene = false;
+		this.completedScene = false;
 	}
 
 	public int getLocationX() {
@@ -113,19 +113,22 @@ public class Player {
 	}
 
 	public void resetRole() {
-		if(this.currentRole != null) {	
+		if (this.currentRole != null) {
 			this.currentRole.completeRole();
 			this.currentRole = null;
 		} else {
 			// do nothing
-		}		
+		}
 	}
-   public void setCompletedScene(boolean reset){
-      this.completedScene = false;   
-   }
-   public boolean getCompletedScene(){
-      return this.completedScene;
-   }  
+
+	public void setCompletedScene(boolean reset) {
+		this.completedScene = false;
+	}
+
+	public boolean getCompletedScene() {
+		return this.completedScene;
+	}
+
 	public boolean takeTurn() {
 		boolean turnComplete = false;
 		System.out.printf("Player %d %s, your turn\n", this.id + 1, this.getName());
@@ -137,9 +140,9 @@ public class Player {
 				case BEGIN_TURN:
 					if (this.currentRole != null) {
 						this.current_state = TurnState.IN_ROLE;
-					} else if (this.room.name.equals("trailer")) {
+					} else if (this.room.getName().equals("trailer")) {
 						this.promptMove();
-					} else if (this.room.name.equals("office")) {
+					} else if (this.room.getName().equals("office")) {
 						this.promptUpgradeMove();
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						promptMove();
@@ -148,9 +151,9 @@ public class Player {
 					}
 					break;
 				case MOVED:
-					if (this.room.name.equals("trailer")) {
+					if (this.room.getName().equals("trailer")) {
 						this.endTurn();
-					} else if (this.room.name.equals("office")) {
+					} else if (this.room.getName().equals("office")) {
 						this.promptUpgrade();
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						this.endTurn();
@@ -181,7 +184,12 @@ public class Player {
 			System.out.println("2. rehearse");
 			System.out.println("3. end turn");
 			while (i != 1 && i != 2 && i != 3) {
-				i = scanner.nextInt();
+				try {
+					i = scanner.nextInt();
+				} catch (Exception e) {
+					scanner.next();
+					System.out.println("Please enter Numbers");
+				}
 			}
 
 			switch (i) {
@@ -204,7 +212,12 @@ public class Player {
 			System.out.println("1. act");
 			System.out.println("2. end turn");
 			while (i != 1 && i != 2) {
-				i = scanner.nextInt();
+				try {
+					i = scanner.nextInt();
+				} catch (Exception e) {
+					scanner.next();
+					System.out.println("Please enter Numbers");
+				}
 			}
 			switch (i) {
 				case 1:
@@ -229,7 +242,12 @@ public class Player {
 		System.out.println("3. endTurn");
 		int i = 0;
 		while (i != 1 && i != 2 && i != 3) {
-			i = scanner.nextInt();
+			try {
+				i = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				System.out.println("Please enter Numbers");
+			}
 		}
 		switch (i) {
 			case 1:
@@ -251,7 +269,12 @@ public class Player {
 		System.out.println("2. endTurn");
 		int i = 0;
 		while (i != 1 && i != 2) {
-			i = scanner.nextInt();
+			try {
+				i = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				System.out.println("Please enter Numbers");
+			}
 		}
 		switch (i) {
 			case 1:
@@ -265,20 +288,27 @@ public class Player {
 
 	private void promptUpgradeChoices() {
 		if (this.room.getName().equals("office")) {
+			System.out.println("**************Casting Office************");
+			System.out.println(this.toString());
 			System.out.println("Choose Your Upgrade:");
 			// print upgrades out
 			Upgrade[] upgrades;
 			CastingOffice co = (CastingOffice) this.room;
 			upgrades = co.getUpgrades(this.getRank());
 			int j = 0;
-			for (; j < upgrades.length; j++) {				
-				System.out.printf("%d. %s\n", j + 1, upgrades[j].toString());				
+			for (; j < upgrades.length; j++) {
+				System.out.printf("%d. %s\n", j + 1, upgrades[j].toString());
 			}
 			int end = j + 1;
 			System.out.printf("%d. cancel\n", end);
 			int i = 0;
 			while (i < 1 || i > end) {
-				i = scanner.nextInt();
+				try {
+					i = scanner.nextInt();
+				} catch (Exception e) {
+					scanner.next();
+					System.out.println("Please enter Numbers");
+				}
 			}
 
 			if (i == end) {
@@ -299,7 +329,12 @@ public class Player {
 		System.out.println("2. endTurn");
 		int i = 0;
 		while (i != 1 && i != 2) {
-			i = scanner.nextInt();
+			try {
+				i = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				System.out.println("Please enter Numbers");
+			}
 		}
 		switch (i) {
 			case 1:
@@ -320,7 +355,12 @@ public class Player {
 		System.out.println("3. endTurn");
 		int i = 0;
 		while (i != 1 && i != 2 && i != 3) {
-			i = scanner.nextInt();
+			try {
+				i = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				System.out.println("Please enter Numbers");
+			}
 		}
 
 		switch (i) {
@@ -344,7 +384,12 @@ public class Player {
 		System.out.println("2. endTurn");
 		int i = 0;
 		while (i != 1 && i != 2) {
-			i = scanner.nextInt();
+			try {
+				i = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				System.out.println("Please enter Numbers");
+			}
 		}
 
 		switch (i) {
@@ -371,7 +416,12 @@ public class Player {
 		}
 		int i = 0;
 		while (i < 1 || i > neighbors.length + 1) {
-			i = scanner.nextInt();
+			try {
+				i = scanner.nextInt();
+			} catch (Exception e) {
+				scanner.next();
+				System.out.println("Please enter Numbers");
+			}
 		}
 
 		Room moveRoom = Board.getRoom(neighbors[i - 1]);
@@ -385,25 +435,25 @@ public class Player {
 		// perform the chosen upgrade?
 		boolean success = false;
 		int amount = choice.getAmount();
-		String currency = choice.getCurrency();		
-		if(currency.equals("dollar")) {
-			if(payMoney(amount)) {
-				success = true;				
+		String currency = choice.getCurrency();
+		if (currency.equals("dollar")) {
+			if (payMoney(amount)) {
+				success = true;
 			} else {
 				// do nothing
 			}
-		} else if(currency.equals("credit")) {
-			if(payCredits(amount)) {
-				success = true;				
+		} else if (currency.equals("credit")) {
+			if (payCredits(amount)) {
+				success = true;
 			} else {
 				// do nothing
 			}
 		}
 
-		if(success) {
-			this.rank = choice.getLevel();		
+		if (success) {
+			this.rank = choice.getLevel();
 			System.out.printf("Upgrading to choice %s\n", choice.toString());
-			System.out.printf("Your rank is %s, your money is $%d, your credits = %d\n", this.getRank(), this.getMoney(), this.getCredits());
+			System.out.println(this.toString());
 		} else {
 			System.out.printf("Cannot upgrade to choice %s\n", choice.toString());
 		}
@@ -440,7 +490,12 @@ public class Player {
 			System.out.printf("%d. cancel\n", end);
 			i = 0;
 			while (i < 1 || i > end) {
-				i = scanner.nextInt();
+				try {
+					i = scanner.nextInt();
+				} catch (Exception e) {
+					scanner.next();
+					System.out.println("Please enter Numbers");
+				}
 			}
 
 			if (i == end) {
@@ -476,7 +531,7 @@ public class Player {
 
 	private void act() {
 		System.out.println("Roll the dice to act");
-		int roll = this.rollDice() + rehearseCounter;
+		int roll = this.rollDice() + rehearseCounter;	
 		System.out.printf("You rolled %d\n", roll);
 		if (this.room.isSet()) {
 			Set set = (Set) this.room;
@@ -543,12 +598,16 @@ public class Player {
 		if (wrapped) {
 			System.out.println("The scene is completed");
 			set.wrapScene();
-         this.completedScene = true;
+			this.completedScene = true;
 		}
 	}
 
 	private int rollDice() {
 		return Game.rollDice();
+	}
+
+	public String toString() {
+		return "Player" + this.getID() + " Rank:" + this.getRank() + " Money:$" + this.getMoney() + " Credits:" + this.getCredits();
 	}
 
 }
