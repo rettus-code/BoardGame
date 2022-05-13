@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1256</x>
+      <y>320</y>
+      <w>168</w>
+      <h>368</h>
+    </coordinates>
+    <panel_attributes>*Game*
+--
++gameDice : Dice
++gameBoard : Board
+-numPlayers : int
+-activePlayer: int
+-currentDay : Day
+-lastDay : int
+-deck: SceneCard[]
+-winner : int
+-playerArray : Player[];
+--
+*Responsibilities*
++determineStartingPlayer() : int
++getActivePlayer() : int
++rollDice() : int
++newDay() : void
++updateActivePlayer() : void
++dealSceneCards() : void
+-setNumPlayers() : void
+-shuffleDeck() : void
+-lastDay() : int
+-playerSetup() : void
+-endOfGame() : void
+--
+*Collaborators*
+Player
+Dice
+Scenecard</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1016</x>
+      <y>424</y>
+      <w>168</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>*Board*
+--
++ boardSections : String[]
++rooms : Room[]
++currentRoom : Room
+--
+*Responsibilities*
++dealSceneCards() : void
++setRoom() : void
++getRoom() : Room
+--
+*Collaborators*
+DeadWood
+Game
+BoardSection
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>944</x>
+      <y>736</y>
+      <w>168</w>
+      <h>544</h>
+    </coordinates>
+    <panel_attributes>*Player*
+--
+-locationX : int
+-locationX : int
+-name : String
+-id: int
+-rank : int
+-money : int
+-credits : int
+-playerDie : Dice
+-currentRole : Role
+-room : Room
+-rehearseCounter : int
+-scanner : Scanner
+-completedScene : boolean
+-enum current_state: TurnState
+--
+*Responsibilities*
++getID() : int
++getMoney() : int
++getRank() : int
++getCredits() : int
++countScore() : int
++getLocation() : Room
++takeTurn() : boolean
++resetRole() : void
++toString() : String
++takeRole() : boolean
+-setRoom() : void
+-upgrade() : void
++rehearseReset() : void
+-move() : void
+-act() : void
+-rehearse() : void
+-rollDice() : int
+-payMoney() : void
+-payCredits() : void
+-removeShotCounter() : void
+-promptInRole() : void
+-promptUpgrade(): void
+-promptUpgradeChoices(): void
+-promptUpgradeMove(): void
+-promptMove(): void
+-promptTakeRoleMove() : void
+-promptTakeRole() : void
+-endTurn() : void
+--
+*Collaborators*
+Game
+Dice
+Role
+Room
+Set
+SceneCard
+CastingOffice
+Trailer
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>472</x>
+      <y>728</y>
+      <w>168</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>*Set*
+--
++parts : Role[]
++takes : Takes[]
++takesCompleted: int
+-sceneCard : SceneCard
+--
+*Responsibilities*
++getRoles : Role[]
++getSceneCard() : SceneCard
++hasSceneCard() : bool
++isSet() : bool
++addSceneCard() : void
+-removeSceneCard() : void
+-wrapScene() : void
+--
+*Collaborators*
+Room
+SceneCard
+Role
+Take</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>1032</y>
+      <w>168</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>*SceneCard*
+--
+-locationX : int
+-locationX : int
+-width : int
+-height : int
+-name : String
+-budget: int
+-number: int
+-setting: String
+-parts : Role[]
+-isFlipped : bool
+-img : String
+--
+*Responsibilities*
++flipCard() : Role[]
++getBudget() : int
++getRoles() : Role[]
++isFlipped() : bool
+--
+*Collaborators*
+Room
+Set
+Player
+Role</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1104</x>
+      <y>624</y>
+      <w>168</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=2..8
+</panel_attributes>
+    <additional_attributes>190.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1192</x>
+      <y>736</y>
+      <w>136</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>*Dice*
+--
+-roll: int
+-numSides: int
+--
+*Responsibilities*
++rollDice() : int
++getRoll() : int
+--
+*Collaborators*
+Game
+Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1104</x>
+      <y>984</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1264</x>
+      <y>680</y>
+      <w>56</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..n</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1176</x>
+      <y>480</y>
+      <w>96</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>100.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>960</y>
+      <w>40</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;90.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>424</y>
+      <w>168</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>*/Room/*
+--
+-locationX : int
+-locationX : int
+-width : int
+-height : int
+-name : String
+-neighbors : String[]
+--
+*Responsibilities*
+/+isSet() : bool/
+/+getNeighbors() : Room[]/
++getName() : String
++setName() : void
++setNeighbors() : void
++getNeighbors() : void
+--
+*Collaborators*
+DeadWood
+Player
+Board
+Set
+Trailers
+CastingOffice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>480</y>
+      <w>352</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=16
+</panel_attributes>
+    <additional_attributes>420.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>664</y>
+      <w>64</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>888</y>
+      <w>168</w>
+      <h>392</h>
+    </coordinates>
+    <panel_attributes>*Role*
+--
+-locationX : int
+-locationX : int
+-width : int
+-height : int
+-name : String
+-line : String
+-level : int
+-onCard : boolean
+-isTaken : boolean
+--
+*Responsibilities*
++takeRole() : boolean
++completeRole() : void
++isOnCard() :boolean
++isTaken() : boolean
++toString() : String
++act() : boolean
+-rehearse() : boolean
++toString() : String
+--
+*Collaborators*
+Player
+Dice
+Role
+Room
+SceneCard</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>632</x>
+      <y>784</y>
+      <w>120</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..4</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0;110.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>960</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>248</x>
+      <y>424</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>*CastingOffice*
+--
+-upgrades : Upgrade[]
+--
+*Responsibilities*
++upgrade() : bool
++isSet() : bool
++getUpgrades() : Upgrade[]
++hasSceneCard() : boolean
+--
+*Collaborators*
+Room
+Player
+Upgrade</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>640</y>
+      <w>168</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>*Trailers*
+--
+--
+*Responsibilities*
++isSet() : boolean
++hasSceneCard : boolean
+--
+*Collaborators*
+Room
+Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>576</y>
+      <w>136</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>408</x>
+      <y>488</y>
+      <w>128</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1496</x>
+      <y>424</y>
+      <w>168</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>*Day*
+--
+-dayNum : int
+-numScenes : int
+--
+*Responsibilities*
+-setDayNum() : void
++replaceShotCounters() : void	
+-endDay() : void
+--
+*Collaborators*
+Game
+Set
+Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1416</x>
+      <y>512</y>
+      <w>96</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>424</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>*Upgrade*
+--
+-locationX : int
+-locationX : int
+-width : int
+-height : int
+-level : int
+-currency: String
+-amount: int
+--
+*Responsibilities*
++getLevel() : int
++getCurrency() : String
++getAmount() : int
++toString(): String
+--
+*Collaborators*
+CastingOffice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>488</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=12</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>1072</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1..3</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1080</x>
+      <y>32</y>
+      <w>168</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>*XML*
+--
+
+--
+*Responsibilities*
++getDocFromFile : Document
++readBoardData() : Room[]
++readSceneData() : SceneCard[]
+--
+Collaborators*
+Game
+Document</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1200</x>
+      <y>960</y>
+      <w>136</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>*PlayerDie*
+--
+-locationX : int
+-locationX : int
+-width : int
+-height : int
+-roll: int
+-numSides: int
+--
+*Responsibilities*
+-getRoll() : int
++setRoll();
+--
+*Collaborators*
+Game
+Player
+Dice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1232</x>
+      <y>880</y>
+      <w>32</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1104</x>
+      <y>800</y>
+      <w>104</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>m1=1
+m2=2..8
+</panel_attributes>
+    <additional_attributes>110.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>576</y>
+      <w>280</w>
+      <h>256</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..8
+m2=1
+</panel_attributes>
+    <additional_attributes>330.0;290.0;230.0;290.0;230.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>768</x>
+      <y>208</y>
+      <w>168</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>*DeadWood*
+--
+-static final NUM_ROOMS : int
+-static final NUM_SCENECARDS : int
+-static final BOARD_FILE : String
+-static final SCENE_FILE : String
+-scanner : Scanner
+--
+*Responsibilities*
++main() : void
+-playGame() : void
+-readDataFiles() : void
+--
+*Collaborators*
+Player
+Game
+Board
+Room
+Dice</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>248</y>
+      <w>208</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>m1=1
+m2=16
+</panel_attributes>
+    <additional_attributes>240.0;20.0;10.0;20.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>928</x>
+      <y>280</y>
+      <w>216</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;20.0;240.0;20.0;240.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>928</x>
+      <y>232</y>
+      <w>432</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>10.0;20.0;510.0;20.0;510.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>680</y>
+      <w>840</w>
+      <h>704</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=40
+</panel_attributes>
+    <additional_attributes>1020.0;10.0;1010.0;850.0;60.0;860.0;60.0;660.0;10.0;660.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>856</y>
+      <w>168</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>*Takes*
+--
+-locationX : int
+-locationX : int
+-width : int
+-height : int
+-number : int
+-complete: boolean
+--
+*Responsibilities*
++isComplete() : boolean
++setComplete() : void
+--
+*Collaborators*
+Set</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>896</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=0..3</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>912</x>
+      <y>112</y>
+      <w>184</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>210.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+</diagram>

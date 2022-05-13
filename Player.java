@@ -27,7 +27,7 @@ public class Player {
 		if (numPlayers == 7 || numPlayers == 8) {
 			this.rank = 2;
 		} else {
-			this.rank = 6;// change back to 1
+			this.rank = 1;
 		}
 		this.money = 0;
 		if (numPlayers == 5) {
@@ -97,7 +97,7 @@ public class Player {
 	}
 
 	public int countScore() {
-		return this.money + this.rank + this.credits;
+		return this.money + (5 * this.rank) + this.credits;
 	}
 
 	public Room getLocation() {
@@ -531,7 +531,7 @@ public class Player {
 
 	private void act() {
 		System.out.println("Roll the dice to act");
-		int roll = this.rollDice() + rehearseCounter;	
+		int roll = this.rollDice() + rehearseCounter;
 		System.out.printf("You rolled %d\n", roll);
 		if (this.room.isSet()) {
 			Set set = (Set) this.room;
@@ -607,7 +607,8 @@ public class Player {
 	}
 
 	public String toString() {
-		return "Player" + this.getID() + " Rank:" + this.getRank() + " Money:$" + this.getMoney() + " Credits:" + this.getCredits();
+		return "Player" + this.getID() + " Rank:" + this.getRank() + " Money:$" + this.getMoney() + " Credits:"
+				+ this.getCredits();
 	}
 
 }

@@ -3,15 +3,15 @@ public class Board {
    public static Room[] rooms = new Room[DeadWood.NUM_ROOMS];
    public Room currentRoom;
 
-   public Board() {      
+   public Board() {
    }
 
    public void dealSceneCards(SceneCard[] deck) {
       int k = 0;
-      for(int i = 0; i < rooms.length; i++) {
-         if(rooms[i].isSet()) {
-            Set set = (Set)rooms[i];
-            if(!set.hasSceneCard()) {
+      for (int i = 0; i < rooms.length; i++) {
+         if (rooms[i].isSet()) {
+            Set set = (Set) rooms[i];
+            if (!set.hasSceneCard()) {
                set.addSceneCard(deck[k]);
                k++;
             }
@@ -21,7 +21,7 @@ public class Board {
 
    public void setRoom(Room room, int index) {
       /* use this to build all 12 rooms and push int rooms array */
-      rooms[index]=room;
+      rooms[index] = room;
    }
 
    public static Room getRoom(String roomName) {

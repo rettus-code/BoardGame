@@ -21,9 +21,11 @@ public class SceneCard {
       this.isFlipped = false;
       this.img = img;
    }
+
    public String getName() {
       return this.name;
    }
+
    public String getSetting() {
       return this.setting;
    }
