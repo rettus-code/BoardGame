@@ -665,7 +665,7 @@ m2=1
       <x>768</x>
       <y>208</y>
       <w>168</w>
-      <h>176</h>
+      <h>296</h>
     </coordinates>
     <panel_attributes>*DeadWood*
 --
@@ -677,6 +677,7 @@ m2=1
 --
 *Responsibilities*
 +main() : void
+-playGame() : void
 -readDataFiles() : void
 --
 *Collaborators*

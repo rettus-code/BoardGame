@@ -79,7 +79,7 @@ public class Role {
 
    public boolean takeRole() {
       boolean result = false;
-      if(!isTaken()) {
+      if (!isTaken()) {
          this.isTaken = true;
          result = true;
       } else {

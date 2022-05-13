@@ -2,13 +2,13 @@ public class Take {
     private int locationX;
     private int locationY;
     private int height;
-    private int width; 
+    private int width;
     private int number;
     private boolean complete;
 
     public Take(int x, int y, int h, int w, int num) {
         this.setLocationX(x);
-        this.setLocationY(y);        
+        this.setLocationY(y);
         this.setHeight(h);
         this.setWidth(w);
         this.setNumber(num);

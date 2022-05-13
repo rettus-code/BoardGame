@@ -1,7 +1,7 @@
 import java.util.*;
-import java.util.Scanner;
+
 public class Game {
-   public static Dice gameDice = new Dice();
+   public static Dice gameDice = new Dice(6);
    public Board gameBoard = new Board();
    public static Player[] playerArray = new Player[8];
    private int numPlayers;
@@ -11,7 +11,6 @@ public class Game {
    private List<SceneCard> shuffledDeck = new ArrayList<>();
    private int winner;
    private int lastDay;
-   private Player buildPlayer;
 
    private Game() {
    };
@@ -41,23 +40,25 @@ public class Game {
       System.out.println("Scenes left: " + scenes);
       if (scenes < 2) {
          endDay();
-         if(this.currentDay.getDay() == lastDay()){
+         if (this.currentDay.getDay() == lastDay()) {
             endOfGame();
          }
          newDay();
       }
    }
-   public void checkScene(){
-      for(int i =0; i < this.numPlayers; i++){
-         if(playerArray[i].getCompletedScene()){
+
+   public void checkScene() {
+      for (int i = 0; i < this.numPlayers; i++) {
+         if (playerArray[i].getCompletedScene()) {
             sceneComplete();
             playerArray[i].setCompletedScene(false);
          }
       }
    }
+
    public void updateActivePlayer() {
-      checkScene();//check if player completed a scene
-      if (this.activePlayer < this.numPlayers-1) { // players array is zero indexed
+      checkScene();// check if player completed a scene
+      if (this.activePlayer < this.numPlayers - 1) { // players array is zero indexed
          activePlayer++;
       } else {
          activePlayer = 0;
@@ -69,10 +70,6 @@ public class Game {
    }
 
    public void playerSetup(Player playa) {
-      /*
-       * this will need to create each player, modify attributes based on
-       * player numbers and add each player to playerArray
-       */
       this.playerArray[playa.getID()] = playa;
    }
 
@@ -85,11 +82,6 @@ public class Game {
          this.currentDay = new Day(currentDay.getDay(), deck);
          dealSceneCards();
       }
-
-//       if (this.currentDay.getDay() == this.lastDay) {
-//          System.out.println("end of game");
-//          endOfGame();
-//       }
    }
 
    public static int getActivePlayer() {
@@ -114,8 +106,8 @@ public class Game {
          }
 
          SceneCard card = new SceneCard(temp[0], temp[1], budget, scene, temp[4], stars);
-         //System.out.println(card.getName());
-         //System.out.println(card.getSetting());
+         // System.out.println(card.getName());
+         // System.out.println(card.getSetting());
          deck[i] = card;
 
       }
@@ -125,14 +117,14 @@ public class Game {
    private void shuffleDeck() {
       for (int i = 0; i < deck.length; i++) {
          shuffledDeck.add(deck[i]);
-     }
-     Collections.shuffle(shuffledDeck);
+      }
+      Collections.shuffle(shuffledDeck);
    }
 
    public void dealSceneCards() {
       // get top 10 cards from the shuffled deck
       SceneCard[] deck = new SceneCard[10];
-      for(int i = 0; i < 10; i++) {
+      for (int i = 0; i < 10; i++) {
          deck[i] = shuffledDeck.remove(i);
       }
       // pass the 10 cards to the gameboard to add 1 to each Set
@@ -237,7 +229,8 @@ public class Game {
          return 4;
       }
    }
-      public void endDay() {
+
+   public void endDay() {
       for (int i = 0; i < this.numPlayers; i++) {
          playerArray[i].resetRole();
          playerArray[i].rehearseReset();
@@ -245,31 +238,22 @@ public class Game {
       }
 
    }
+
    private void endOfGame() {
       System.out.println("Game Over");
       int topScore = 0;
       String winner = "";
-      for(int i = 0; i < numPlayers; i++) {
-         int temp = 0;
-         temp += playerArray[i].getMoney();
-         temp += playerArray[i].getCredits();
-         temp += playerArray[i].getRank() * 5;
-         System.out.println("" + playerArray[i].getName() + "'s Score " + temp);
-         if(temp > topScore) {
-            topScore = temp;
+      for (int i = 0; i < numPlayers; i++) {
+         int score = playerArray[i].countScore();
+         System.out.println("" + playerArray[i].getName() + "'s Score " + score);
+         if (score > topScore) {
+            topScore = score;
             winner = playerArray[i].getName();
-         }      
+            this.winner = i;
+         }
       }
+
       System.out.println("" + winner + " is the winner with a final score of " + topScore);
-      System.exit(0);// 
-      // char newGame = "";
-//       scanner.nextLine(); 
-//       System.out.println("would you like to play again Y or N?");
-//       newGame = scanner.next(); 
-//       if(newGame == equalsIgnoreCase("y")){
-//          
-//       } else {
-//          System.exit(0);
-//       }
    }
+
 }
