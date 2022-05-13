@@ -89,7 +89,4 @@ public class SceneCard {
       return this.isFlipped;
    }
 
-   public void wrapScene() {
-
-   }
 }

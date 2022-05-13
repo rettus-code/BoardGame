@@ -67,14 +67,14 @@ public class Set extends Room {
                      .getName() && Game.playerArray[j].getCurrentRole() != null) {
                    
                   if (roles[i].getName() == Game.playerArray[j].getCurrentRole().getName()
-                        && Game.playerArray[Game.getActivePlayer()].getRoom().getName() == this.name) {
+                        && Game.playerArray[Game.getActivePlayer()].getRoom().getName() == this.getName()) {
                      if (Game.playerArray[j].getCurrentRole().isOnCard()) {
                         anyOnCard = true;
                         onCard[j] = 1;
                      } else {
                         offCard[j] = 1;
                      }
-                     Game.playerArray[j].setRoom(Board.getRoom(this.name));
+                     Game.playerArray[j].setRoom(Board.getRoom(this.getName()));
 
                   }
                }
@@ -142,17 +142,6 @@ public class Set extends Room {
          return true;
       }
       return false;
-   }
-
-   private int getNumCompletedShotCounters() {
-      // returns the number of not completed shot counters (Takes)
-      int num = 0;
-      for (int i = 0; i < takes.length; i++) {
-         if (!takes[i].isComplete()) {
-            num++;
-         }
-      }
-      return num;
-   }
+   }  
 
 }
