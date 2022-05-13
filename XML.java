@@ -38,7 +38,7 @@ public class XML {
          if (set.getNodeType() == Node.ELEMENT_NODE) {
             Element setElement = (Element) set;
             String setName = set.getAttributes().getNamedItem("name").getNodeValue();
-            rooms[i] = setName + "@";            
+            rooms[i] = setName + "@";
             NodeList neighbors = setElement.getElementsByTagName("neighbor");
             rooms[i] += "" + neighbors.getLength() + "@";
             for (int n = 0; n < neighbors.getLength(); n++) {
@@ -50,7 +50,7 @@ public class XML {
             rooms[i] += areaStringified(setPosit);
 
             NodeList takes = setElement.getElementsByTagName("take");
-            rooms[i] += "" + takes.getLength() + "@";            
+            rooms[i] += "" + takes.getLength() + "@";
             for (int j = 0; j < takes.getLength(); j++) {
                String takeNumber = takes.item(j).getAttributes().getNamedItem("number").getNodeValue();
                rooms[i] += "" + takeNumber + "@";
@@ -60,16 +60,16 @@ public class XML {
             }
 
             NodeList parts = setElement.getElementsByTagName("part");
-            rooms[i] += "" + parts.getLength() + "@";              
+            rooms[i] += "" + parts.getLength() + "@";
             for (int k = 0; k < parts.getLength(); k++) {
                Element part = (Element) parts.item(k);
                String partName = part.getAttributes().getNamedItem("name").getNodeValue();
                rooms[i] += "" + partName + "@";
                String level = part.getAttributes().getNamedItem("level").getNodeValue();
-               rooms[i] += "" + level + "@";               
+               rooms[i] += "" + level + "@";
                NodeList partLine = part.getElementsByTagName("line");
                String pLine = partLine.item(0).getTextContent();
-               rooms[i] += "" + pLine + "@";               
+               rooms[i] += "" + pLine + "@";
                NodeList partPosit = part.getElementsByTagName("area");
                rooms[i] += areaStringified(partPosit);
             }
@@ -80,14 +80,14 @@ public class XML {
       Node trailer = trailers.item(0);
       if (trailer.getNodeType() == Node.ELEMENT_NODE) {
          final int TRAILER_INDEX = 10;
-         Element setElement = (Element) trailer;         
-         rooms[TRAILER_INDEX] = setElement.getNodeName() + "@";            
+         Element setElement = (Element) trailer;
+         rooms[TRAILER_INDEX] = setElement.getNodeName() + "@";
          NodeList neighbors = setElement.getElementsByTagName("neighbor");
-            rooms[TRAILER_INDEX] += "" + neighbors.getLength() + "@";
-            for (int n = 0; n < neighbors.getLength(); n++) {
-               String neighborName = neighbors.item(n).getAttributes().getNamedItem("name").getNodeValue();
-               rooms[TRAILER_INDEX] += "" + neighborName + "@";
-            }
+         rooms[TRAILER_INDEX] += "" + neighbors.getLength() + "@";
+         for (int n = 0; n < neighbors.getLength(); n++) {
+            String neighborName = neighbors.item(n).getAttributes().getNamedItem("name").getNodeValue();
+            rooms[TRAILER_INDEX] += "" + neighborName + "@";
+         }
          NodeList trailerPosit = setElement.getElementsByTagName("area");
          rooms[TRAILER_INDEX] += areaStringified(trailerPosit);
       }
@@ -96,22 +96,23 @@ public class XML {
       Node office = offices.item(0);
       if (office.getNodeType() == Node.ELEMENT_NODE) {
          final int OFFICE_INDEX = 11;
-         Element setElement = (Element) office;         
-         rooms[OFFICE_INDEX] = setElement.getNodeName() + "@";      
+         Element setElement = (Element) office;
+         rooms[OFFICE_INDEX] = setElement.getNodeName() + "@";
          NodeList neighbors = setElement.getElementsByTagName("neighbor");
-            rooms[OFFICE_INDEX] += "" + neighbors.getLength() + "@";
-            for (int n = 0; n < neighbors.getLength(); n++) {
-               String neighborName = neighbors.item(n).getAttributes().getNamedItem("name").getNodeValue();
-               rooms[OFFICE_INDEX] += "" + neighborName + "@";
-            }
+         rooms[OFFICE_INDEX] += "" + neighbors.getLength() + "@";
+         for (int n = 0; n < neighbors.getLength(); n++) {
+            String neighborName = neighbors.item(n).getAttributes().getNamedItem("name").getNodeValue();
+            rooms[OFFICE_INDEX] += "" + neighborName + "@";
+         }
          NodeList upgrades = d.getElementsByTagName("upgrade");
          rooms[OFFICE_INDEX] += "" + upgrades.getLength() + "@";
          for (int i = 0; i < upgrades.getLength(); i++) {
             Node upgrade = upgrades.item(i);
-            if (upgrade.getNodeType() == Node.ELEMENT_NODE) {             
+            if (upgrade.getNodeType() == Node.ELEMENT_NODE) {
                rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("level").getNodeValue() + "@";
                rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("amt").getNodeValue() + "@";
-               rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("currency").getNodeValue() + "@";               
+               rooms[OFFICE_INDEX] += "" + upgrades.item(i).getAttributes().getNamedItem("currency").getNodeValue()
+                     + "@";
                NodeList upgradePosit = setElement.getElementsByTagName("area");
                rooms[OFFICE_INDEX] += areaStringified(upgradePosit);
             }

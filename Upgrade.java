@@ -15,7 +15,7 @@ public class Upgrade {
       this.setLocationX(x);
       this.setLocationY(y);
       this.setWidth(w);
-      this.setHeight(h);    
+      this.setHeight(h);
    }
 
    public int getLocationX() {
@@ -72,7 +72,7 @@ public class Upgrade {
 
    public String toString() {
       String upgradeStr = "level:" + this.level + ", currency:" + this.currency + ", amount:" + this.amount;
-      return upgradeStr;     
+      return upgradeStr;
    }
 
 }

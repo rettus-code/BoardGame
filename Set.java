@@ -65,7 +65,7 @@ public class Set extends Room {
             if (Game.playerArray[j] != null) {
                if (Game.playerArray[j].getRoom().getName() == Game.playerArray[Game.getActivePlayer()].getRoom()
                      .getName() && Game.playerArray[j].getCurrentRole() != null) {
-                   
+
                   if (roles[i].getName() == Game.playerArray[j].getCurrentRole().getName()
                         && Game.playerArray[Game.getActivePlayer()].getRoom().getName() == this.getName()) {
                      if (Game.playerArray[j].getCurrentRole().isOnCard()) {
@@ -127,12 +127,12 @@ public class Set extends Room {
             if (offCard[i] == 1) {
                Game.playerArray[i].resetRole();
                Game.playerArray[i].rehearseReset();
-               //System.out.println(Game.playerArray[i].getName());
+               // System.out.println(Game.playerArray[i].getName());
             }
          }
       }
       removeSceneCard();
-      
+
    }
 
    public boolean removeShotCounter() {
@@ -142,6 +142,6 @@ public class Set extends Room {
          return true;
       }
       return false;
-   }  
+   }
 
 }

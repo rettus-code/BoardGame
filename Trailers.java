@@ -6,7 +6,7 @@ public class Trailers extends Room {
       this.setLocationX(x);
       this.setLocationY(y);
       this.setWidth(w);
-      this.setHeight(h);    
+      this.setHeight(h);
       this.setNeighbors(neighbors);
    }
 

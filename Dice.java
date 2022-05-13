@@ -1,6 +1,6 @@
 public class Dice {
    private int roll;
-   private int numSides;
+   protected int numSides;
 
    public Dice() {
    }
@@ -10,7 +10,7 @@ public class Dice {
    }
 
    public int rollDice() {
-      this.roll = (int) (Math.random() * 6) + 1;
+      this.roll = (int) (Math.random() * this.numSides) + 1;
       return this.roll;
    }
 

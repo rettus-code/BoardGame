@@ -2,6 +2,7 @@ public class Day {
    private int dayNum;
    public static int numScenes;
    private SceneCard[] deck;
+
    private Day() {
    };
 
