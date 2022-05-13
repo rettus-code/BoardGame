@@ -232,7 +232,7 @@ public class Game {
 
    private int lastDay() {
       if (this.numPlayers < 4) {
-         return 3;
+         return 2;
       } else {
          return 4;
       }
@@ -247,5 +247,19 @@ public class Game {
    }
    private void endOfGame() {
       System.out.println("Game Over");
+      int topScore = 0;
+      String winner = "";
+      for(int i = 0; i < numPlayers; i++) {
+         int temp = 0;
+         temp += playerArray[i].getMoney();
+         temp += playerArray[i].getCredits();
+         temp += playerArray[i].getRank() * 5;
+         System.out.println("" + playerArray[i].getName() + "'s Score " + temp);
+         if(temp > topScore) {
+            topScore = temp;
+            winner = playerArray[i].getName();
+         }      
+      }
+      System.out.println("" + winner + " is the winner with a final score of " + topScore);
    }
 }

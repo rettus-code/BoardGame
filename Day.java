@@ -6,7 +6,7 @@ public class Day {
    };
 
    public Day(int dNum, SceneCard[] d) {
-      this.dayNum = dNum++;
+      this.dayNum = ++dNum;
       this.deck = d;
       this.numScenes = 10;
       System.out.println("it is now day : " + this.dayNum);
