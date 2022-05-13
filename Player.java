@@ -27,7 +27,7 @@ public class Player {
 		if (numPlayers == 7 || numPlayers == 8) {
 			this.rank = 2;
 		} else {
-			this.rank = 6;// change back to 1
+			this.rank = 1;// change back to 1
 		}
 		this.money = 0;
 		if (numPlayers == 5) {
