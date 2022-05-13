@@ -36,7 +36,27 @@ public class Game {
       return this.lastDay;
    }
 
+   public void sceneComplete() {
+      int scenes = --Day.numScenes;
+      System.out.println("Scenes left: " + scenes);
+      if (scenes < 2) {
+         endDay();
+         newDay();
+         if(this.currentDay.getDay() == lastDay()){
+            endOfGame();
+         }
+      }
+   }
+   public void checkScene(){
+      for(int i =0; i < this.numPlayers; i++){
+         if(playerArray[i].getCompletedScene()){
+            sceneComplete();
+            playerArray[i].setCompletedScene(false);
+         }
+      }
+   }
    public void updateActivePlayer() {
+      checkScene();//check if player completed a scene
       if (this.activePlayer < this.numPlayers-1) { // players array is zero indexed
          activePlayer++;
       } else {
@@ -66,10 +86,10 @@ public class Game {
          dealSceneCards();
       }
 
-      if (this.currentDay.getDay() == this.lastDay) {
-         System.out.println("end of game");
-         endOfGame();
-      }
+//       if (this.currentDay.getDay() == this.lastDay) {
+//          System.out.println("end of game");
+//          endOfGame();
+//       }
    }
 
    public static int getActivePlayer() {
@@ -217,8 +237,15 @@ public class Game {
          return 4;
       }
    }
+      public void endDay() {
+      for (int i = 0; i < this.numPlayers; i++) {
+         playerArray[i].resetRole();
+         playerArray[i].rehearseReset();
+         playerArray[i].setRoom(Board.getRoom("trailer"));
+      }
 
+   }
    private void endOfGame() {
-
+      System.out.println("Game Over");
    }
 }
