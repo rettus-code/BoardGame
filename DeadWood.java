@@ -11,6 +11,13 @@ public class DeadWood {
    private static Scanner scanner = new Scanner(System.in);
 
    public static void main(String[] args) {
+      try{
+         BoardLayersListener boardUI = BoardLayersListener.getInstance();
+      } catch (Exception e) {
+            System.out.println("Something went wrong:");
+            e.printStackTrace();
+      }
+
       boolean quit = false;
       int i = 0;
       while (!quit) {
