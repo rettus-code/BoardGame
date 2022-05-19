@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BoardLayersListener extends JFrame {
-   private static BoardLayersListener instance = null;
+   public static BoardLayersListener instance = null;
 
   // JLabels
   JLabel boardlabel;
