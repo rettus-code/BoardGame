@@ -1,4 +1,7 @@
 import org.w3c.dom.Document;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -11,24 +14,32 @@ public class DeadWood {
    private static Scanner scanner = new Scanner(System.in);
 
    public static void main(String[] args) {
-      boolean quit = false;
-      int i = 0;
-      while (!quit) {
-         playGame();
-         System.out.print("That was fun! Play again?\n1. Yes\n2. No\n");
-         while (i != 1 && i != 2) {
-            try {
-               i = scanner.nextInt();
-            } catch (Exception e) {
-               scanner.next();
-               System.out.println("Please enter a number");
+      try{
+         BoardLayersListener boardUI = BoardLayersListener.getInstance();
+         boardUI.setVisible(true);
+
+         boolean quit = false;
+         int i = 0;
+         while (!quit) {
+            playGame();
+            System.out.print("That was fun! Play again?\n1. Yes\n2. No\n");
+            while (i != 1 && i != 2) {
+               try {
+                  i = scanner.nextInt();
+               } catch (Exception e) {
+                  scanner.next();
+                  System.out.println("Please enter a number");
+               }
+            }
+            if (i == 2) {
+               quit = true; // quit
+            } else {
+               i = 0; // restart the menu
             }
          }
-         if (i == 2) {
-            quit = true; // quit
-         } else {
-            i = 0; // restart the menu
-         }
+      } catch (Exception e) {
+            System.out.println("Something went wrong:");
+            e.printStackTrace();
       }
    }
 
