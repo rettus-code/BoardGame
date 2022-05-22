@@ -2,6 +2,22 @@ package model;
 import java.util.*;
 
 public class Game {
+
+   public interface observer {
+      void stateChanged(Game game);
+   }
+   private ArrayList<observer> observers;
+
+   public void subscribe(observer o) {
+      observers.add(o);
+   }
+
+   protected void stateChanged(Game game){
+      for(observer o : observers) {
+          o.stateChanged(this);
+       }
+  }
+  
    public static Dice gameDice = new Dice(6);
    public Board gameBoard = new Board();
    public static Player[] playerArray = new Player[8];
@@ -17,6 +33,7 @@ public class Game {
    };
 
    public Game(int numPlayers) {
+      this.observers = new ArrayList<observer>();
       this.numPlayers = numPlayers;
       this.activePlayer = determineStartingPlayer();
       this.lastDay = lastDay();
@@ -50,6 +67,7 @@ public class Game {
          }
          newDay();
       }
+      stateChanged(this);
    }
 
    public void checkScene() {
@@ -68,6 +86,7 @@ public class Game {
       } else {
          activePlayer = 0;
       }
+      stateChanged(this);
    }
 
    public static int rollDice() {
@@ -87,6 +106,7 @@ public class Game {
          this.currentDay = new Day(currentDay.getDay(), deck);
          dealSceneCards();
       }
+      stateChanged(this);
    }
 
    public static int getActivePlayer() {
@@ -241,7 +261,7 @@ public class Game {
          playerArray[i].rehearseReset();
          playerArray[i].setRoom(Board.getRoom("trailer"));
       }
-
+      stateChanged(this);
    }
 
    private void endOfGame() {
