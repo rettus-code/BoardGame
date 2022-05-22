@@ -1,11 +1,12 @@
 package model;
-
+import view.*;
 public class Board {
    public String[] boardSections = new String[] { "topRight", "bottomLeft", "bottomRight", "topLeft" };
    public static Room[] rooms = new Room[DeadWood.NUM_ROOMS];
    public Room currentRoom;
-
-   public Board() {
+   public BoardView board;
+   public Board(BoardView board) {
+      this.board = board;
    }
 
    public void dealSceneCards(SceneCard[] deck) {
@@ -15,6 +16,9 @@ public class Board {
             Set set = (Set) rooms[i];
             if (!set.hasSceneCard()) {
                set.addSceneCard(deck[k]);
+               //if(k==0){
+               board.addCard(deck[k].getImage(), set.getCardPosition());
+               //}
                k++;
             }
          }

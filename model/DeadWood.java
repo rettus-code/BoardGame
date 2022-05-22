@@ -1,4 +1,5 @@
 package model;
+import view.*;
 import org.w3c.dom.Document;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
