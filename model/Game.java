@@ -1,4 +1,5 @@
 package model;
+import view.*;
 import java.util.*;
 
 public class Game {
@@ -19,7 +20,7 @@ public class Game {
   }
   
    public static Dice gameDice = new Dice(6);
-   public Board gameBoard = new Board();
+   public Board gameBoard;
    public static Player[] playerArray = new Player[8];
    private int numPlayers;
    public static int activePlayer;
@@ -28,16 +29,17 @@ public class Game {
    private List<SceneCard> shuffledDeck = new ArrayList<>();
    private int winner;
    private int lastDay;
-
+   private static BoardView board;
    private Game() {
    };
 
-   public Game(int numPlayers) {
+   public Game(int numPlayers, BoardView board) {
       this.observers = new ArrayList<observer>();
       this.numPlayers = numPlayers;
       this.activePlayer = determineStartingPlayer();
       this.lastDay = lastDay();
-      // playerSetup();
+      this.board = board;
+      this.gameBoard = new Board(board);
       newDay();
    }
 

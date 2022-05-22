@@ -9,7 +9,9 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 
 public class BoardView extends JFrame {   
-
+    public interface cardsOnBoard{
+      public void addCards();
+    }
     // Eager Initialization
     private static BoardView instance = new BoardView();
 
@@ -44,7 +46,6 @@ public class BoardView extends JFrame {
         super("Deadwood");
         initBoard();
         initActionsMenu();
-
         activeplayerlabel = new JLabel("Current Player: ");
         activeplayerlabel.setBounds(boardIcon.getIconWidth() + 40, 0, 150, 20);
         bPane.add(activeplayerlabel, new Integer(2));
@@ -74,17 +75,17 @@ public class BoardView extends JFrame {
         return instance;
     }
 
-    public void addCard() {
+    public void addCard(String image, int[] point) {
         // Add a scene card to this room
         cardlabel = new JLabel();
-        ImageIcon cIcon = new ImageIcon("images/cards/01.png");
+        System.out.println(image + " " + point[0] + " " + point[1]);
+        ImageIcon cIcon = new ImageIcon("images/cards/" + image);
         cardlabel.setIcon(cIcon);
-        cardlabel.setBounds(20, 65, cIcon.getIconWidth() + 2, cIcon.getIconHeight());
+        cardlabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
         cardlabel.setOpaque(true);
 
         // Add the card to the lower layer
         bPane.add(cardlabel, new Integer(1));
-
     }
 
     public void initPlayerDice(Player[] playerArray) {

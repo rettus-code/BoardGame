@@ -80,7 +80,12 @@ public class SceneCard {
       }
       return this.parts;
    }
-
+   public String getImage(){
+      if(!isFlipped){
+         return this.img;
+      }
+      return "CardBack.jpg";
+   }
    public int getBudget() {
       return this.budget;
    }
