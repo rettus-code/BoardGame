@@ -1,3 +1,5 @@
+package model;
+
 public class Day {
    private int dayNum;
    public static int numScenes;

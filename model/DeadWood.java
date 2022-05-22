@@ -1,7 +1,5 @@
+package model;
 import org.w3c.dom.Document;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -15,9 +13,6 @@ public class DeadWood {
 
    public static void main(String[] args) {
       try{
-         BoardLayersListener boardUI = BoardLayersListener.getInstance();
-         boardUI.setVisible(true);
-
          boolean quit = false;
          int i = 0;
          while (!quit) {
@@ -78,7 +73,7 @@ public class DeadWood {
 
    }
 
-   private static void readDataFiles(Game todaysGame) {
+   public static void readDataFiles(Game todaysGame) {
       XML xml = new XML();
       try {
          Document boardDoc = xml.getDocFromFile(BOARD_FILE);

@@ -1,3 +1,5 @@
+package model;
+
 public class Board {
    public String[] boardSections = new String[] { "topRight", "bottomLeft", "bottomRight", "topLeft" };
    public static Room[] rooms = new Room[DeadWood.NUM_ROOMS];

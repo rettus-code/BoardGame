@@ -1,3 +1,4 @@
+package model;
 import java.util.*;
 
 public class Game {
@@ -25,6 +26,10 @@ public class Game {
 
    public int determineStartingPlayer() {
       return (int) (Math.random() * numPlayers);
+   }
+
+   public int getNumPlayers() {
+      return this.numPlayers;
    }
 
    public Day getCurrentDay() {
