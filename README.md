@@ -1,7 +1,7 @@
 # BoardGame
 Assignment 2 - Text-Based Implementation of Deadwood
-Milestone 1:  Sunday, May 1st
-Team: Michael Rettus, Nick Coyle
+Friday, May 13
+Group 5, Team: Michael Rettus, Nick Coyle
 
 
 **To compile our project, compile the Deadwood.java file**

@@ -1,3 +1,5 @@
+package model;
+
 public class Upgrade {
    // Functional cohesion
    private int locationX;

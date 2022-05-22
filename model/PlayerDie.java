@@ -1,3 +1,5 @@
+package model;
+
 public class PlayerDie extends Dice {
    private int locationX;
    private int locationY;

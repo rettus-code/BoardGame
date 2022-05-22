@@ -1,3 +1,5 @@
+package model;
+
 public class Take {
     private int locationX;
     private int locationY;

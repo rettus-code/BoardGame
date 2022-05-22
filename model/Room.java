@@ -1,3 +1,5 @@
+package model;
+
 abstract class Room {
    private int locationX;
    private int locationY;

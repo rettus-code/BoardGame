@@ -1,3 +1,5 @@
+package model;
+
 public class Dice {
    private int roll;
    protected int numSides;

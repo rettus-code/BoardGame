@@ -1,3 +1,5 @@
+package model;
+
 public class Trailers extends Room {
    // Functional cohesion
 
