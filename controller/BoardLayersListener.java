@@ -57,7 +57,7 @@ public class BoardLayersListener extends JFrame
       }
 
       // Instantiate a new game
-      todaysGame = new Game(numPlayers);
+      todaysGame = new Game(numPlayers, board);
       DeadWood.readDataFiles(todaysGame);
       todaysGame.dealSceneCards();
 

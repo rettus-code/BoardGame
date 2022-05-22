@@ -39,7 +39,53 @@ public class Set extends Room {
       } else {
       }
    }
-
+   public int[] getCardPosition(){
+      int[] point = new int[2];
+      String room;
+      switch(this.getName()){
+         case "Main Street":
+               point[0] = 969;
+               point[1] = 28;
+               break;
+         case "Saloon":
+               point[0] = 631;
+               point[1] = 280;
+               break;
+         case "Jail":
+               point[0] = 281;
+               point[1] = 27;
+               break;
+         case "General Store":
+               point[0] = 370;
+               point[1] = 282;
+               break;
+         case "Train Station":
+               point[0] = 21;
+               point[1] = 69;
+               break;
+         case "Ranch":
+               point[0] = 252;
+               point[1] = 478;
+               break;
+         case "Secret Hideout":
+               point[0] = 27;
+               point[1] = 732;
+               break;
+         case "Bank":
+               point[0] = 623;
+               point[1] = 475;
+               break;
+         case "Church":
+               point[0] = 623;
+               point[1] = 734;
+               break;
+         case "Hotel":
+               point[0] = 969;
+               point[1] = 740;
+               break;
+      }
+      return point;
+   }
    public boolean hasSceneCard() {
       return this.sceneCard != null;
    }
