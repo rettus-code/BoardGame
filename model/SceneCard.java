@@ -1,3 +1,5 @@
+package model;
+
 public class SceneCard {
    // Functional cohesion
    private int locationX;
