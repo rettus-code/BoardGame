@@ -1,6 +1,25 @@
+package model;
+import java.util.*;
+
 import java.util.Scanner;
 
 public class Player {
+
+	public interface observer {
+		void stateChanged(Player player);
+	 }
+	 private ArrayList<observer> observers;
+  
+	 public void subscribe(observer o) {
+		observers.add(o);
+	 }
+  
+	 protected void stateChanged(Player player){
+		for(observer o : observers) {
+			o.stateChanged(this);
+		 }
+	}
+
 	private int locationX;
 	private int locationY;
 	private String name;
@@ -22,6 +41,7 @@ public class Player {
 	private TurnState current_state;
 
 	public Player(String name, int numPlayers, int newID, Room room) {
+		this.observers = new ArrayList<observer>();
 		this.name = name;
 		this.id = newID;
 		if (numPlayers == 7 || numPlayers == 8) {
@@ -82,6 +102,7 @@ public class Player {
 
 	public void addMoney(int m) {
 		this.money += m;
+		stateChanged(this);
 	}
 
 	public int getCredits() {
@@ -90,6 +111,7 @@ public class Player {
 
 	public void addCredits(int c) {
 		this.credits += c;
+		stateChanged(this);
 	}
 
 	public int getRank() {
@@ -116,9 +138,10 @@ public class Player {
 		if (this.currentRole != null) {
 			this.currentRole.completeRole();
 			this.currentRole = null;
+			stateChanged(this);
 		} else {
 			// do nothing
-		}
+		}		
 	}
 
 	public void setCompletedScene(boolean reset) {
@@ -406,6 +429,7 @@ public class Player {
 		System.out.println("end turn");
 		System.out.println("");
 		this.current_state = TurnState.END_TURN;
+		stateChanged(this);
 	}
 
 	private void move() {
@@ -429,6 +453,7 @@ public class Player {
 
 		System.out.printf("Moved to %s\n", this.room.getName());
 		this.current_state = TurnState.MOVED;
+		stateChanged(this);
 	}
 
 	private void upgrade(Upgrade choice) {
@@ -457,7 +482,7 @@ public class Player {
 		} else {
 			System.out.printf("Cannot upgrade to choice %s\n", choice.toString());
 		}
-
+		stateChanged(this);
 	}
 
 	public boolean takeRole() {
@@ -507,7 +532,7 @@ public class Player {
 				}
 			}
 			result = true;
-		}
+		}	
 
 		return result;
 	}
@@ -520,12 +545,13 @@ public class Player {
 				this.currentRole = newRole;
 				result = true;
 				this.current_state = TurnState.IN_ROLE;
+				stateChanged(this);
 			} else {
 				System.out.printf("Cannot take role %s because its already taken\n", newRole.getName());
 			}
 		} else {
 			System.out.printf("Cannot take role %s because your rank is not high enough\n", newRole.getName());
-		}
+		}		
 		return result;
 	}
 
@@ -548,17 +574,18 @@ public class Player {
 				System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
 			}
 		}
-
+		stateChanged(this);
 	}
 
 	private void rehearse() {
 		rehearseCounter++;
 		System.out.println("You have " + rehearseCounter + " rehearsal points");
-
+		stateChanged(this);
 	}
 
 	public void rehearseReset() {
 		rehearseCounter = 0;
+		stateChanged(this);
 	}
 
 	private boolean payMoney(int amount) {

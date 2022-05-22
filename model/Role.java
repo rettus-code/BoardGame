@@ -1,3 +1,5 @@
+package model;
+
 public class Role {
    private int locationX;
    private int locationY;

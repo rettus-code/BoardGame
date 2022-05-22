@@ -1,3 +1,5 @@
+package model;
+
 public class CastingOffice extends Room {
    private Upgrade[] upgrades;
 
