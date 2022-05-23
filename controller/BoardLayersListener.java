@@ -3,6 +3,8 @@ package controller;
 import model.*;
 import view.*;
 import javax.swing.*;
+import java.util.HashMap;
+import java.util.*;  
 
 public class BoardLayersListener extends JFrame
       implements model.Game.observer, model.Player.observer {
@@ -61,12 +63,14 @@ public class BoardLayersListener extends JFrame
       DeadWood.readDataFiles(todaysGame);
       todaysGame.dealSceneCards();
 
-      // Get their names
+      // Get the player names
       dialog.displayPlayerNameDialog(todaysGame.getNumPlayers());
       board.initPlayerDice(todaysGame.playerArray);
 
       // register as an observer so it will update when state changes
       subscribe(todaysGame);
+      board.initGameState();
+
       for (Player p : todaysGame.playerArray) {
          if (p != null) {
             subscribe(p);
@@ -84,23 +88,60 @@ public class BoardLayersListener extends JFrame
 
    // subscribe to the game model so it will update when the model state changes
    public static void subscribe(Game game) {
-      game.subscribe(getInstance());      
+      game.subscribe(getInstance());
    }
 
    // subscribe this view to the player model so it will update when the model
    // state changes
    public static void subscribe(Player player) {
-      player.subscribe(getInstance());      
+      player.subscribe(getInstance());
    }
 
-   // call all the methods to update the view when the model changes
+   // call all the methods to update the view when the game model changes
+   public void stateChanged() {
+      stateChanged(todaysGame);
+   }
+
    public void stateChanged(Game game) {
-      Player activePlayer = game.playerArray[game.activePlayer];
+      Player activePlayer = game.playerArray[Game.getActivePlayer()];
       board.updateActivePlayerLabel(activePlayer);
    }
 
+   // call all the methods to update the view when the player model changes
    public void stateChanged(Player player) {
       board.movePlayerDie(player);
+      getPossibleActionsMenu();
    }
-   
+
+   // return the list of neighboring rooms to the view
+   public void getPossibleActionsMenu() {
+      Player active = todaysGame.playerArray[todaysGame.activePlayer];
+      HashMap<String, Boolean> possibleActions = active.getPossibleActions();
+      ArrayList<String> actions = new ArrayList<>();
+      for(Map.Entry m : possibleActions.entrySet()) {
+         if(m.getValue() == Boolean.TRUE) {
+            actions.add(m.getKey().toString());
+         }
+      }
+      board.showActionMenu(actions);
+   }
+
+   // return the list of neighboring rooms to the view
+   public void getMoveMenu() {
+      Player active = todaysGame.playerArray[todaysGame.activePlayer];
+      String[] neighbors = active.getLocation().getNeighbors();
+      board.showMoveMenu(neighbors);
+   }
+
+   // the player chose the room to move to so update the data in the model
+   public void submitPlayerMove(String roomStr) {
+      model.Room room = todaysGame.gameBoard.getRoom(roomStr);
+      todaysGame.playerArray[todaysGame.activePlayer].setRoom(room);
+   }
+
+   // end turn so next player can go
+   public void endTurn() {
+      Player active = todaysGame.playerArray[Game.getActivePlayer()];
+      active.endTurn();
+   }
 }

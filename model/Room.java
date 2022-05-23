@@ -1,6 +1,6 @@
 package model;
 
-abstract class Room {
+public abstract class Room {
    private int locationX;
    private int locationY;
    private int width;

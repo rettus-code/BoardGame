@@ -5,13 +5,63 @@ import controller.*;
 import javax.swing.*;
 import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.util.*;
 
-public class BoardView extends JFrame {   
-    public interface cardsOnBoard{
-      public void addCards();
+public class BoardView extends JFrame {
+    public interface cardsOnBoard {
+        public void addCards();
     }
+
+    public class BoardMouseListener implements MouseListener {
+        // Code for the different button clicks
+        public void mouseClicked(MouseEvent e) {
+            if (e.getSource() == bAct) {
+                // playerlabel.setVisible(true);
+                if(bAct.isEnabled()) {
+                    System.out.println("Acting is Selected\n");
+                } 
+            } else if (e.getSource() == bRehearse) {
+                if(bRehearse.isEnabled()) {
+                    System.out.println("Rehearse is Selected\n");
+                }
+            } else if (e.getSource() == bMove) {
+                if(bMove.isEnabled()) {
+                    System.out.println("Move is Selected\n");
+                    // call method in the controller to get the neighboring rooms
+                    BoardLayersListener.getInstance().getMoveMenu();
+                }
+            } else if (e.getSource() == bUpgrade) {
+                if(bUpgrade.isEnabled()) {
+                    System.out.println("Upgrade is Selected\n");
+                }
+            } else if (e.getSource() == bEndTurn) {
+                BoardLayersListener.getInstance().endTurn();
+            } else if (e.getSource() == bTakeRole) {
+                if(bTakeRole.isEnabled()) {
+                    System.out.println("TakeRole is Selected\n");
+                }
+            }
+        }
+
+        public void mousePressed(MouseEvent e) {
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        public void mouseExited(MouseEvent e) {
+        }
+    }
+
     // Eager Initialization
     private static BoardView instance = new BoardView();
 
@@ -34,11 +84,19 @@ public class BoardView extends JFrame {
     JButton bRehearse;
     JButton bMove;
     JButton bUpgrade;
+    JButton bEndTurn;
+    JButton bTakeRole;
+    JButton bMoveOk = new JButton("Ok");
+    JButton bMoveCancel = new JButton("Cancel");
 
     // JLayered Pane
     public JLayeredPane bPane;
+    public JPanel actionsPanel = new JPanel();
+    public JPanel movePanel = new JPanel();
 
     private ImageIcon boardIcon;
+
+    JComboBox roomList;
 
     // Private Constructor (singleton pattern)
     private BoardView() {
@@ -49,6 +107,12 @@ public class BoardView extends JFrame {
         activeplayerlabel = new JLabel("Current Player: ");
         activeplayerlabel.setBounds(boardIcon.getIconWidth() + 40, 0, 150, 20);
         bPane.add(activeplayerlabel, new Integer(2));
+        bPane.add(actionsPanel, new Integer(2));
+        bPane.add(movePanel, new Integer(2));
+        movePanel.setVisible(false);
+        actionsPanel.setVisible(true);
+        movePanel.setBounds((boardIcon.getIconWidth() + 10), 50, 130, 130);
+        actionsPanel.setBounds((boardIcon.getIconWidth() + 10), 50, 100, 300);
     }
 
     public void initBoard() {
@@ -69,6 +133,14 @@ public class BoardView extends JFrame {
 
         // Set the size of the GUI
         setSize(boardIcon.getIconWidth() + 200, boardIcon.getIconHeight());
+
+        // Setup the Move menu
+        initMoveMenu();
+    }
+
+    public void initGameState() {
+        // fetch the game state
+        BoardLayersListener.getInstance().stateChanged();
     }
 
     public static BoardView getInstance() {
@@ -165,11 +237,54 @@ public class BoardView extends JFrame {
         bPane.add(player8label, new Integer(2));
     }
 
+    public void initMoveMenu() {
+        Point p = movePanel.getLocation();
+        
+        JLabel moveMenuLabel = new JLabel();
+        moveMenuLabel.setText("Choose a room:");
+        moveMenuLabel.setBounds((int) p.getX(), (int) (p.getY()), 150, 40);
+        movePanel.add(moveMenuLabel, new Integer(2));
+
+        roomList = new JComboBox();
+        roomList.setBounds((int) p.getX(), (int) (p.getY() + 20), 150, 40);
+        movePanel.add(roomList, new Integer(2));
+
+        bMoveOk.setBackground(Color.green);
+        bMoveOk.setBounds(boardIcon.getIconWidth() + 10, 190, 40, 20);
+        bMoveOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // submit the move to controller
+                BoardLayersListener.getInstance().submitPlayerMove(roomList.getSelectedItem().toString());
+                // hide the move menu
+                actionsPanel.setVisible(true);
+                // show the actions menu
+                movePanel.setVisible(false);
+            }
+        });
+
+        bMoveCancel.setBackground(Color.white);
+        bMoveCancel.setBounds(boardIcon.getIconWidth() + 30, 190, 40, 20);
+        bMoveCancel.addMouseListener(new BoardMouseListener());
+        bMoveCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // hide the move menu
+                actionsPanel.setVisible(true);
+                // show the actions menu
+                movePanel.setVisible(false);
+
+            }
+        });
+        movePanel.add(bMoveOk, new Integer(2));
+        movePanel.add(bMoveCancel, new Integer(2));
+    }
+
     public void initActionsMenu() {
         // Create the Menu for action buttons
         mLabel = new JLabel("MENU");
         mLabel.setBounds(boardIcon.getIconWidth() + 40, 50, 100, 20);
-        bPane.add(mLabel, new Integer(2));
+        actionsPanel.add(mLabel, new Integer(2));
 
         // Create Action buttons
         bAct = new JButton("ACT");
@@ -187,21 +302,68 @@ public class BoardView extends JFrame {
         bMove.setBounds(boardIcon.getIconWidth() + 10, 140, 100, 20);
         bMove.addMouseListener(new BoardMouseListener());
 
+        
+        bTakeRole = new JButton("TAKE ROLE");
+        bTakeRole.setBackground(Color.white);
+        bTakeRole.setBounds(boardIcon.getIconWidth() + 10, 170, 100, 20);
+        bTakeRole.addMouseListener(new BoardMouseListener());
+
         bUpgrade = new JButton("UPGRADE");
         bUpgrade.setBackground(Color.white);
-        bUpgrade.setBounds(boardIcon.getIconWidth() + 10, 170, 100, 20);
+        bUpgrade.setBounds(boardIcon.getIconWidth() + 10, 200, 100, 20);
         bUpgrade.addMouseListener(new BoardMouseListener());
 
+        bEndTurn = new JButton("END TURN");
+        bEndTurn.setBackground(Color.white);
+        bEndTurn.setBounds(boardIcon.getIconWidth() + 10, 230, 100, 20);
+        bEndTurn.addMouseListener(new BoardMouseListener());
+
         // Place the action buttons in the top layer
-        bPane.add(bAct, new Integer(2));
-        bPane.add(bRehearse, new Integer(2));
-        bPane.add(bMove, new Integer(2));
-        bPane.add(bUpgrade, new Integer(2));
+        actionsPanel.add(bAct, new Integer(2));
+        actionsPanel.add(bRehearse, new Integer(2));
+        actionsPanel.add(bMove, new Integer(2));
+        actionsPanel.add(bTakeRole, new Integer(2));
+        actionsPanel.add(bUpgrade, new Integer(2));
+        actionsPanel.add(bEndTurn, new Integer(2));
+
     }
-    
+
+
+    public void showActionMenu(ArrayList<String> actions) {
+        if(actions.contains(new String("act"))) {
+            bAct.setEnabled(true);
+        } else {
+            bAct.setEnabled(false);
+        }
+
+        if(actions.contains(new String("rehearse"))) {
+            bRehearse.setEnabled(true);
+        } else {
+            bRehearse.setEnabled(false);
+        }
+
+        if(actions.contains(new String("move"))) {
+            bMove.setEnabled(true);
+        } else {
+            bMove.setEnabled(false);
+        } 
+        
+        if(actions.contains(new String("upgrade"))) {
+            bUpgrade.setEnabled(true);
+        } else {
+            bUpgrade.setEnabled(false);
+        }
+
+        if(actions.contains(new String("takerole"))) {
+            bTakeRole.setEnabled(true);
+        } else {
+            bTakeRole.setEnabled(false);
+        }
+    }
+
     // update the active player label
     public void updateActivePlayerLabel(Player active) {
-        activeplayerlabel.setText("Current Player: " + active.getName());
+        activeplayerlabel.setText("Current Player " + (active.getID()+1) + ": " + active.getName());
     }
 
     public void movePlayerDie(Player active) {
@@ -233,6 +395,17 @@ public class BoardView extends JFrame {
                 player8label.setLocation(p);
                 break;
         }
+    }
 
+    public void showMoveMenu(String[] neighbors) {
+        // hide the actions menu
+        actionsPanel.setVisible(false);
+        // show the moves menu
+        movePanel.setVisible(true);
+        roomList.removeAllItems();
+        for (String neighbor : neighbors) {
+            roomList.addItem(neighbor);
+        }
+        roomList.setSelectedIndex(0);
     }
 }
