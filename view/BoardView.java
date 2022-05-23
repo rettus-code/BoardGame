@@ -9,15 +9,23 @@ import javax.swing.ImageIcon;
 import java.awt.*;
 
 public class BoardView extends JFrame {   
-    public interface cardsOnBoard{
-      public void addCards();
-    }
+
     // Eager Initialization
     private static BoardView instance = new BoardView();
 
     // JLabels
     JLabel boardlabel;
-    JLabel cardlabel;
+    JLabel templabel;
+    JLabel cardlabel0;
+    JLabel cardlabel1;
+    JLabel cardlabel2;
+    JLabel cardlabel3;
+    JLabel cardlabel4;
+    JLabel cardlabel5;
+    JLabel cardlabel6;
+    JLabel cardlabel7;
+    JLabel cardlabel8;
+    JLabel cardlabel9;
     JLabel activeplayerlabel;
     JLabel player1label;
     JLabel player2label;
@@ -39,7 +47,7 @@ public class BoardView extends JFrame {
     public JLayeredPane bPane;
 
     private ImageIcon boardIcon;
-
+    private JLabel[] cardLabels = {cardlabel0, cardlabel1, cardlabel2, cardlabel3, cardlabel4, cardlabel5, cardlabel6, cardlabel7, cardlabel8, cardlabel9};
     // Private Constructor (singleton pattern)
     private BoardView() {
         // Set the title of the JFrame
@@ -75,19 +83,41 @@ public class BoardView extends JFrame {
         return instance;
     }
 
-    public void addCard(String image, int[] point) {
+    public void addCard(String image, int[] point, int roomNum) {
         // Add a scene card to this room
-        cardlabel = new JLabel();
-        System.out.println(image + " " + point[0] + " " + point[1]);
+        templabel = new JLabel();
         ImageIcon cIcon = new ImageIcon("images/cards/" + image);
-        cardlabel.setIcon(cIcon);
-        cardlabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
-        cardlabel.setOpaque(true);
-
+        templabel.setIcon(cIcon);
+        templabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
+        templabel.setOpaque(true);
         // Add the card to the lower layer
-        bPane.add(cardlabel, new Integer(1));
+        cardLabels[roomNum] = templabel;
+        bPane.add(cardLabels[roomNum], new Integer(1));
     }
-
+    public void flipCard(String image, int[] point, int roomNum){
+      System.out.println("flip " + image + " " + point[0] + " " + point[1]);
+        Container parent = cardLabels[roomNum].getParent();
+        parent.remove(cardLabels[roomNum]);
+        parent.validate();
+        parent.repaint();
+        templabel = new JLabel();
+        ImageIcon cIcon = new ImageIcon("images/cards/" + image);
+        templabel.setIcon(cIcon);
+        templabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
+        templabel.setOpaque(true);
+        // Add the card to the lower layer
+        cardLabels[roomNum] = templabel;
+        bPane.add(cardLabels[roomNum], new Integer(2));
+       // // Add a scene card to this room
+//         cardlabel = new JLabel();
+//         ImageIcon cIcon = new ImageIcon("images/cards/" + image);
+//         cardlabel.setIcon(cIcon);
+//         cardlabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
+//         cardlabel.setOpaque(true);
+//         // Add the card to the lower layer
+//         bPane.add(cardlabel, new Integer(2));
+    }
+      
     public void initPlayerDice(Player[] playerArray) {
         // Add a dice to represent a player.
         player1label = new JLabel();
