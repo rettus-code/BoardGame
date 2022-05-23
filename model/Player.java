@@ -687,12 +687,12 @@ public class Player {
 			System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
 		}
 		if (wrapped) {
+         board.removeCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
 			System.out.println("The scene is completed");
 			set.wrapScene();
 			this.completedScene = true;
-		}
+   	}
 	}
-
 	private int rollDice() {
 		return Game.rollDice();
 	}

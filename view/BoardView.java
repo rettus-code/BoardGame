@@ -175,7 +175,6 @@ public class BoardView extends JFrame {
         bPane.add(cardLabels[roomNum], new Integer(1));
     }
     public void flipCard(String image, int[] point, int roomNum){
-      System.out.println("flip " + image + " " + point[0] + " " + point[1]);
         Container parent = cardLabels[roomNum].getParent();
         parent.remove(cardLabels[roomNum]);
         parent.validate();
@@ -185,17 +184,14 @@ public class BoardView extends JFrame {
         templabel.setIcon(cIcon);
         templabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
         templabel.setOpaque(true);
-        // Add the card to the lower layer
         cardLabels[roomNum] = templabel;
         bPane.add(cardLabels[roomNum], new Integer(2));
-       // // Add a scene card to this room
-//         cardlabel = new JLabel();
-//         ImageIcon cIcon = new ImageIcon("images/cards/" + image);
-//         cardlabel.setIcon(cIcon);
-//         cardlabel.setBounds(point[0], point[1], cIcon.getIconWidth() + 2, cIcon.getIconHeight());
-//         cardlabel.setOpaque(true);
-//         // Add the card to the lower layer
-//         bPane.add(cardlabel, new Integer(2));
+    }
+    public void removeCard(String image, int[] point, int roomNum){
+        Container parent = cardLabels[roomNum].getParent();
+        parent.remove(cardLabels[roomNum]);
+        parent.validate();
+        parent.repaint();
     }
       
     public void initPlayerDice(Player[] playerArray) {
