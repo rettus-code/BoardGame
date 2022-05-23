@@ -1,23 +1,26 @@
 package model;
+
 import java.util.*;
 import view.*;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class Player {
 
 	public interface observer {
 		void stateChanged(Player player);
-	 }
-	 private ArrayList<observer> observers;
-  
-	 public void subscribe(observer o) {
+	}
+
+	private ArrayList<observer> observers;
+
+	public void subscribe(observer o) {
 		observers.add(o);
-	 }
-  
-	 protected void stateChanged(Player player){
-		for(observer o : observers) {
+	}
+
+	protected void stateChanged(Player player) {
+		for (observer o : observers) {
 			o.stateChanged(this);
-		 }
+		}
 	}
 
 	private int locationX;
@@ -33,7 +36,11 @@ public class Player {
 	private int rehearseCounter;
 	private Scanner scanner = new Scanner(System.in);
 	private boolean completedScene;
-   private static BoardView board;
+
+	private HashMap<String, Boolean> possibleActions = new HashMap<>();
+
+  private static BoardView board;
+
 	private enum TurnState {
 		BEGIN_TURN, MOVED, IN_ROLE, END_TURN
 	}
@@ -60,7 +67,29 @@ public class Player {
 		this.setRoom(room);
 		rehearseCounter = 0;
 		this.completedScene = false;
+
+		initPossibleActions();
+	}
+
+	// set all possible actions to false
+	public void initPossibleActions() {
+		possibleActions.clear();
+		possibleActions.put("act", false);
+		possibleActions.put("rehearse", false);
+		possibleActions.put("move", false);
+		possibleActions.put("upgrade", false);
+		possibleActions.put("takerole", false);
+	}
+
+	// update the model and alert observers
+	private void setPossibleAction(String action, boolean bool) {
+		if (possibleActions.get(action) != bool) {
+			possibleActions.put(action, bool);
+			stateChanged(this);
+		}
+
       this.board = BoardView.getInstance();
+
 	}
 
 	public int getLocationX() {
@@ -87,6 +116,10 @@ public class Player {
 		this.room = room;
 		this.locationX = room.getLocationX();
 		this.locationY = room.getLocationY();
+		this.playerDie.setLocationX(this.locationX);
+		this.playerDie.setLocationY(this.locationY);
+		this.current_state = TurnState.MOVED;
+		stateChanged(this);
 	}
 
 	public Room getRoom() {
@@ -142,7 +175,11 @@ public class Player {
 			stateChanged(this);
 		} else {
 			// do nothing
-		}		
+		}
+	}
+
+	public HashMap<String, Boolean> getPossibleActions() {
+		return this.possibleActions;
 	}
 
 	public void setCompletedScene(boolean reset) {
@@ -158,44 +195,67 @@ public class Player {
 		System.out.printf("Player %d %s, your turn\n", this.id + 1, this.getName());
 		System.out.printf("Your location is: %s\n", this.room.getName());
 		this.current_state = TurnState.BEGIN_TURN;
-
+		initPossibleActions();
+		possibleActions.put("move", true);
+		possibleActions.put("takerole", true);
+		stateChanged(this);
 		while (this.current_state != TurnState.END_TURN) {
 			switch (this.current_state) {
 				case BEGIN_TURN:
 					if (this.currentRole != null) {
 						this.current_state = TurnState.IN_ROLE;
 					} else if (this.room.getName().equals("trailer")) {
-						this.promptMove();
+						setPossibleAction("takerole", false);
+						// this.promptMove();
 					} else if (this.room.getName().equals("office")) {
-						this.promptUpgradeMove();
+						setPossibleAction("takerole", false);
+						// this.promptUpgradeMove();
+						setPossibleAction("upgrade", true);
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
-						promptMove();
+						// promptMove();
 					} else {
-						promptTakeRoleMove();
+						// promptTakeRoleMove();
+						setPossibleAction("takerole", true);
 					}
 					break;
 				case MOVED:
+					setPossibleAction("move", false);
+					setPossibleAction("act", false);
+					setPossibleAction("rehearse", false);
 					if (this.room.getName().equals("trailer")) {
 						this.endTurn();
 					} else if (this.room.getName().equals("office")) {
-						this.promptUpgrade();
+						// this.promptUpgrade();
+						setPossibleAction("upgrade", true);
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						this.endTurn();
 					} else {
-                  Set set = (Set) this.room;
-                  set.getSceneCard().flipCard();
-                  board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
+
+						// this.promptTakeRole();
+						setPossibleAction("takerole", true);
+						setPossibleAction("upgrade", false);
+            Set set = (Set) this.room;
+            set.getSceneCard().flipCard();
+            board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
 						this.promptTakeRole();
+
 					}
 					break;
 				case IN_ROLE:
-					this.promptInRole();
+					possibleActions.put("move", false);
+					possibleActions.put("upgrade", false);
+					possibleActions.put("act", true);
+					possibleActions.put("takerole", false);
+					possibleActions.put("rehearse", true);
+					stateChanged(this);
+					// this.promptInRole();
 					break;
 				case END_TURN:
 					turnComplete = true;
 					System.out.printf("Player %d Turn ended\n", this.id + 1);
 					break;
 			}
+
 		}
 
 		return turnComplete;
@@ -429,10 +489,10 @@ public class Player {
 		}
 	}
 
-	private void endTurn() {
+	public void endTurn() {
 		System.out.println("end turn");
 		System.out.println("");
-		this.current_state = TurnState.END_TURN;
+		current_state = TurnState.END_TURN;
 		stateChanged(this);
 	}
 
@@ -536,7 +596,7 @@ public class Player {
 				}
 			}
 			result = true;
-		}	
+		}
 
 		return result;
 	}
@@ -555,7 +615,7 @@ public class Player {
 			}
 		} else {
 			System.out.printf("Cannot take role %s because your rank is not high enough\n", newRole.getName());
-		}		
+		}
 		return result;
 	}
 

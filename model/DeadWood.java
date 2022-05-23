@@ -11,7 +11,7 @@ public class DeadWood {
    public static final int NUM_SCENECARDS = 40;
 
    private static Scanner scanner = new Scanner(System.in);
-
+/*
    public static void main(String[] args) {
       try{
          boolean quit = false;
@@ -38,8 +38,12 @@ public class DeadWood {
             e.printStackTrace();
       }
    }
-   
+
+   */
+
+
    private static void playGame() {
+      /*
       System.out.println("Welcome to DeadWood, how many players?:");
       int numPlayers = 0;
       while (numPlayers < 2 || numPlayers > 8) {
@@ -72,7 +76,7 @@ public class DeadWood {
          }
          todaysGame.newDay();
       }
-
+   */
    }
 
    public static void readDataFiles(Game todaysGame) {
