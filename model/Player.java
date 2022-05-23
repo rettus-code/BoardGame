@@ -1,6 +1,6 @@
 package model;
 import java.util.*;
-
+import view.*;
 import java.util.Scanner;
 
 public class Player {
@@ -33,7 +33,7 @@ public class Player {
 	private int rehearseCounter;
 	private Scanner scanner = new Scanner(System.in);
 	private boolean completedScene;
-
+   private static BoardView board;
 	private enum TurnState {
 		BEGIN_TURN, MOVED, IN_ROLE, END_TURN
 	}
@@ -60,6 +60,7 @@ public class Player {
 		this.setRoom(room);
 		rehearseCounter = 0;
 		this.completedScene = false;
+      this.board = BoardView.getInstance();
 	}
 
 	public int getLocationX() {
@@ -181,6 +182,9 @@ public class Player {
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						this.endTurn();
 					} else {
+                  Set set = (Set) this.room;
+                  set.getSceneCard().flipCard();
+                  board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
 						this.promptTakeRole();
 					}
 					break;

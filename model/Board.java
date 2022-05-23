@@ -16,9 +16,7 @@ public class Board {
             Set set = (Set) rooms[i];
             if (!set.hasSceneCard()) {
                set.addSceneCard(deck[k]);
-               //if(k==0){
-               board.addCard(deck[k].getImage(), set.getCardPosition());
-               //}
+               board.addCard(deck[k].getImage(), set.getCardPosition(), set.getRoomNum());
                k++;
             }
          }

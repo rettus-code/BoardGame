@@ -7,8 +7,9 @@ public class Set extends Room {
    private Take[] takes;
    public int takesCompleted;
    private SceneCard sceneCard;
+   private int roomNum;
 
-   public Set(String name, int x, int y, int h, int w, String[] neighbors, Role[] roles, Take[] takes) {
+   public Set(String name, int x, int y, int h, int w, String[] neighbors, Role[] roles, Take[] takes, int roomNum) {
       this.setName(name);
       this.setLocationX(x);
       this.setLocationY(y);
@@ -18,6 +19,7 @@ public class Set extends Room {
       this.setNeighbors(neighbors);
       this.parts = roles;
       this.takes = takes;
+      this.roomNum = roomNum;
    }
 
    public SceneCard getSceneCard() {
@@ -31,7 +33,9 @@ public class Set extends Room {
    public Role[] getRoles() {
       return this.parts;
    }
-
+   public int getRoomNum(){
+      return this.roomNum;
+   }
    public void addSceneCard(SceneCard newCard) {
       if (this.sceneCard == null) {
          this.sceneCard = newCard;
