@@ -38,7 +38,9 @@ public class DeadWood {
             e.printStackTrace();
       }
    }
+
    */
+
 
    private static void playGame() {
       /*
@@ -53,9 +55,10 @@ public class DeadWood {
             System.out.println("Please enter Numbers");
          }
       }
+      
       System.out.printf("Creating a new game with %d players\n", numPlayers);
-
-      Game todaysGame = new Game(numPlayers);
+      BoardView board = BoardView.getInstance();
+      Game todaysGame = new Game(numPlayers, board);
       readDataFiles(todaysGame);
       todaysGame.dealSceneCards();
 

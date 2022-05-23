@@ -161,6 +161,7 @@ public class Game {
    public void makeBoard(String[] rooms) {
       int k = 0;
       int i = 0;
+      int roomNum = 0;
       for (; i < 10; i++) {
          k = 0;
          String[] temp = rooms[i].split("@", 0);
@@ -200,7 +201,7 @@ public class Game {
             int y = Integer.parseInt(temp[k++]);
             roles[j] = new Role(partName, level, line, w, h, x, y, false);
          }
-         Room room = new Set(roomName, roomX, roomY, roomHeight, roomWidth, neighbors, roles, takes);
+         Room room = new Set(roomName, roomX, roomY, roomHeight, roomWidth, neighbors, roles, takes, roomNum++);
          this.gameBoard.setRoom(room, i);
       }
 

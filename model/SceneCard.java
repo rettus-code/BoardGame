@@ -1,5 +1,5 @@
 package model;
-
+import view.*;
 public class SceneCard {
    // Functional cohesion
    private int locationX;
@@ -81,7 +81,7 @@ public class SceneCard {
       return this.parts;
    }
    public String getImage(){
-      if(!isFlipped){
+      if(isFlipped){
          return this.img;
       }
       return "CardBack.jpg";
