@@ -44,7 +44,7 @@ public class BoardView extends JFrame {
                 BoardLayersListener.getInstance().endTurn();
             } else if (e.getSource() == bTakeRole) {
                 if(bTakeRole.isEnabled()) {
-                    System.out.println("TakeRole is Selected\n");
+                    BoardLayersListener.getInstance().getPossibleRolesMenu();
                 }
             }
         }
@@ -80,7 +80,7 @@ public class BoardView extends JFrame {
     JLabel cardlabel7;
     JLabel cardlabel8;
     JLabel cardlabel9;
-    JLabel activeplayerlabel;
+    JLabel activeplayerlabel; // says whose turn it is in upper right corner
     JLabel player1label;
     JLabel player2label;
     JLabel player3label;
@@ -98,19 +98,21 @@ public class BoardView extends JFrame {
     JButton bUpgrade;
     JButton bEndTurn;
     JButton bTakeRole;
-    JButton bMoveOk = new JButton("Ok");
-    JButton bMoveCancel = new JButton("Cancel");
+    JButton bMoveOk = new JButton("Ok"); // ok button in the move menu
+    JButton bMoveCancel = new JButton("Cancel"); // cancel button in the move menu
+    JButton bTakeRoleOk = new JButton("Ok"); // ok button in the take role menu
+    JButton bTakeRoleCancel = new JButton("Cancel"); // cancel button in the take role menu
 
     // JLayered Pane
     public JLayeredPane bPane;
     public JPanel actionsPanel = new JPanel();
     public JPanel movePanel = new JPanel();
+    public JPanel takeRolePanel = new JPanel();
 
     private ImageIcon boardIcon;
 
-
     JComboBox roomList;
-
+    JComboBox roleList;
 
     private JLabel[] cardLabels = {cardlabel0, cardlabel1, cardlabel2, cardlabel3, cardlabel4, cardlabel5, cardlabel6, cardlabel7, cardlabel8, cardlabel9};
 
@@ -125,10 +127,13 @@ public class BoardView extends JFrame {
         bPane.add(activeplayerlabel, new Integer(2));
         bPane.add(actionsPanel, new Integer(2));
         bPane.add(movePanel, new Integer(2));
-        movePanel.setVisible(false);
+        bPane.add(takeRolePanel, new Integer(2));
         actionsPanel.setVisible(true);
-        movePanel.setBounds((boardIcon.getIconWidth() + 10), 50, 130, 130);
-        actionsPanel.setBounds((boardIcon.getIconWidth() + 10), 50, 100, 300);
+        actionsPanel.setBounds((boardIcon.getIconWidth() + 10), 50, 150, 300);
+        movePanel.setVisible(false);
+        movePanel.setBounds((boardIcon.getIconWidth() + 10), 50, 150, 300);        
+        takeRolePanel.setVisible(false);
+        takeRolePanel.setBounds((boardIcon.getIconWidth() + 10), 50, 150, 300);
     }
 
     public void initBoard() {
@@ -152,6 +157,8 @@ public class BoardView extends JFrame {
 
         // Setup the Move menu
         initMoveMenu();
+        // Setup the Take Role menu
+        initTakeRoleMenu();
     }
 
     public void initGameState() {
@@ -274,8 +281,7 @@ public class BoardView extends JFrame {
     public void initMoveMenu() {
         Point p = movePanel.getLocation();
         
-        JLabel moveMenuLabel = new JLabel();
-        moveMenuLabel.setText("Choose a room:");
+        JLabel moveMenuLabel = new JLabel("Choose a room:", SwingConstants.CENTER);       
         moveMenuLabel.setBounds((int) p.getX(), (int) (p.getY()), 150, 40);
         movePanel.add(moveMenuLabel, new Integer(2));
 
@@ -314,10 +320,66 @@ public class BoardView extends JFrame {
         movePanel.add(bMoveCancel, new Integer(2));
     }
 
+    public void initTakeRoleMenu() {
+        Point p = takeRolePanel.getLocation();
+        
+        JLabel roleMenuLabel = new JLabel("Choose a role:", SwingConstants.CENTER); 
+        roleMenuLabel.setBounds((int) p.getX(), (int) (p.getY()+10), 150, 40);
+        takeRolePanel.add(roleMenuLabel, new Integer(2));        
+
+        // display error messages from taking a role
+        JLabel resultMsgLabel = new JLabel();        
+        resultMsgLabel.setBounds((int) p.getX(), (int) (p.getY()), 150, 40);        
+        takeRolePanel.add(resultMsgLabel, new Integer(2));
+
+        roleList = new JComboBox();
+        roleList.setBounds((int) p.getX(), (int) (p.getY() + 20), 150, 40);
+        takeRolePanel.add(roleList, new Integer(2));
+
+        bTakeRoleOk.setBackground(Color.green);
+        bTakeRoleOk.setBounds(boardIcon.getIconWidth() + 10, 190, 40, 20);
+        bTakeRoleOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // submit the move to controller
+                String resultMsg = BoardLayersListener.getInstance().submitPlayerTakeRole(roleList.getSelectedIndex());
+                if(resultMsg.equals("Success!")){
+                    // reset the error message box
+                    resultMsgLabel.setText("");
+                    // hide the move menu
+                    actionsPanel.setVisible(true);
+                    // show the actions menu
+                    takeRolePanel.setVisible(false);
+                } else {
+                    resultMsgLabel.setText(resultMsg);
+                }
+            }
+        });
+
+        bTakeRoleCancel.setBackground(Color.white);
+        bTakeRoleCancel.setBounds(boardIcon.getIconWidth() + 30, 190, 40, 20);
+        bTakeRoleCancel.addMouseListener(new BoardMouseListener());
+        bTakeRoleCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 // reset the error message box
+                 resultMsgLabel.setText("");
+                // hide the move menu
+                actionsPanel.setVisible(true);
+                // show the actions menu
+                takeRolePanel.setVisible(false);
+            }
+        });
+        takeRolePanel.add(bTakeRoleOk, new Integer(2));
+        takeRolePanel.add(bTakeRoleCancel, new Integer(2));
+        takeRolePanel.repaint();
+    }
+
+
     public void initActionsMenu() {
         // Create the Menu for action buttons
-        mLabel = new JLabel("MENU");
-        mLabel.setBounds(boardIcon.getIconWidth() + 40, 50, 100, 20);
+        mLabel = new JLabel("           MENU            ");
+        mLabel.setBounds(boardIcon.getIconWidth() + 40, 50, 50, 20);
         actionsPanel.add(mLabel, new Integer(2));
 
         // Create Action buttons
@@ -359,7 +421,6 @@ public class BoardView extends JFrame {
         actionsPanel.add(bTakeRole, new Integer(2));
         actionsPanel.add(bUpgrade, new Integer(2));
         actionsPanel.add(bEndTurn, new Integer(2));
-
     }
 
 
@@ -442,4 +503,17 @@ public class BoardView extends JFrame {
         }
         roomList.setSelectedIndex(0);
     }
+
+    public void showTakeRoleMenu(String[] roles) {        
+        // hide the actions menu
+        actionsPanel.setVisible(false);
+        // show the moves menu
+        takeRolePanel.setVisible(true);
+        roleList.removeAllItems();
+        for (String role : roles) {
+            roleList.addItem(role);
+        }
+        roleList.setSelectedIndex(0);
+    }
+
 }

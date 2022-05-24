@@ -30,9 +30,26 @@ public class Set extends Room {
       return true;
    }
 
+   // returns only the extra roles
    public Role[] getRoles() {
       return this.parts;
    }
+
+     // returns on card and extra roles in that order
+   public Role[] getAllRoles() { 
+      Role[] oncardRoles = this.getSceneCard().getRoles(); // oncard roles        
+      Role[] extraRoles = this.getRoles(); // extra roles     
+      Role[] allRoles = new Role[oncardRoles.length+extraRoles.length];
+      int i = 0;
+      for(; i<oncardRoles.length; i++) {
+         allRoles[i]=oncardRoles[i];
+      }
+      for(int j = 0; j<extraRoles.length; j++) {
+         allRoles[i++]=extraRoles[j];
+      }
+      return allRoles;
+   }
+
    public int getRoomNum(){
       return this.roomNum;
    }
@@ -125,7 +142,7 @@ public class Set extends Room {
                      } else {
                         offCard[j] = 1;
                      }
-                     Game.playerArray[j].setRoom(Board.getRoom(this.getName()));
+                     Game.playerArray[j].move(Board.getRoom(this.getName()));
 
                   }
                }

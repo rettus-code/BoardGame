@@ -8,7 +8,7 @@ public abstract class Room {
    private String name;
    private String[] neighbors;
 
-   abstract boolean isSet();
+   public abstract boolean isSet();
 
    abstract boolean hasSceneCard();
 

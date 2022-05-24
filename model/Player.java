@@ -67,7 +67,7 @@ public class Player {
 		this.setRoom(room);
 		rehearseCounter = 0;
 		this.completedScene = false;
-
+		this.rank=5;
 		initPossibleActions();
 	}
 
@@ -112,7 +112,7 @@ public class Player {
 		}
 	}
 
-	public void setRoom(Room room) {
+	private void setRoom(Room room) {
 		this.room = room;
 		this.locationX = room.getLocationX();
 		this.locationY = room.getLocationY();
@@ -230,15 +230,9 @@ public class Player {
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						this.endTurn();
 					} else {
-
-						// this.promptTakeRole();
+						//this.promptTakeRole();
 						setPossibleAction("takerole", true);
-						setPossibleAction("upgrade", false);
-            Set set = (Set) this.room;
-            set.getSceneCard().flipCard();
-            board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
-						this.promptTakeRole();
-
+						setPossibleAction("upgrade", false);      
 					}
 					break;
 				case IN_ROLE:
@@ -248,7 +242,7 @@ public class Player {
 					possibleActions.put("takerole", false);
 					possibleActions.put("rehearse", true);
 					stateChanged(this);
-					// this.promptInRole();
+					this.promptInRole();
 					break;
 				case END_TURN:
 					turnComplete = true;
@@ -496,6 +490,17 @@ public class Player {
 		stateChanged(this);
 	}
 
+	public void move(Room room) {
+		// flip the scene card
+		if(room.isSet()) {
+			Set set = (Set)room;
+			set.getSceneCard().flipCard();
+			board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
+		}
+		// update the player's location
+		this.setRoom(room);
+	}
+
 	private void move() {
 		System.out.println("Which room would you like to move to?");
 		String[] neighbors = this.room.getNeighbors();
@@ -609,6 +614,23 @@ public class Player {
 				this.currentRole = newRole;
 				result = true;
 				this.current_state = TurnState.IN_ROLE;
+				// on card role locations are relative to the card position
+				int x = 0;
+				int y = 0;
+				if(newRole.isOnCard()){					
+					if(this.getLocation().isSet()) {
+						Set set = (Set)this.getLocation();
+						int[] point = set.getCardPosition();
+						x = point[0] + this.currentRole.getLocationX();
+						y = point[1] + this.currentRole.getLocationY();
+					}
+				} else {
+					// extra role locations are absolute
+					x = this.currentRole.getLocationX();
+					y = this.currentRole.getLocationY();
+				}
+				this.setLocationX(x);
+				this.setLocationY(y);
 				stateChanged(this);
 			} else {
 				System.out.printf("Cannot take role %s because its already taken\n", newRole.getName());
