@@ -112,6 +112,7 @@ public class Set extends Room {
    }
 
    private void removeSceneCard() {
+      controller.BoardLayersListener.getInstance().removeCard(this.sceneCard.getImage(), this.getCardPosition(), this.getRoomNum());
       this.sceneCard = null;
    }
 
@@ -142,8 +143,7 @@ public class Set extends Room {
                      } else {
                         offCard[j] = 1;
                      }
-                     Game.playerArray[j].move(Board.getRoom(this.getName()));
-
+                     //Game.playerArray[j].move(Board.getRoom(this.getName()));
                   }
                }
             }
@@ -199,8 +199,7 @@ public class Set extends Room {
             }
          }
       }
-      removeSceneCard();
-
+      removeSceneCard();      
    }
 
    public boolean removeShotCounter() {
