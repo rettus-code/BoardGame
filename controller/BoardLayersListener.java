@@ -103,8 +103,8 @@ public class BoardLayersListener extends JFrame
    }
 
    public void stateChanged(Game game) {
-      Player activePlayer = game.playerArray[Game.getActivePlayer()];
-      board.updateActivePlayerLabel(activePlayer);
+      Player activeP = game.playerArray[Game.getActivePlayer()];
+      board.updateActivePlayerLabel(activeP);
    }
 
    // call all the methods to update the view when the player model changes
@@ -115,8 +115,8 @@ public class BoardLayersListener extends JFrame
 
    // return the list of neighboring rooms to the view
    public void getPossibleActionsMenu() {
-      Player active = todaysGame.playerArray[todaysGame.activePlayer];
-      HashMap<String, Boolean> possibleActions = active.getPossibleActions();
+      Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
+      HashMap<String, Boolean> possibleActions = activeP.getPossibleActions();
       ArrayList<String> actions = new ArrayList<>();
       for (Map.Entry m : possibleActions.entrySet()) {
          if (m.getValue() == Boolean.TRUE) {
@@ -128,8 +128,8 @@ public class BoardLayersListener extends JFrame
 
    // return the list of roles to the view
    public void getPossibleRolesMenu() {      
-      model.Player active = todaysGame.playerArray[todaysGame.activePlayer];
-      model.Room room = active.getLocation();
+      model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
+      model.Room room = activeP.getLocation();
       // get roles
       if (room.isSet()) {
          model.Set set = (model.Set) room;
@@ -184,8 +184,8 @@ public class BoardLayersListener extends JFrame
 
    // end turn so next player can go
    public void endTurn() {
-      Player active = todaysGame.playerArray[Game.getActivePlayer()];
-      active.endTurn();
+      Player activeP = todaysGame.playerArray[Game.getActivePlayer()];
+      activeP.endTurn();
    }
 
    public void flipCard() {
@@ -200,5 +200,35 @@ public class BoardLayersListener extends JFrame
 
    public void removeCard(String image, int[] point, int roomNum) {      
       board.removeCard(image, point, roomNum);      
+   }
+
+   public String act(){
+      Player activeP = todaysGame.playerArray[Game.getActivePlayer()];
+      return activeP.actGUI();         
+   }
+
+   public String rehearse(){
+      Player activeP = todaysGame.playerArray[Game.getActivePlayer()];
+      return activeP.rehearseGUI();         
+   }
+
+    // return the list of upgrades to the view
+   public void getUpgradesMenu() {      
+      model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
+      model.Room room = activeP.getLocation();
+      // get roles
+      if (room.getName().equals("office")) {
+         model.CastingOffice office = (model.CastingOffice) room;         
+         String[] upgradesArray = office.getUpgradesGUI();         
+         board.showUpgradeMenu(upgradesArray);       
+      } else {
+         // do nothing
+      }      
+   }
+
+   public String submitUpgrade(int n){  
+      model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];    
+      String result = activeP.upgradeGUI(n);
+      return result;
    }
 }

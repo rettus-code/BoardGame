@@ -73,7 +73,7 @@ public class Upgrade {
    }
 
    public String toString() {
-      String upgradeStr = "level:" + this.level + ", currency:" + this.currency + ", amount:" + this.amount;
+      String upgradeStr = "<html>" + "level:" + this.level + "<br>" + "currency:" + this.currency + "<br>" + "amount:" + this.amount + "<br></html>";
       return upgradeStr;
    }
 
