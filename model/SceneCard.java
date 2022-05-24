@@ -1,5 +1,5 @@
 package model;
-import view.*;
+
 public class SceneCard {
    // Functional cohesion
    private int locationX;
@@ -75,6 +75,7 @@ public class SceneCard {
    public Role[] flipCard() {
       if (!this.isFlipped()) {
          this.isFlipped = true;
+         controller.BoardLayersListener.getInstance().flipCard();
       } else {
          // just being safe
       }
