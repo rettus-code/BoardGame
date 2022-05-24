@@ -67,7 +67,7 @@ public class Player {
 		this.setRoom(room);
 		rehearseCounter = 0;
 		this.completedScene = false;
-
+		this.rank=5;
 		initPossibleActions();
 	}
 
@@ -614,8 +614,23 @@ public class Player {
 				this.currentRole = newRole;
 				result = true;
 				this.current_state = TurnState.IN_ROLE;
-				this.setLocationX(this.currentRole.getLocationX());
-				this.setLocationY(this.currentRole.getLocationY());
+				// on card role locations are relative to the card position
+				int x = 0;
+				int y = 0;
+				if(newRole.isOnCard()){					
+					if(this.getLocation().isSet()) {
+						Set set = (Set)this.getLocation();
+						int[] point = set.getCardPosition();
+						x = point[0] + this.currentRole.getLocationX();
+						y = point[1] + this.currentRole.getLocationY();
+					}
+				} else {
+					// extra role locations are absolute
+					x = this.currentRole.getLocationX();
+					y = this.currentRole.getLocationY();
+				}
+				this.setLocationX(x);
+				this.setLocationY(y);
 				stateChanged(this);
 			} else {
 				System.out.printf("Cannot take role %s because its already taken\n", newRole.getName());
