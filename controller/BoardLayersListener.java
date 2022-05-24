@@ -187,4 +187,18 @@ public class BoardLayersListener extends JFrame
       Player active = todaysGame.playerArray[Game.getActivePlayer()];
       active.endTurn();
    }
+
+   public void flipCard() {
+      Player activeP = todaysGame.playerArray[Game.getActivePlayer()];
+      model.Room room = activeP.getLocation();
+      // get roles
+      if (room.isSet()) {
+         model.Set set = (model.Set) room;
+         board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
+      }
+   }
+
+   public void removeCard(String image, int[] point, int roomNum) {      
+      board.removeCard(image, point, roomNum);      
+   }
 }

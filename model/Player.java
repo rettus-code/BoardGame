@@ -37,9 +37,7 @@ public class Player {
 	private Scanner scanner = new Scanner(System.in);
 	private boolean completedScene;
 
-	private HashMap<String, Boolean> possibleActions = new HashMap<>();
-
-  private static BoardView board;
+	private HashMap<String, Boolean> possibleActions = new HashMap<>();  
 
 	private enum TurnState {
 		BEGIN_TURN, MOVED, IN_ROLE, END_TURN
@@ -86,10 +84,7 @@ public class Player {
 		if (possibleActions.get(action) != bool) {
 			possibleActions.put(action, bool);
 			stateChanged(this);
-		}
-
-      this.board = BoardView.getInstance();
-
+		}      
 	}
 
 	public int getLocationX() {
@@ -197,25 +192,23 @@ public class Player {
 		this.current_state = TurnState.BEGIN_TURN;
 		initPossibleActions();
 		possibleActions.put("move", true);
-		possibleActions.put("takerole", true);
+		possibleActions.put("takerole", false);
 		stateChanged(this);
 		while (this.current_state != TurnState.END_TURN) {
 			switch (this.current_state) {
 				case BEGIN_TURN:
 					if (this.currentRole != null) {
 						this.current_state = TurnState.IN_ROLE;
-					} else if (this.room.getName().equals("trailer")) {
-						setPossibleAction("takerole", false);
+					} else if (this.room.getName().equals("trailer")) {						
 						// this.promptMove();
-					} else if (this.room.getName().equals("office")) {
-						setPossibleAction("takerole", false);
+					} else if (this.room.getName().equals("office")) {						
 						// this.promptUpgradeMove();
 						setPossibleAction("upgrade", true);
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
-						// promptMove();
-					} else {
-						// promptTakeRoleMove();
-						setPossibleAction("takerole", true);
+						// promptMove();						
+					} else if (this.room.hasSceneCard()){
+						// promptTakeRoleMove();						
+						setPossibleAction("takerole", true);						
 					}
 					break;
 				case MOVED:
@@ -229,9 +222,8 @@ public class Player {
 						setPossibleAction("upgrade", true);
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						this.endTurn();
-					} else {
-						//this.promptTakeRole();
-						setPossibleAction("takerole", true);
+					} else if (this.room.hasSceneCard()){
+						//this.promptTakeRole();						
 						setPossibleAction("upgrade", false);      
 					}
 					break;
@@ -491,14 +483,15 @@ public class Player {
 	}
 
 	public void move(Room room) {
-		// flip the scene card
-		if(room.isSet()) {
-			Set set = (Set)room;
-			set.getSceneCard().flipCard();
-			board.flipCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
-		}
 		// update the player's location
 		this.setRoom(room);
+		// flip the scene card
+		if(room.isSet()) {
+				Set set = (Set)room;
+			if(set.hasSceneCard()) {
+				set.getSceneCard().flipCard();				
+			}
+		}		
 	}
 
 	private void move() {
@@ -708,8 +701,7 @@ public class Player {
 			this.money += 2;
 			System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
 		}
-		if (wrapped) {
-         board.removeCard(set.getSceneCard().getImage(), set.getCardPosition(), set.getRoomNum());
+		if (wrapped) {			
 			System.out.println("The scene is completed");
 			set.wrapScene();
 			this.completedScene = true;
