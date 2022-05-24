@@ -1,7 +1,6 @@
 package model;
 
 import java.util.*;
-import view.*;
 import java.util.Scanner;
 import java.util.HashMap;
 
@@ -40,7 +39,7 @@ public class Player {
 	private HashMap<String, Boolean> possibleActions = new HashMap<>();  
 
 	private enum TurnState {
-		BEGIN_TURN, MOVED, IN_ROLE, END_TURN
+		BEGIN_TURN, MOVED, IN_ROLE, ACTED, END_TURN
 	}
 
 	private TurnState current_state;
@@ -65,7 +64,7 @@ public class Player {
 		this.setRoom(room);
 		rehearseCounter = 0;
 		this.completedScene = false;
-		this.rank=5;
+		//this.rank=5;
 		initPossibleActions();
 	}
 
@@ -220,21 +219,29 @@ public class Player {
 					} else if (this.room.getName().equals("office")) {
 						// this.promptUpgrade();
 						setPossibleAction("upgrade", true);
+						setPossibleAction("takerole", false);
 					} else if (!this.room.hasSceneCard() && room.isSet()) {
 						this.endTurn();
 					} else if (this.room.hasSceneCard()){
 						//this.promptTakeRole();						
-						setPossibleAction("upgrade", false);      
+						setPossibleAction("upgrade", false);
+						setPossibleAction("takerole", true);      
 					}
 					break;
 				case IN_ROLE:
-					possibleActions.put("move", false);
-					possibleActions.put("upgrade", false);
-					possibleActions.put("act", true);
-					possibleActions.put("takerole", false);
-					possibleActions.put("rehearse", true);
-					stateChanged(this);
-					this.promptInRole();
+					setPossibleAction("move", false);
+					setPossibleAction("upgrade", false);
+					setPossibleAction("act", true);
+					setPossibleAction("takerole", false);
+					setPossibleAction("rehearse", true);					
+					//this.promptInRole();
+					break;
+				case ACTED: // added for the GUI
+					setPossibleAction("move", false);
+					setPossibleAction("upgrade", false);
+					setPossibleAction("act", false);
+					setPossibleAction("takerole", false);
+					setPossibleAction("rehearse", false);	
 					break;
 				case END_TURN:
 					turnComplete = true;
@@ -518,6 +525,42 @@ public class Player {
 		stateChanged(this);
 	}
 
+	public String upgradeGUI(int n) {
+		String result="<html>";
+		if(this.room.getName().equals("office")) {
+			CastingOffice office = (CastingOffice)this.room;
+			Upgrade[] choices = office.getUpgrades();
+			Upgrade choice = choices[n];
+			// perform the chosen upgrade?
+			boolean success = false;
+			int amount = choice.getAmount();
+			String currency = choice.getCurrency();
+			if (currency.equals("dollar")) {
+				if (payMoney(amount)) {
+					success = true;
+				} else {
+					// do nothing
+				}
+			} else if (currency.equals("credit")) {
+				if (payCredits(amount)) {
+					success = true;
+				} else {
+					// do nothing
+				}
+			}
+
+			if (success) {
+				this.rank = choice.getLevel();
+				result += "Upgraded to choice:<br>" + choice.toString() + "<br>";			
+				stateChanged(this);
+			} else {
+				result += "Cannot upgrade <br> Insufficient Funds<br>";
+			}
+		}		
+		result += "</html>";		
+		return result;
+	}
+
 	private void upgrade(Upgrade choice) {
 		// perform the chosen upgrade?
 		boolean success = false;
@@ -656,10 +699,53 @@ public class Player {
 		stateChanged(this);
 	}
 
+	public String actGUI() {		
+		String result="";
+		int roll = this.rollDice() + rehearseCounter;	
+		result+="<html>You rolled " + roll + "<br>";	
+		if (this.room.isSet()) {
+			Set set = (Set) this.room;
+			int budget = set.getSceneCard().getBudget();
+			result+= "The film budget is $" + budget + "<br>";
+			if (roll >= budget) {
+				result+=("You succeeded!<br>");
+				removeShotCounter(set);
+			} else {
+				result+="You failed<br>";
+				if (!currentRole.isOnCard()) {
+					this.money++;
+				}
+				result+="You have $" + this.money + " and " + this.credits + " credit" + "<br></html>";
+			}
+		}
+		this.current_state = TurnState.ACTED;
+		stateChanged(this);
+		return result;
+	}
+
 	private void rehearse() {
 		rehearseCounter++;
 		System.out.println("You have " + rehearseCounter + " rehearsal points");
 		stateChanged(this);
+	}
+
+	public String rehearseGUI() {
+		String result="";
+		// first check if allowed to rehearse
+		if(this.getLocation().isSet()){
+			Set set = (Set)this.getLocation();
+			int budget = set.getSceneCard().getBudget();			
+		
+			if((rehearseCounter + 1) < budget){		
+				rehearseCounter++;			
+				stateChanged(this);
+				this.current_state = TurnState.ACTED;
+				result = "<html>You now have:<br>" + rehearseCounter + " rehearsal points<br></html>";
+			} else {
+				result = "<html>You cannot rehearse<br>You have:<br>" + rehearseCounter + " rehearsal points<br>You must act<br></html>";		
+			}
+		}
+		return result;	
 	}
 
 	public void rehearseReset() {
