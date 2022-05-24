@@ -262,7 +262,7 @@ public class Game {
       for (int i = 0; i < this.numPlayers; i++) {
          playerArray[i].resetRole();
          playerArray[i].rehearseReset();
-         playerArray[i].setRoom(Board.getRoom("trailer"));
+         playerArray[i].move(Board.getRoom("trailer"));
       }
       stateChanged(this);
    }
