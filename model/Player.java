@@ -490,15 +490,18 @@ public class Player {
 	}
 
 	public void move(Room room) {
-		// update the player's location
-		this.setRoom(room);
-		// flip the scene card
-		if(room.isSet()) {
+		// update the player's location if not in role
+		if(this.currentRole == null){
+			this.setRoom(room);
+			this.current_state = TurnState.MOVED;
+			// flip the scene card
+			if(room.isSet()) {
 				Set set = (Set)room;
-			if(set.hasSceneCard()) {
-				set.getSceneCard().flipCard();				
-			}
-		}		
+				if(set.hasSceneCard()) {
+					set.getSceneCard().flipCard();				
+				}
+			}	
+		}	
 	}
 
 	private void move() {
@@ -791,6 +794,7 @@ public class Player {
 			System.out.println("The scene is completed");
 			set.wrapScene();
 			this.completedScene = true;
+			this.rehearseReset();
    	}
 	}
 	private int rollDice() {
@@ -798,8 +802,8 @@ public class Player {
 	}
 
 	public String toString() {
-		return "Player" + this.getID() + " Rank:" + this.getRank() + " Money:$" + this.getMoney() + " Credits:"
-				+ this.getCredits();
+		return "<html>" + "Player" + this.getID() + "<br>" + "Rank:" + this.getRank() + "<br>" 
+		+ "Money:$" + this.getMoney() + "<br>" + "Credits:" + this.getCredits() + "<br></html>";
 	}
 
 }
