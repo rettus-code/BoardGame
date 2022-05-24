@@ -4,7 +4,7 @@ import model.*;
 import view.*;
 import javax.swing.*;
 import java.util.HashMap;
-import java.util.*;  
+import java.util.*;
 
 public class BoardLayersListener extends JFrame
       implements model.Game.observer, model.Player.observer {
@@ -118,12 +118,30 @@ public class BoardLayersListener extends JFrame
       Player active = todaysGame.playerArray[todaysGame.activePlayer];
       HashMap<String, Boolean> possibleActions = active.getPossibleActions();
       ArrayList<String> actions = new ArrayList<>();
-      for(Map.Entry m : possibleActions.entrySet()) {
-         if(m.getValue() == Boolean.TRUE) {
+      for (Map.Entry m : possibleActions.entrySet()) {
+         if (m.getValue() == Boolean.TRUE) {
             actions.add(m.getKey().toString());
          }
       }
       board.showActionMenu(actions);
+   }
+
+   // return the list of roles to the view
+   public void getPossibleRolesMenu() {      
+      model.Player active = todaysGame.playerArray[todaysGame.activePlayer];
+      model.Room room = active.getLocation();
+      // get roles
+      if (room.isSet()) {
+         model.Set set = (model.Set) room;
+         model.Role[] roles = set.getAllRoles(); // oncard and extra roles
+         String[] rolesArray = new String[roles.length];
+         for(int i = 0; i<roles.length; i++) {
+            rolesArray[i] = roles[i].toString();
+         }
+         board.showTakeRoleMenu(rolesArray);       
+      } else {
+         // do nothing
+      }      
    }
 
    // return the list of neighboring rooms to the view
@@ -136,7 +154,32 @@ public class BoardLayersListener extends JFrame
    // the player chose the room to move to so update the data in the model
    public void submitPlayerMove(String roomStr) {
       model.Room room = todaysGame.gameBoard.getRoom(roomStr);
-      todaysGame.playerArray[todaysGame.activePlayer].setRoom(room);
+      todaysGame.playerArray[todaysGame.activePlayer].move(room);
+   }
+
+   // validate, take role if valid, show message
+   public String submitPlayerTakeRole(int n) {
+      String resultMsg = "Success!";
+      Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
+      // get the role from the role String
+      model.Room room = activeP.getLocation();
+      // get roles
+      if (room.isSet()) {
+         model.Set set = (model.Set) room;
+         model.Role[] roles = set.getAllRoles(); // oncard and extra roles        
+         model.Role chosenRole = roles[n];      
+         boolean success = activeP.takeRole(chosenRole);
+         if(success) {
+            board.movePlayerDie(activeP);
+         } else {
+            if(chosenRole.isTaken()) {
+               resultMsg = "Role already taken";
+            } else if (chosenRole.getLevel() > activeP.getRank()) {
+               resultMsg = "Level too high";
+            }
+         }
+      }
+      return resultMsg;
    }
 
    // end turn so next player can go
