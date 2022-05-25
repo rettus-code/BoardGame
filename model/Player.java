@@ -49,9 +49,9 @@ public class Player {
 		this.name = name;
 		this.id = newID;
 		if (numPlayers == 7 || numPlayers == 8) {
-			this.rank = 2;
-		} else {
 			this.rank = 6;
+		} else {
+			this.rank = 1;
 		}
 		this.money = 0;
 		if (numPlayers == 5) {

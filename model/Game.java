@@ -107,6 +107,7 @@ public class Game {
       } else {
          this.currentDay = new Day(currentDay.getDay(), deck);
          dealSceneCards();
+         board.resetShots();
       }
       stateChanged(this);
    }

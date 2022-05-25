@@ -223,9 +223,20 @@ public class BoardView extends JFrame {
       ImageIcon sIcon = new ImageIcon("images/shot.png");
       shotLabel.setIcon(sIcon);
       shotLabel.setBounds(x, y, sIcon.getIconWidth(), sIcon.getIconHeight());
-      shotLabel.setOpaque(true);
+      shotLabel.setOpaque(false);
       bPane.add(shotLabel, new Integer(1));
       shotLabels[z] = shotLabel;
+    }
+    public void completedShot(int z){
+      bPane.add(shotLabels[z], new Integer(-1));
+      shotLabels[z].repaint();
+    }
+    public void resetShots(){
+      System.out.println("reset shots");
+      for(int i = 0; i < shotLabels.length; i++){
+         bPane.add(shotLabels[i], new Integer(1));
+         shotLabels[i].repaint();
+      }
     }
     public void addCard(String image, int[] point, int roomNum) {
         // Add a scene card to this room

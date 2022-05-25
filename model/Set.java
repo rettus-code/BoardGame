@@ -1,7 +1,7 @@
 package model;
 import java.util.Arrays;
 import java.util.Collections;
-
+//import view.BoardView;
 public class Set extends Room {
    public Role[] parts;
    private Take[] takes;
@@ -214,7 +214,7 @@ public class Set extends Room {
       return this.takes[i];
    }
    public boolean removeShotCounter() {
-      //this.takes[takesCompleted] = null;
+      view.BoardView.getInstance().completedShot(this.takes[takesCompleted].getBoardNum());
       takesCompleted++;
       if (takesCompleted == takes.length) {
          return true;
