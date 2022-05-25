@@ -110,7 +110,7 @@ public class Game {
       }
       stateChanged(this);
    }
-
+   
    public static int getActivePlayer() {
       return activePlayer;
    }
@@ -259,10 +259,18 @@ public class Game {
    }
 
    public void endDay() {
+      
       for (int i = 0; i < this.numPlayers; i++) {
          playerArray[i].resetRole();
          playerArray[i].rehearseReset();
          playerArray[i].move(Board.getRoom("trailer"));
+      }
+      for (int i = 0; i < gameBoard.rooms.length; i++){
+         int[] point = {-1,-2};
+         if(gameBoard.rooms[i].hasSceneCard()){
+            Set set = (Set)gameBoard.rooms[i];
+            set.removeSceneCard();
+         }
       }
       stateChanged(this);
    }

@@ -51,7 +51,7 @@ public class Player {
 		if (numPlayers == 7 || numPlayers == 8) {
 			this.rank = 2;
 		} else {
-			this.rank = 1;
+			this.rank = 6;
 		}
 		this.money = 0;
 		if (numPlayers == 5) {
@@ -209,6 +209,7 @@ public class Player {
 						// promptTakeRoleMove();						
 						setPossibleAction("takerole", true);						
 					}
+               stateChanged(this);
 					break;
 				case MOVED:
 					setPossibleAction("move", false);

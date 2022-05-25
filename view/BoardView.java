@@ -88,7 +88,8 @@ public class BoardView extends JFrame {
     JLabel player7label;
     JLabel player8label;
     JLabel mLabel;
-
+    JLabel shotLabel;
+    
     // JButtons
     JButton bAct;
     JButton bRehearse;
@@ -128,7 +129,7 @@ public class BoardView extends JFrame {
 
     private JLabel[] cardLabels = { cardlabel0, cardlabel1, cardlabel2, cardlabel3, cardlabel4, cardlabel5, cardlabel6,
             cardlabel7, cardlabel8, cardlabel9 };
-
+    private JLabel[] shotLabels = new JLabel[22];
     // Private Constructor (singleton pattern)
     private BoardView() {
         // Set the title of the JFrame
@@ -189,10 +190,9 @@ public class BoardView extends JFrame {
         this.boardIcon = new ImageIcon("images/board.jpg");
         boardlabel.setIcon(boardIcon);
         boardlabel.setBounds(0, 0, boardIcon.getIconWidth(), boardIcon.getIconHeight());
-
+         
         // Add the board to the lowest layer
         bPane.add(boardlabel, new Integer(0));
-
         // Set the size of the GUI
         setSize(boardIcon.getIconWidth() + 230, boardIcon.getIconHeight());
 
@@ -218,7 +218,15 @@ public class BoardView extends JFrame {
     public static BoardView getInstance() {
         return instance;
     }
-
+    public void addShot(int x, int y, int z){
+      shotLabel = new JLabel();
+      ImageIcon sIcon = new ImageIcon("images/shot.png");
+      shotLabel.setIcon(sIcon);
+      shotLabel.setBounds(x, y, sIcon.getIconWidth(), sIcon.getIconHeight());
+      shotLabel.setOpaque(true);
+      bPane.add(shotLabel, new Integer(1));
+      shotLabels[z] = shotLabel;
+    }
     public void addCard(String image, int[] point, int roomNum) {
         // Add a scene card to this room
         templabel = new JLabel();

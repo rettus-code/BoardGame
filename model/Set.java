@@ -20,6 +20,7 @@ public class Set extends Room {
       this.parts = roles;
       this.takes = takes;
       this.roomNum = roomNum;
+      
    }
 
    public SceneCard getSceneCard() {
@@ -111,7 +112,7 @@ public class Set extends Room {
       return this.sceneCard != null;
    }
 
-   private void removeSceneCard() {
+   public void removeSceneCard() {
       controller.BoardLayersListener.getInstance().removeCard(this.sceneCard.getImage(), this.getCardPosition(), this.getRoomNum());
       this.sceneCard = null;
    }
@@ -201,14 +202,25 @@ public class Set extends Room {
       }
       removeSceneCard();      
    }
-
+   public int[][] getTakes(){
+      int[][] point = new int[takes.length][2];
+      for(int i = 0; i < takes.length; i++){
+         point[i][0] = this.takes[i].getLocationX();
+         point[i][1] = this.takes[i].getLocationY();
+      }
+      return point;
+   }
+   public Take getTake(int i){
+      return this.takes[i];
+   }
    public boolean removeShotCounter() {
-      this.takes[takesCompleted] = null;
+      //this.takes[takesCompleted] = null;
       takesCompleted++;
       if (takesCompleted == takes.length) {
          return true;
       }
       return false;
    }
+   
 
 }

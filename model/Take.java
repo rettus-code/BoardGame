@@ -6,6 +6,7 @@ public class Take {
     private int height;
     private int width;
     private int number;
+    private int boardNum;
     private boolean complete;
 
     public Take(int x, int y, int h, int w, int num) {
@@ -65,7 +66,12 @@ public class Take {
             this.number = num;
         }
     }
-
+    public void setBoardNum(int num) {
+            this.boardNum = num;
+    }
+    public int getBoardNum() {
+        return this.boardNum;
+    }
     public boolean isComplete() {
         return this.complete;
     }
