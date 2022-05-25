@@ -103,7 +103,7 @@ public class Role {
    }
 
    public String toString() {
-      String roleStr = "Part: " + this.name + " Line: " + this.line + " Level: " + this.level;
+      String roleStr = "<html>" + "Part: " + this.name + "<br>" + "Line: " + this.line + "<br>" + "Level: " + this.level + "<br></html>";
       return roleStr;
    }
 

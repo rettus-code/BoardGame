@@ -1,11 +1,11 @@
 # BoardGame
-Assignment 2 - Text-Based Implementation of Deadwood
-Friday, May 13
+Assignment 3 - GUI Implementation of Deadwood
+Friday, June 3
 Group 5, Team: Michael Rettus, Nick Coyle
 
 
 **To compile our project, compile the Deadwood.java file**
-The main method is located in the Deadwood Class. 
+The main method is located in View/BoardLayersListener.java 
 
 
 Our repo is located here:
