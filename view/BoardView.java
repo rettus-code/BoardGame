@@ -194,7 +194,7 @@ public class BoardView extends JFrame {
         // Add the board to the lowest layer
         bPane.add(boardlabel, new Integer(0));
         // Set the size of the GUI
-        setSize(boardIcon.getIconWidth() + 230, boardIcon.getIconHeight());
+        setSize(boardIcon.getIconWidth() + 230, boardIcon.getIconHeight()+40);
 
         // Setup the main menu
         initActionsMenu();
