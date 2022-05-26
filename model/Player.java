@@ -53,7 +53,7 @@ public class Player {
 		} else {
 			this.rank = 1;
 		}
-		this.money = 0;
+		this.money = 40;
 		if (numPlayers == 5) {
 			this.credits = 2;
 		} else if (numPlayers == 6) {
