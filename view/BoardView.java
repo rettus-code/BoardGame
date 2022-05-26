@@ -229,13 +229,11 @@ public class BoardView extends JFrame {
     }
     public void completedShot(int z){
       bPane.add(shotLabels[z], new Integer(-1));
-      shotLabels[z].repaint();
+
     }
     public void resetShots(){
-      System.out.println("reset shots");
       for(int i = 0; i < shotLabels.length; i++){
-         bPane.add(shotLabels[i], new Integer(1));
-         shotLabels[i].repaint();
+         bPane.add(shotLabels[i], new Integer(2));
       }
     }
     public void addCard(String image, int[] point, int roomNum) {

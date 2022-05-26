@@ -62,7 +62,7 @@ public class Game {
    public void sceneComplete() {
       int scenes = --Day.numScenes;
       System.out.println("Scenes left: " + scenes);
-      if (scenes < 2) {
+      if (scenes < 8) {
          endDay();
          if (this.currentDay.getDay() == lastDay()) {
             endOfGame();
