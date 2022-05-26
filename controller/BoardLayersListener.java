@@ -111,6 +111,7 @@ public class BoardLayersListener extends JFrame
    public void stateChanged(Player player) {
       board.movePlayerDie(player);
       getPossibleActionsMenu();
+      board.updatePlayerDice(player.getRank(), player.getID());
    }
 
    // return the list of neighboring rooms to the view

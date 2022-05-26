@@ -359,7 +359,34 @@ public class BoardView extends JFrame {
         }
         bPane.add(player8label, new Integer(2));
     }
-    
+    public void updatePlayerDice(int rank, int player) {
+      switch(player){
+         case 0: ImageIcon pIcon = new ImageIcon("images/dice/r" + rank + ".png");
+                  player1label.setIcon(pIcon);
+                  break;
+         case 1:  pIcon = new ImageIcon("images/dice/o" + rank + ".png");
+                  player2label.setIcon(pIcon);
+                  break;
+         case 2:  pIcon = new ImageIcon("images/dice/y" + rank + ".png");
+                  player3label.setIcon(pIcon);
+                  break;
+         case 3:  pIcon = new ImageIcon("images/dice/g" + rank + ".png");
+                  player4label.setIcon(pIcon);
+                  break;
+         case 4:  pIcon = new ImageIcon("images/dice/b" + rank + ".png");
+                  player5label.setIcon(pIcon);
+                  break;
+         case 5:  pIcon = new ImageIcon("images/dice/v" + rank + ".png");
+                  player6label.setIcon(pIcon);
+                  break;
+         case 6:  pIcon = new ImageIcon("images/dice/p" + rank + ".png");
+                  player7label.setIcon(pIcon);
+                  break;
+         case 7:  pIcon = new ImageIcon("images/dice/w" + rank + ".png");
+                  player8label.setIcon(pIcon);
+                  break;
+      }
+    }
     public void initActionsMenu() {
         // Create the Menu for action buttons
         mLabel = new JLabel("           MENU            ");
