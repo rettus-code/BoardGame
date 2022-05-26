@@ -49,7 +49,7 @@ public class Player {
 		this.name = name;
 		this.id = newID;
 		if (numPlayers == 7 || numPlayers == 8) {
-			this.rank = 6;
+			this.rank = 2;
 		} else {
 			this.rank = 1;
 		}
@@ -64,7 +64,6 @@ public class Player {
 		this.setRoom(room);
 		rehearseCounter = 0;
 		this.completedScene = false;
-		//this.rank=5;
 		initPossibleActions();
 	}
 
