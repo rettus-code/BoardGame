@@ -268,84 +268,98 @@ public class BoardView extends JFrame {
         parent.validate();
         parent.repaint();
     }
-
+      
     public void initPlayerDice(Player[] playerArray) {
         // Add a dice to represent a player.
         player1label = new JLabel();
-        ImageIcon pIcon = new ImageIcon("images/dice/r2.png");
+        int p1rank = playerArray[0].getRank();
+        ImageIcon pIcon = new ImageIcon("images/dice/r"+p1rank+".png");
         player1label.setIcon(pIcon);
         player1label.setBounds(boardIcon.getIconWidth() - 220, (200 + (1 * 50)), pIcon.getIconWidth(),
                 pIcon.getIconHeight());
         bPane.add(player1label, new Integer(2));
 
         player2label = new JLabel();
-        pIcon = new ImageIcon("images/dice/o2.png");
+        int p2rank = playerArray[1].getRank();
+        pIcon = new ImageIcon("images/dice/o"+p2rank+".png");
         player2label.setIcon(pIcon);
         player2label.setBounds(boardIcon.getIconWidth() - 220, (200 + (2 * 50)), pIcon.getIconWidth(),
                 pIcon.getIconHeight());
         bPane.add(player2label, new Integer(2));
 
         player3label = new JLabel();
-        pIcon = new ImageIcon("images/dice/y2.png");
-        player3label.setIcon(pIcon);
-        player3label.setBounds(boardIcon.getIconWidth() - 220, (200 + (3 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        if (playerArray[2] == null) {
+        if (playerArray[2] != null){
+           int p3rank = playerArray[2].getRank();
+           pIcon = new ImageIcon("images/dice/y"+p3rank+".png");
+           player3label.setIcon(pIcon);
+           player3label.setBounds(boardIcon.getIconWidth() - 220, (200 + (3 * 50)), pIcon.getIconWidth(),
+                   pIcon.getIconHeight());
+        } else {
             player3label.setVisible(false);
         }
         bPane.add(player3label, new Integer(2));
 
         player4label = new JLabel();
-        pIcon = new ImageIcon("images/dice/g2.png");
-        player4label.setIcon(pIcon);
-        player4label.setBounds(boardIcon.getIconWidth() - 220, (200 + (4 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        if (playerArray[3] == null) {
+        if (playerArray[3] != null){
+           int p4rank = playerArray[3].getRank();
+           pIcon = new ImageIcon("images/dice/g"+p4rank+".png");
+           player4label.setIcon(pIcon);
+           player4label.setBounds(boardIcon.getIconWidth() - 220, (200 + (4 * 50)), pIcon.getIconWidth(),
+                   pIcon.getIconHeight());
+        } else {
             player4label.setVisible(false);
         }
         bPane.add(player4label, new Integer(2));
 
         player5label = new JLabel();
-        pIcon = new ImageIcon("images/dice/b2.png");
-        player5label.setIcon(pIcon);
-        player5label.setBounds(boardIcon.getIconWidth() - 50, (200 + (1 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        if (playerArray[4] == null) {
+        if (playerArray[4] != null){
+           int p5rank = playerArray[4].getRank();
+           pIcon = new ImageIcon("images/dice/b"+p5rank+".png");
+           player5label.setIcon(pIcon);
+           player5label.setBounds(boardIcon.getIconWidth() - 50, (200 + (1 * 50)), pIcon.getIconWidth(),
+                   pIcon.getIconHeight());
+        } else {
             player5label.setVisible(false);
         }
         bPane.add(player5label, new Integer(2));
 
         player6label = new JLabel();
-        pIcon = new ImageIcon("images/dice/v2.png");
-        player6label.setIcon(pIcon);
-        player6label.setBounds(boardIcon.getIconWidth() - 50, (200 + (2 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        if (playerArray[5] == null) {
+        if (playerArray[5] != null){
+        int p6rank = playerArray[5].getRank();
+           pIcon = new ImageIcon("images/dice/v"+p6rank+".png");
+           player6label.setIcon(pIcon);
+           player6label.setBounds(boardIcon.getIconWidth() - 50, (200 + (2 * 50)), pIcon.getIconWidth(),
+                   pIcon.getIconHeight());
+        } else {
             player6label.setVisible(false);
         }
         bPane.add(player6label, new Integer(2));
 
         player7label = new JLabel();
-        pIcon = new ImageIcon("images/dice/p2.png");
-        player7label.setIcon(pIcon);
-        player7label.setBounds(boardIcon.getIconWidth() - 50, (200 + (3 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        if (playerArray[6] == null) {
+        if (playerArray[6] != null){
+           int p7rank = playerArray[6].getRank();
+           pIcon = new ImageIcon("images/dice/p"+p7rank+".png");
+           player7label.setIcon(pIcon);
+           player7label.setBounds(boardIcon.getIconWidth() - 50, (200 + (3 * 50)), pIcon.getIconWidth(),
+                   pIcon.getIconHeight());
+        } else {
             player7label.setVisible(false);
         }
         bPane.add(player7label, new Integer(2));
 
         player8label = new JLabel();
-        pIcon = new ImageIcon("images/dice/w2.png");
-        player8label.setIcon(pIcon);
-        player8label.setBounds(boardIcon.getIconWidth() - 50, (200 + (4 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        if (playerArray[7] == null) {
+        if (playerArray[7] != null){
+           int p8rank = playerArray[7].getRank();
+           pIcon = new ImageIcon("images/dice/w"+p8rank+".png");
+           player8label.setIcon(pIcon);
+           player8label.setBounds(boardIcon.getIconWidth() - 50, (200 + (4 * 50)), pIcon.getIconWidth(),
+                   pIcon.getIconHeight());
+        } else {
             player8label.setVisible(false);
         }
         bPane.add(player8label, new Integer(2));
     }
-
+    
     public void initActionsMenu() {
         // Create the Menu for action buttons
         mLabel = new JLabel("           MENU            ");
