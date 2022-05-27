@@ -104,7 +104,7 @@ public class BoardLayersListener extends JFrame
 
    public void stateChanged(Game game) {
       Player activeP = game.playerArray[Game.getActivePlayer()];
-      board.updateActivePlayerLabel(activeP);
+      board.updateActivePlayerLabel(activeP);      
    }
 
    // call all the methods to update the view when the player model changes
@@ -112,6 +112,8 @@ public class BoardLayersListener extends JFrame
       board.movePlayerDie(player);
       getPossibleActionsMenu();
       board.updatePlayerDice(player.getRank(), player.getID());
+      board.updateActivePlayerDice(player);
+      board.updateActivePlayerRehearsalChips(player);
    }
 
    // return the list of neighboring rooms to the view

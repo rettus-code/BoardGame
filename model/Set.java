@@ -1,7 +1,7 @@
 package model;
 import java.util.Arrays;
 import java.util.Collections;
-//import view.BoardView;
+
 public class Set extends Room {
    public Role[] parts;
    private Take[] takes;

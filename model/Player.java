@@ -171,6 +171,10 @@ public class Player {
 		}
 	}
 
+	public int getRehearseCounter() {
+		return rehearseCounter;
+	}
+
 	public HashMap<String, Boolean> getPossibleActions() {
 		return this.possibleActions;
 	}
