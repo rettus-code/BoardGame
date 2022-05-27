@@ -5,7 +5,7 @@ Group 5, Team: Michael Rettus, Nick Coyle
 
 
 **To compile our project, compile the Deadwood.java file**
-The main method is located in View/BoardLayersListener.java 
+The main method is located in Deadwood.java 
 
 
 Our repo is located here:
