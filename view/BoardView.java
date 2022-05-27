@@ -143,11 +143,11 @@ public class BoardView extends JFrame {
         initBoard();
         
         activePlayerPanel.setVisible(true);
-        activePlayerPanel.setBounds((boardIcon.getIconWidth() + 10), 0, 150, 50);
+        activePlayerPanel.setBounds((boardIcon.getIconWidth() + 10), 0, 175, 50);
         activePlayerPanel.setAlignmentX(0.0F);          
         bPane.add(activePlayerPanel, new Integer(2));
 
-        activeplayerlabel = new JLabel("<html>Current Player: </html>");
+        activeplayerlabel = new JLabel("<html>:</html>");
         activeplayerlabel.setBounds(boardIcon.getIconWidth() + 40, 0, 170, 20);
         activeplayerlabel.setAlignmentX(0.0F);
         activePlayerPanel.add(activeplayerlabel, new Integer(2));
@@ -280,7 +280,7 @@ public class BoardView extends JFrame {
         player1Decorator = new JLabel();
         player1label.setLayout(new OverlayLayout(player1label));
         int p1rank = playerArray[0].getRank();
-        ImageIcon pIcon = new ImageIcon("images/dice/r"+p1rank+".png");        
+        ImageIcon pIcon = new ImageIcon("images/dice/"+getPlayerColor(1)+p1rank+".png");        
         player1label.setIcon(pIcon);        
         player1label.setBounds(boardIcon.getIconWidth() - 220, (200 + (1 * 50)), pIcon.getIconWidth(),
                 pIcon.getIconHeight());               
@@ -294,7 +294,7 @@ public class BoardView extends JFrame {
         player2Decorator = new JLabel();
         player2label.setLayout(new OverlayLayout(player2label));
         int p2rank = playerArray[1].getRank();
-        pIcon = new ImageIcon("images/dice/o"+p2rank+".png");        
+        pIcon = new ImageIcon("images/dice/"+getPlayerColor(2)+p2rank+".png");        
         player2label.setIcon(pIcon);
         player2label.setBounds(boardIcon.getIconWidth() - 220, (200 + (2 * 50)), pIcon.getIconWidth(),
                 pIcon.getIconHeight());
@@ -309,7 +309,7 @@ public class BoardView extends JFrame {
         player3label.setLayout(new OverlayLayout(player3label));
         if (playerArray[2] != null){
            int p3rank = playerArray[2].getRank();
-           pIcon = new ImageIcon("images/dice/y"+p3rank+".png");
+           pIcon = new ImageIcon("images/dice/"+getPlayerColor(3)+p3rank+".png");
            player3label.setIcon(pIcon);
            player3label.setBounds(boardIcon.getIconWidth() - 220, (200 + (3 * 50)), pIcon.getIconWidth(),
                    pIcon.getIconHeight());
@@ -327,7 +327,7 @@ public class BoardView extends JFrame {
         player4label.setLayout(new OverlayLayout(player4label));
         if (playerArray[3] != null){
            int p4rank = playerArray[3].getRank();
-           pIcon = new ImageIcon("images/dice/g"+p4rank+".png");
+           pIcon = new ImageIcon("images/dice/"+getPlayerColor(4)+p4rank+".png");
            player4label.setIcon(pIcon);
            player4label.setBounds(boardIcon.getIconWidth() - 220, (200 + (4 * 50)), pIcon.getIconWidth(),
                    pIcon.getIconHeight());
@@ -345,7 +345,7 @@ public class BoardView extends JFrame {
         player5label.setLayout(new OverlayLayout(player5label));
         if (playerArray[4] != null){
            int p5rank = playerArray[4].getRank();
-           pIcon = new ImageIcon("images/dice/b"+p5rank+".png");
+           pIcon = new ImageIcon("images/dice/"+getPlayerColor(5)+p5rank+".png");
            player5label.setIcon(pIcon);
            player5label.setBounds(boardIcon.getIconWidth() - 50, (200 + (1 * 50)), pIcon.getIconWidth(),
                    pIcon.getIconHeight());
@@ -363,7 +363,7 @@ public class BoardView extends JFrame {
         player6label.setLayout(new OverlayLayout(player6label));
         if (playerArray[5] != null){
         int p6rank = playerArray[5].getRank();
-           pIcon = new ImageIcon("images/dice/v"+p6rank+".png");
+           pIcon = new ImageIcon("images/dice/"+getPlayerColor(6)+p6rank+".png");
            player6label.setIcon(pIcon);
            player6label.setBounds(boardIcon.getIconWidth() - 50, (200 + (2 * 50)), pIcon.getIconWidth(),
                    pIcon.getIconHeight());
@@ -381,7 +381,7 @@ public class BoardView extends JFrame {
         player7label.setLayout(new OverlayLayout(player7label));
         if (playerArray[6] != null){
            int p7rank = playerArray[6].getRank();
-           pIcon = new ImageIcon("images/dice/p"+p7rank+".png");
+           pIcon = new ImageIcon("images/dice/"+getPlayerColor(7)+p7rank+".png");
            player7label.setIcon(pIcon);
            player7label.setBounds(boardIcon.getIconWidth() - 50, (200 + (3 * 50)), pIcon.getIconWidth(),
                    pIcon.getIconHeight());
@@ -399,7 +399,7 @@ public class BoardView extends JFrame {
         player8label.setLayout(new OverlayLayout(player8label));
         if (playerArray[7] != null){
            int p8rank = playerArray[7].getRank();
-           pIcon = new ImageIcon("images/dice/w"+p8rank+".png");
+           pIcon = new ImageIcon("images/dice/"+getPlayerColor(8)+p8rank+".png");
            player8label.setIcon(pIcon);
            player8label.setBounds(boardIcon.getIconWidth() - 50, (200 + (4 * 50)), pIcon.getIconWidth(),
                    pIcon.getIconHeight());
@@ -412,12 +412,45 @@ public class BoardView extends JFrame {
         player8Decorator.setAlignmentY(-2);
         bPane.add(player8label, new Integer(2));
     }
+
+    public String getPlayerColor(int playerNum){
+        String c = "";
+        switch(playerNum){
+            case 1:
+                c="r";
+                break;
+            case 2:
+                c="o";
+                break;
+            case 3:
+                c="y";
+                break;
+            case 4:
+                c="g";
+                break;
+            case 5:
+                c="b";
+                break;
+            case 6:
+                c="v";
+                break;
+            case 7:
+                c="p";
+                break;
+            case 8:
+                c="w";
+                break;
+        }
+        return c;
+    }
+
+
     // set the rehearsal icon to show
     public void updateActivePlayerRehearsalChips(Player activeP) {
         int p = activeP.getID() + 1;        
         int chips = activeP.getRehearseCounter();
         ImageIcon pDecorator = new ImageIcon("images/rehearse/rc1.png");
-        if(chips > 0 && chips < 5) {
+        if(chips > 0 && chips < 6) {
             pDecorator = new ImageIcon("images/rehearse/rc"+chips+".png");
         }
         switch(p){
@@ -870,8 +903,12 @@ public class BoardView extends JFrame {
 
     // update the active player label
     public void updateActivePlayerLabel(Player activeP) {
-        activeplayerlabel.setText("<html>" + "Current Player " + (activeP.getID() + 1) + ": " + activeP.getName() + "<br>" +
+        activeplayerlabel.setText("<html>" + "Player " + (activeP.getID() + 1) + ": " + activeP.getName() + "<br>" +
          "Money: $" + activeP.getMoney() + "<br>" + "Credits: " + activeP.getCredits() + "<br></html>");
+         int rank = activeP.getRank();         
+         String color = getPlayerColor(activeP.getID() + 1);        
+         ImageIcon pIcon = new ImageIcon("images/dice/"+color+rank+".png");         
+         activeplayerlabel.setIcon(pIcon);         
     }
 
     public void movePlayerDie(Player active) {

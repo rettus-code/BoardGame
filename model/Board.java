@@ -1,8 +1,9 @@
 package model;
 import view.*;
+
 public class Board {
    public String[] boardSections = new String[] { "topRight", "bottomLeft", "bottomRight", "topLeft" };
-   public static Room[] rooms = new Room[DeadWood.NUM_ROOMS];
+   public static Room[] rooms = new Room[Game.NUM_ROOMS];
    public Room currentRoom;
    public BoardView board;
    public int shotCount = 0;
