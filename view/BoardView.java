@@ -143,11 +143,11 @@ public class BoardView extends JFrame {
         initBoard();
         
         activePlayerPanel.setVisible(true);
-        activePlayerPanel.setBounds((boardIcon.getIconWidth() + 10), 0, 150, 50);
+        activePlayerPanel.setBounds((boardIcon.getIconWidth() + 10), 0, 175, 50);
         activePlayerPanel.setAlignmentX(0.0F);          
         bPane.add(activePlayerPanel, new Integer(2));
 
-        activeplayerlabel = new JLabel("<html>Current Player: </html>");
+        activeplayerlabel = new JLabel("<html>:</html>");
         activeplayerlabel.setBounds(boardIcon.getIconWidth() + 40, 0, 170, 20);
         activeplayerlabel.setAlignmentX(0.0F);
         activePlayerPanel.add(activeplayerlabel, new Integer(2));
@@ -870,8 +870,39 @@ public class BoardView extends JFrame {
 
     // update the active player label
     public void updateActivePlayerLabel(Player activeP) {
-        activeplayerlabel.setText("<html>" + "Current Player " + (activeP.getID() + 1) + ": " + activeP.getName() + "<br>" +
+        activeplayerlabel.setText("<html>" + "Player " + (activeP.getID() + 1) + ": " + activeP.getName() + "<br>" +
          "Money: $" + activeP.getMoney() + "<br>" + "Credits: " + activeP.getCredits() + "<br></html>");
+         int rank = activeP.getRank();
+         int activePlayerNum = activeP.getID() + 1;
+         String color = "";
+         switch(activePlayerNum) {
+             case 1:
+             color = "r";
+             break;
+             case 2:
+             color = "o";
+             break;
+             case 3:
+             color = "y";
+             break;
+             case 4:
+             color = "g";
+             break;
+             case 5:
+             color = "b";
+             break;
+             case 6:
+             color = "v";
+             break;
+             case 7:
+             color = "p";
+             break;
+             case 8:
+             color = "w";
+             break;
+         }
+         ImageIcon pIcon = new ImageIcon("images/dice/"+color+rank+".png");         
+         activeplayerlabel.setIcon(pIcon);         
     }
 
     public void movePlayerDie(Player active) {

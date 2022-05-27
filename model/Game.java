@@ -3,6 +3,8 @@ import view.*;
 import java.util.*;
 
 public class Game {
+   public static final int NUM_ROOMS = 12;
+   public static final int NUM_SCENECARDS = 40;  
 
    public interface observer {
       void stateChanged(Game game);

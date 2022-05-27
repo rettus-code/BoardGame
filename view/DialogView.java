@@ -15,18 +15,21 @@ public class DialogView {
         return instance;
     }
 
-    public static void displayStartDialog() {
+    public int getNumPlayersFromUser() {
+        int n = 0;
         // show dialog with dropdown to choose only 2-8
         Integer[] options = { 2, 3, 4, 5, 6, 7, 8 };
         try {
             int numPlayers = (Integer) JOptionPane.showInputDialog(null, "How many players?",
                     "Number of Players", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             BoardLayersListener.getInstance().setNumPlayers(numPlayers);
+            n = numPlayers;
         } catch (Exception e) {
         }
+        return n;
     }
 
-    public static void displayPlayerNameDialog(int numPlayers) {
+    public static String[] getPlayerNamesFromUser(int numPlayers) {
         String[] playerNames = new String[numPlayers];
         for (int i = 0; i < numPlayers; i++) {
             String msg = "Enter Player " + (i + 1) + " Name";
@@ -37,17 +40,19 @@ public class DialogView {
             } catch (Exception e) {
             }
         }
-        BoardLayersListener.getInstance().setPlayers(playerNames);
+        return playerNames;
     }
 
-    public static void displayPlayAgainDialog() {
+    public static boolean getPlayAgainFromUser() {
+        boolean quit = false;
         String[] options = { "Yes", "No" };
         try {
             String s = (String) JOptionPane.showInputDialog(null, "Play again?",
-                    "Another round?", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            BoardLayersListener.getInstance().setQuit(s);
+                    "Another round?", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);            
+            quit = (s.equals("No"));
         } catch (Exception e) {
         }
+        return quit;
     }
 
 }

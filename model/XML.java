@@ -30,7 +30,7 @@ public class XML {
    } // exception handling
 
    public String[] readBoardData(Document d) {
-      String[] rooms = new String[DeadWood.NUM_ROOMS];
+      String[] rooms = new String[Game.NUM_ROOMS];
       d.getDocumentElement().normalize();
       NodeList sets = d.getElementsByTagName("set");
       for (int i = 0; i < sets.getLength(); i++) {
@@ -157,7 +157,7 @@ public class XML {
    // method
 
    public String[] readSceneData(Document d) {
-      String[] deck = new String[DeadWood.NUM_SCENECARDS];
+      String[] deck = new String[Game.NUM_SCENECARDS];
       d.getDocumentElement().normalize();
       NodeList cards = d.getElementsByTagName("card");
       for (int i = 0; i < cards.getLength(); i++) {

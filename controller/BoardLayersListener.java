@@ -2,6 +2,8 @@ package controller;
 
 import model.*;
 import view.*;
+import view.BoardView;
+
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.*;
@@ -9,81 +11,31 @@ import java.util.*;
 public class BoardLayersListener extends JFrame
       implements model.Game.observer, model.Player.observer {
 
+         private static BoardView board = BoardView.getInstance();         
+         private static model.Game todaysGame;
+         private static int numPlayers = 0;         
+
    // Eager Initialization
    public static BoardLayersListener instance = new BoardLayersListener();
 
-   private static BoardView board;
-   private static DialogView dialog;
-   private static Game todaysGame;
-   private static int numPlayers = 0;
-   private static boolean quit = false;
-
    // Constructor (singleton)
    private BoardLayersListener() {
-      board = BoardView.getInstance();
    }
 
    public static BoardLayersListener getInstance() {
       return instance;
    }
 
+   public int getNumPlayers(int n) {
+      return numPlayers;
+   }
+
    public void setNumPlayers(int n) {
       numPlayers = n;
    }
 
-   public void setPlayers(String[] playerNames) {
-      for (int i = 0; i < playerNames.length; i++) {
-         Player p = new Player(playerNames[i], numPlayers, i, Board.getRoom("trailer"));
-         todaysGame.playerSetup(p);
-      }
-   }
-
-   public void setQuit(String s) {
-      quit = (s.equals("No"));
-   }
-
-   public static void main(String[] args) {
-      board.setVisible(true);
-
-      while (!quit) {
-         playGame();
-         dialog.displayPlayAgainDialog();
-      }
-
-   }
-
-   private static void playGame() {
-      // Take input from the user about number of players
-      while (numPlayers == 0) {
-         dialog.displayStartDialog();
-      }
-
-      // Instantiate a new game
-      todaysGame = new Game(numPlayers, board);
-      DeadWood.readDataFiles(todaysGame);
-      todaysGame.dealSceneCards();
-
-      // Get the player names
-      dialog.displayPlayerNameDialog(todaysGame.getNumPlayers());
-      board.initPlayerDice(todaysGame.playerArray);
-
-      // register as an observer so it will update when state changes
-      subscribe(todaysGame);
-      board.initGameState();
-
-      for (Player p : todaysGame.playerArray) {
-         if (p != null) {
-            subscribe(p);
-         }
-      }
-
-      while (todaysGame.getCurrentDay().getDay() <= todaysGame.getLastDay()) {
-         while (todaysGame.getCurrentDay().getNumScenes() > 1) {
-            todaysGame.playerArray[Game.getActivePlayer()].takeTurn();
-            todaysGame.updateActivePlayer();
-         }
-         todaysGame.newDay();
-      }
+   public static void setGame(Game game) {
+      todaysGame = game;
    }
 
    // subscribe to the game model so it will update when the model state changes
@@ -104,7 +56,7 @@ public class BoardLayersListener extends JFrame
 
    public void stateChanged(Game game) {
       Player activeP = game.playerArray[Game.getActivePlayer()];
-      board.updateActivePlayerLabel(activeP);      
+      board.updateActivePlayerLabel(activeP);
    }
 
    // call all the methods to update the view when the player model changes
@@ -130,7 +82,7 @@ public class BoardLayersListener extends JFrame
    }
 
    // return the list of roles to the view
-   public void getPossibleRolesMenu() {      
+   public void getPossibleRolesMenu() {
       model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
       model.Room room = activeP.getLocation();
       // get roles
@@ -138,13 +90,13 @@ public class BoardLayersListener extends JFrame
          model.Set set = (model.Set) room;
          model.Role[] roles = set.getAllRoles(); // oncard and extra roles
          String[] rolesArray = new String[roles.length];
-         for(int i = 0; i<roles.length; i++) {
+         for (int i = 0; i < roles.length; i++) {
             rolesArray[i] = roles[i].toString();
          }
-         board.showTakeRoleMenu(rolesArray);       
+         board.showTakeRoleMenu(rolesArray);
       } else {
          // do nothing
-      }      
+      }
    }
 
    // return the list of neighboring rooms to the view
@@ -169,13 +121,13 @@ public class BoardLayersListener extends JFrame
       // get roles
       if (room.isSet()) {
          model.Set set = (model.Set) room;
-         model.Role[] roles = set.getAllRoles(); // oncard and extra roles        
-         model.Role chosenRole = roles[n];      
+         model.Role[] roles = set.getAllRoles(); // oncard and extra roles
+         model.Role chosenRole = roles[n];
          boolean success = activeP.takeRole(chosenRole);
-         if(success) {
+         if (success) {
             board.movePlayerDie(activeP);
          } else {
-            if(chosenRole.isTaken()) {
+            if (chosenRole.isTaken()) {
                resultMsg = "Role already taken";
             } else if (chosenRole.getLevel() > activeP.getRank()) {
                resultMsg = "Level too high";
@@ -201,36 +153,36 @@ public class BoardLayersListener extends JFrame
       }
    }
 
-   public void removeCard(String image, int[] point, int roomNum) {      
-      board.removeCard(image, point, roomNum);      
+   public void removeCard(String image, int[] point, int roomNum) {
+      board.removeCard(image, point, roomNum);
    }
 
-   public String act(){
+   public String act() {
       Player activeP = todaysGame.playerArray[Game.getActivePlayer()];
-      return activeP.actGUI();         
+      return activeP.actGUI();
    }
 
-   public String rehearse(){
+   public String rehearse() {
       Player activeP = todaysGame.playerArray[Game.getActivePlayer()];
-      return activeP.rehearseGUI();         
+      return activeP.rehearseGUI();
    }
 
-    // return the list of upgrades to the view
-   public void getUpgradesMenu() {      
+   // return the list of upgrades to the view
+   public void getUpgradesMenu() {
       model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
       model.Room room = activeP.getLocation();
       // get roles
       if (room.getName().equals("office")) {
-         model.CastingOffice office = (model.CastingOffice) room;         
-         String[] upgradesArray = office.getUpgradesGUI();         
-         board.showUpgradeMenu(upgradesArray);       
+         model.CastingOffice office = (model.CastingOffice) room;
+         String[] upgradesArray = office.getUpgradesGUI();
+         board.showUpgradeMenu(upgradesArray);
       } else {
          // do nothing
-      }      
+      }
    }
 
-   public String submitUpgrade(int n){  
-      model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];    
+   public String submitUpgrade(int n) {
+      model.Player activeP = todaysGame.playerArray[todaysGame.activePlayer];
       String result = activeP.upgradeGUI(n);
       return result;
    }
