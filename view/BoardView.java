@@ -3,10 +3,7 @@ package view;
 import model.*;
 import controller.*;
 import javax.swing.*;
-import javax.swing.JLayeredPane;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.ImageIcon;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -80,13 +77,21 @@ public class BoardView extends JFrame {
     JLabel cardlabel9;
     JLabel activeplayerlabel; // says whose turn it is in upper right corner
     JLabel player1label;
+    JLabel player1Decorator;
     JLabel player2label;
+    JLabel player2Decorator;
     JLabel player3label;
+    JLabel player3Decorator;
     JLabel player4label;
+    JLabel player4Decorator;
     JLabel player5label;
+    JLabel player5Decorator;
     JLabel player6label;
+    JLabel player6Decorator;
     JLabel player7label;
+    JLabel player7Decorator;
     JLabel player8label;
+    JLabel player8Decorator;
     JLabel mLabel;
     JLabel shotLabel;
     
@@ -270,24 +275,38 @@ public class BoardView extends JFrame {
     }
       
     public void initPlayerDice(Player[] playerArray) {
-        // Add a dice to represent a player.
+        // Add a dice to represent a player.                
         player1label = new JLabel();
+        player1Decorator = new JLabel();
+        player1label.setLayout(new OverlayLayout(player1label));
         int p1rank = playerArray[0].getRank();
-        ImageIcon pIcon = new ImageIcon("images/dice/r"+p1rank+".png");
-        player1label.setIcon(pIcon);
+        ImageIcon pIcon = new ImageIcon("images/dice/r"+p1rank+".png");        
+        player1label.setIcon(pIcon);        
         player1label.setBounds(boardIcon.getIconWidth() - 220, (200 + (1 * 50)), pIcon.getIconWidth(),
-                pIcon.getIconHeight());
-        bPane.add(player1label, new Integer(2));
+                pIcon.getIconHeight());               
+        player1label.add(player1Decorator);
+        player1Decorator.setVisible(false);
+        player1Decorator.setAlignmentX(-2);
+        player1Decorator.setAlignmentY(-2);
+        bPane.add(player1label, new Integer(2));          
 
         player2label = new JLabel();
+        player2Decorator = new JLabel();
+        player2label.setLayout(new OverlayLayout(player2label));
         int p2rank = playerArray[1].getRank();
-        pIcon = new ImageIcon("images/dice/o"+p2rank+".png");
+        pIcon = new ImageIcon("images/dice/o"+p2rank+".png");        
         player2label.setIcon(pIcon);
         player2label.setBounds(boardIcon.getIconWidth() - 220, (200 + (2 * 50)), pIcon.getIconWidth(),
                 pIcon.getIconHeight());
+        player2label.add(player2Decorator);
+        player2Decorator.setVisible(false);
+        player2Decorator.setAlignmentX(-2);
+        player2Decorator.setAlignmentY(-2);
         bPane.add(player2label, new Integer(2));
 
         player3label = new JLabel();
+        player3Decorator = new JLabel();
+        player3label.setLayout(new OverlayLayout(player3label));
         if (playerArray[2] != null){
            int p3rank = playerArray[2].getRank();
            pIcon = new ImageIcon("images/dice/y"+p3rank+".png");
@@ -297,9 +316,15 @@ public class BoardView extends JFrame {
         } else {
             player3label.setVisible(false);
         }
+        player3label.add(player3Decorator);
+        player3Decorator.setVisible(false);
+        player3Decorator.setAlignmentX(-2);
+        player3Decorator.setAlignmentY(-2);
         bPane.add(player3label, new Integer(2));
 
         player4label = new JLabel();
+        player4Decorator = new JLabel();
+        player4label.setLayout(new OverlayLayout(player4label));
         if (playerArray[3] != null){
            int p4rank = playerArray[3].getRank();
            pIcon = new ImageIcon("images/dice/g"+p4rank+".png");
@@ -309,9 +334,15 @@ public class BoardView extends JFrame {
         } else {
             player4label.setVisible(false);
         }
+        player4label.add(player4Decorator);
+        player4Decorator.setVisible(false);
+        player4Decorator.setAlignmentX(-2);
+        player4Decorator.setAlignmentY(-2);
         bPane.add(player4label, new Integer(2));
 
         player5label = new JLabel();
+        player5Decorator = new JLabel();
+        player5label.setLayout(new OverlayLayout(player5label));
         if (playerArray[4] != null){
            int p5rank = playerArray[4].getRank();
            pIcon = new ImageIcon("images/dice/b"+p5rank+".png");
@@ -321,9 +352,15 @@ public class BoardView extends JFrame {
         } else {
             player5label.setVisible(false);
         }
+        player5label.add(player5Decorator);
+        player5Decorator.setVisible(false);
+        player5Decorator.setAlignmentX(-2);
+        player5Decorator.setAlignmentY(-2);
         bPane.add(player5label, new Integer(2));
 
         player6label = new JLabel();
+        player6Decorator = new JLabel();
+        player6label.setLayout(new OverlayLayout(player6label));
         if (playerArray[5] != null){
         int p6rank = playerArray[5].getRank();
            pIcon = new ImageIcon("images/dice/v"+p6rank+".png");
@@ -333,9 +370,15 @@ public class BoardView extends JFrame {
         } else {
             player6label.setVisible(false);
         }
+        player6label.add(player6Decorator);
+        player6Decorator.setVisible(false);
+        player6Decorator.setAlignmentX(-2);
+        player6Decorator.setAlignmentY(-2);
         bPane.add(player6label, new Integer(2));
 
         player7label = new JLabel();
+        player7Decorator = new JLabel();
+        player7label.setLayout(new OverlayLayout(player7label));
         if (playerArray[6] != null){
            int p7rank = playerArray[6].getRank();
            pIcon = new ImageIcon("images/dice/p"+p7rank+".png");
@@ -345,9 +388,15 @@ public class BoardView extends JFrame {
         } else {
             player7label.setVisible(false);
         }
+        player7label.add(player7Decorator);
+        player7Decorator.setVisible(false);
+        player7Decorator.setAlignmentX(-2);
+        player7Decorator.setAlignmentY(-2);
         bPane.add(player7label, new Integer(2));
 
         player8label = new JLabel();
+        player8Decorator = new JLabel();
+        player8label.setLayout(new OverlayLayout(player8label));
         if (playerArray[7] != null){
            int p8rank = playerArray[7].getRank();
            pIcon = new ImageIcon("images/dice/w"+p8rank+".png");
@@ -357,8 +406,62 @@ public class BoardView extends JFrame {
         } else {
             player8label.setVisible(false);
         }
+        player8label.add(player8Decorator);
+        player8Decorator.setVisible(false);
+        player8Decorator.setAlignmentX(-2);
+        player8Decorator.setAlignmentY(-2);
         bPane.add(player8label, new Integer(2));
     }
+    // set the rehearsal icon to show
+    public void updateActivePlayerRehearsalChips(Player activeP) {
+        int p = activeP.getID() + 1;        
+        int chips = activeP.getRehearseCounter();
+        ImageIcon pDecorator = new ImageIcon("images/rehearse/rc1.png");
+        if(chips > 0 && chips < 5) {
+            pDecorator = new ImageIcon("images/rehearse/rc"+chips+".png");
+        }
+        switch(p){
+        case 1:        
+            if(chips==0) {player1Decorator.setVisible(false);} else{player1Decorator.setVisible(true);player1Decorator.setIcon(pDecorator);}           
+            break;
+        case 2:
+            if(chips==0) {player2Decorator.setVisible(false);} else{player2Decorator.setVisible(true);player2Decorator.setIcon(pDecorator);}
+            break;
+        case 3:
+            if(chips==0) {player3Decorator.setVisible(false);} else{player3Decorator.setVisible(true);player3Decorator.setIcon(pDecorator);}
+            break;
+        case 4:
+            if(chips==0) {player4Decorator.setVisible(false);} else{player4Decorator.setVisible(true);player4Decorator.setIcon(pDecorator);}
+            break;            
+        case 5:
+            if(chips==0) {player5Decorator.setVisible(false);} else{player5Decorator.setVisible(true);player5Decorator.setIcon(pDecorator);}
+            break;     
+        case 6:
+            if(chips==0) {player6Decorator.setVisible(false);} else{player6Decorator.setVisible(true);player6Decorator.setIcon(pDecorator);}
+            break;     
+        case 7:
+            if(chips==0) {player7Decorator.setVisible(false);} else{player7Decorator.setVisible(true);player7Decorator.setIcon(pDecorator);}
+            break;     
+        case 8:
+            if(chips==0) {player3Decorator.setVisible(false);} else{player8Decorator.setVisible(true);player8Decorator.setIcon(pDecorator);}
+            break;     
+        }
+    }
+
+    // sets the Z index of the current player to display on top of (overlap) the others in the same room
+    public void updateActivePlayerDice(Player activeP) {
+        int p = activeP.getID() + 1;        
+        if(p==1) {bPane.setComponentZOrder(player1label, 2);} else{bPane.setComponentZOrder(player1label, 3);}
+        if(p==2) {bPane.setComponentZOrder(player2label,2);} else{bPane.setComponentZOrder(player2label, 3);}
+        if(p==3) {bPane.setComponentZOrder(player3label, 2);} else{bPane.setComponentZOrder(player3label, 3);}
+        if(p==4) {bPane.setComponentZOrder(player4label, 2);} else{bPane.setComponentZOrder(player4label, 3);}
+        if(p==5) {bPane.setComponentZOrder(player5label, 2);} else{bPane.setComponentZOrder(player5label, 3);}
+        if(p==6) {bPane.setComponentZOrder(player6label, 2);} else{bPane.setComponentZOrder(player6label, 3);}
+        if(p==7) {bPane.setComponentZOrder(player7label, 2);} else{bPane.setComponentZOrder(player7label, 3);}
+        if(p==8) {bPane.setComponentZOrder(player8label, 2);} else{bPane.setComponentZOrder(player8label, 3);}               
+    }
+
+    // update the dice image to show the player's current rank in the game
     public void updatePlayerDice(int rank, int player) {
       switch(player){
          case 0: ImageIcon pIcon = new ImageIcon("images/dice/r" + rank + ".png");
