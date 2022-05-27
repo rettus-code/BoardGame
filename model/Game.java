@@ -3,6 +3,8 @@ import view.*;
 import java.util.*;
 
 public class Game {
+   public static final int NUM_ROOMS = 12;
+   public static final int NUM_SCENECARDS = 40;  
 
    public interface observer {
       void stateChanged(Game game);
@@ -62,7 +64,7 @@ public class Game {
    public void sceneComplete() {
       int scenes = --Day.numScenes;
       System.out.println("Scenes left: " + scenes);
-      if (scenes < 8) {
+      if (scenes < 2) {
          endDay();
          if (this.currentDay.getDay() == lastDay()) {
             endOfGame();
