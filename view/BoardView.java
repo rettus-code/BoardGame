@@ -417,7 +417,7 @@ public class BoardView extends JFrame {
         int p = activeP.getID() + 1;        
         int chips = activeP.getRehearseCounter();
         ImageIcon pDecorator = new ImageIcon("images/rehearse/rc1.png");
-        if(chips > 0 && chips < 5) {
+        if(chips > 0 && chips < 6) {
             pDecorator = new ImageIcon("images/rehearse/rc"+chips+".png");
         }
         switch(p){
