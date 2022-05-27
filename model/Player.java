@@ -204,7 +204,8 @@ public class Player {
 						setPossibleAction("upgrade", true);									
 					} else if (this.room.hasSceneCard()){											
 						setPossibleAction("takerole", true);						
-					}               
+					}
+               stateChanged(this);               
 					break;
 				case MOVED:
 					setPossibleAction("move", false);
@@ -221,6 +222,7 @@ public class Player {
 						setPossibleAction("upgrade", false);
 						setPossibleAction("takerole", true);      
 					}
+
 					break;
 				case IN_ROLE:
 					setPossibleAction("move", false);
