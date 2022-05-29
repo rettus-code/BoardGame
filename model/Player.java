@@ -192,12 +192,13 @@ public class Player {
 		
 		this.current_state = TurnState.BEGIN_TURN;
 		initPossibleActions();
-		possibleActions.put("move", true);
+		possibleActions.put("move", false);
 		possibleActions.put("takerole", false);
 		stateChanged(this);
 		while (this.current_state != TurnState.END_TURN) {
 			switch (this.current_state) {
 				case BEGIN_TURN:
+               setPossibleAction("move", true);
 					if (this.currentRole != null) {
 						this.current_state = TurnState.IN_ROLE;					
 					} else if (this.room.getName().equals("office")) {						
@@ -205,7 +206,6 @@ public class Player {
 					} else if (this.room.hasSceneCard()){											
 						setPossibleAction("takerole", true);						
 					}
-               stateChanged(this);               
 					break;
 				case MOVED:
 					setPossibleAction("move", false);
@@ -222,7 +222,6 @@ public class Player {
 						setPossibleAction("upgrade", false);
 						setPossibleAction("takerole", true);      
 					}
-
 					break;
 				case IN_ROLE:
 					setPossibleAction("move", false);
