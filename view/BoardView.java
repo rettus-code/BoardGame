@@ -476,7 +476,7 @@ public class BoardView extends JFrame {
             if(chips==0) {player7Decorator.setVisible(false);} else{player7Decorator.setVisible(true);player7Decorator.setIcon(pDecorator);}
             break;     
         case 8:
-            if(chips==0) {player3Decorator.setVisible(false);} else{player8Decorator.setVisible(true);player8Decorator.setIcon(pDecorator);}
+            if(chips==0) {player8Decorator.setVisible(false);} else{player8Decorator.setVisible(true);player8Decorator.setIcon(pDecorator);}
             break;     
         }
     }
