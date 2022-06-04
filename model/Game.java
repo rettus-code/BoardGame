@@ -63,13 +63,11 @@ public class Game {
 
    public void sceneComplete() {
       int scenes = --Day.numScenes;
-      System.out.println("Scenes left: " + scenes);
       if (scenes < 2) {
          endDay();
          if (this.currentDay.getDay() == lastDay()) {
             endOfGame();
          }
-         newDay();
       }
       stateChanged(this);
    }
@@ -136,8 +134,7 @@ public class Game {
          }
 
          SceneCard card = new SceneCard(temp[0], temp[1], budget, scene, temp[4], stars);
-         // System.out.println(card.getName());
-         // System.out.println(card.getSetting());
+
          deck[i] = card;
 
       }
@@ -153,12 +150,12 @@ public class Game {
 
    public void dealSceneCards() {
       // get top 10 cards from the shuffled deck
-      SceneCard[] deck = new SceneCard[10];
-      for (int i = 0; i < 10; i++) {
-         deck[i] = shuffledDeck.remove(i);
+      SceneCard[] temp = new SceneCard[10];
+      for (int i = 9; i >= 0; i--) {
+         temp[i] = shuffledDeck.remove(i);
       }
       // pass the 10 cards to the gameboard to add 1 to each Set
-      this.gameBoard.dealSceneCards(deck);
+      this.gameBoard.dealSceneCards(temp);
    }
 
    public void makeBoard(String[] rooms) {
@@ -262,7 +259,7 @@ public class Game {
    }
 
    public void endDay() {
-      
+      if(this.currentDay.getDay() < this.lastDay){
       for (int i = 0; i < this.numPlayers; i++) {
          playerArray[i].resetRole();
          playerArray[i].rehearseReset();
@@ -276,23 +273,23 @@ public class Game {
          }
       }
       stateChanged(this);
+      } else {
+         endOfGame();
+      }
    }
 
-   private void endOfGame() {
-      System.out.println("Game Over");
+   public String endOfGame() {
       int topScore = 0;
       String winner = "";
       for (int i = 0; i < numPlayers; i++) {
          int score = playerArray[i].countScore();
-         System.out.println("" + playerArray[i].getName() + "'s Score " + score);
          if (score > topScore) {
             topScore = score;
             winner = playerArray[i].getName();
             this.winner = i;
          }
       }
-
-      System.out.println("" + winner + " is the winner with a final score of " + topScore);
+      return "The winner is " + winner + " with a score of " + topScore;
    }
 
 }

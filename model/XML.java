@@ -126,7 +126,6 @@ public class XML {
    }
 
    public void room(Element setElement, String name) {
-      System.out.println("Room: " + name);
       NodeList neighbors = setElement.getElementsByTagName("neighbor");
       neighbors(neighbors);
       NodeList area = setElement.getElementsByTagName("area");

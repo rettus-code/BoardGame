@@ -29,7 +29,6 @@ public class BoardView extends JFrame {
                 }
             } else if (e.getSource() == bMove) {
                 if (bMove.isEnabled()) {
-                    System.out.println("Move is Selected\n");
                     // call method in the controller to get the neighboring rooms
                     BoardLayersListener.getInstance().getMoveMenu();
                 }

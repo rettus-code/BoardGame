@@ -43,11 +43,11 @@ public class DialogView {
         return playerNames;
     }
 
-    public static boolean getPlayAgainFromUser() {
+    public static boolean getPlayAgainFromUser(String str) {
         boolean quit = false;
         String[] options = { "Yes", "No" };
         try {
-            String s = (String) JOptionPane.showInputDialog(null, "Play again?",
+            String s = (String) JOptionPane.showInputDialog(null, str + ". Play again?",
                     "Another round?", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);            
             quit = (s.equals("No"));
         } catch (Exception e) {

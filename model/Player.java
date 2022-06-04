@@ -304,7 +304,6 @@ public class Player {
 	}	
 
 	public boolean takeRole(Role newRole) {
-		System.out.printf("You're taking a role called: %s\n", newRole.getName());
 		boolean result = false;
 		if (this.getRank() >= newRole.getLevel()) {
 			if (newRole.takeRole()) {
@@ -330,10 +329,10 @@ public class Player {
 				this.setLocationY(y);
 				stateChanged(this);
 			} else {
-				System.out.printf("Cannot take role %s because its already taken\n", newRole.getName());
+				//System.out.printf("Cannot take role %s because its already taken\n", newRole.getName());
 			}
 		} else {
-			System.out.printf("Cannot take role %s because your rank is not high enough\n", newRole.getName());
+			//System.out.printf("Cannot take role %s because your rank is not high enough\n", newRole.getName());
 		}
 		return result;
 	}
@@ -418,13 +417,10 @@ public class Player {
 		if (currentRole.isOnCard()) {
 			this.credits++;
 			this.money++;
-			System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
 		} else {
 			this.money += 2;
-			System.out.println("Your dollars = " + this.money + " and credits = " + this.credits);
 		}
 		if (wrapped) {			
-			System.out.println("The scene is completed");
 			set.wrapScene();
 			this.completedScene = true;
 			this.rehearseReset();

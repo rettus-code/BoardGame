@@ -157,9 +157,6 @@ public class Set extends Room {
                Game.playerArray[i].addMoney(money);
                Game.playerArray[i].resetRole();
                Game.playerArray[i].rehearseReset();
-               System.out.println("Player " + Game.playerArray[i].getName() + " is rewarded " + money + " dollars");
-               System.out.println("Your dollars = " + Game.playerArray[i].getMoney() + " and credits = "
-                     + Game.playerArray[i].getCredits());
             }
          }
          Integer[] rewards = new Integer[this.sceneCard.getBudget()];
@@ -176,10 +173,6 @@ public class Set extends Room {
                Game.playerArray[j].addMoney(rewards[i]);
                Game.playerArray[j].resetRole();
                Game.playerArray[j].rehearseReset();
-               System.out
-                     .println("Player " + Game.playerArray[j].getName() + " is rewarded " + rewards[i] + " dollars");
-               System.out.println("Your dollars = " + Game.playerArray[j].getMoney() + " and credits = "
-                     + Game.playerArray[j].getCredits());
                i++;
                if (i >= this.sceneCard.getBudget()) {
                   break;

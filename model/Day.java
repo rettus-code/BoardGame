@@ -12,13 +12,14 @@ public class Day {
       this.dayNum = ++dNum;
       this.deck = d;
       this.numScenes = 10;
-      System.out.println("it is now day : " + this.dayNum);
    }
 
    public int getDay() {
       return this.dayNum;
    }
-
+   public void setDay(int day){
+      this.dayNum = day;
+   }
    public static int getNumScenes() {
       return numScenes;
    }

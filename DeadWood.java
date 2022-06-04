@@ -25,7 +25,7 @@ public class DeadWood {
 
       while (!quit) {
          playGame();
-         quit = dialog.getPlayAgainFromUser();
+         quit = dialog.getPlayAgainFromUser(todaysGame.endOfGame());
       }
 
    }
@@ -60,9 +60,13 @@ public class DeadWood {
       while (todaysGame.getCurrentDay().getDay() <= todaysGame.getLastDay()) {
          while (todaysGame.getCurrentDay().getNumScenes() > 1) {
             todaysGame.playerArray[model.Game.getActivePlayer()].takeTurn();
-            todaysGame.updateActivePlayer();
+            todaysGame.updateActivePlayer();         
          }
-         todaysGame.newDay();
+         if(todaysGame.getCurrentDay().getDay() < todaysGame.getLastDay()){
+            todaysGame.newDay();
+         } else {
+            todaysGame.getCurrentDay().setDay(todaysGame.getLastDay() + 1);
+         }
       }
    }
 
